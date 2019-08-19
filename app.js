@@ -8,9 +8,10 @@ const models = require('./models')
 const app = express()
 const path = require('path')
 const PORT = 3000
+const pug = require('pug')
 
 
-
+app.use(express.static('static'))
 
 
 app.use(express.urlencoded())
