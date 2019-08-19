@@ -5,16 +5,18 @@ const index = require('./routes/index')
 const checkout = require('./routes/checkout')
 const venues = require('./routes/venues')
 const app = express()
+const path = require('path')
 const PORT = 3000
+
+app.set('views', path.join(__dirname, 'views'))
+app.set('view engine', 'pug')
+
 
 app.use('/', index)
 app.use('/account', account)
 app.use('/concert-tickets', tickets)
 app.use('/checkout', checkout)
 app.use('/venues', venues)
-
-
-app.set('view engine', 'pug')
 
 
 
