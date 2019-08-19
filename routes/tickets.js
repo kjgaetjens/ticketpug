@@ -1,9 +1,12 @@
 const express = require('express')
 const router = express.Router()
+const pgp = require('pg-promise')();
+const connectionString = 'DB URL!!!' 
+//                      ^^^^^^^^^^^^INSERT DATABASE
+global.db = pgp(connectionString)
 
 router.get('/genre/:genreid', (req,res)=>{
-    let genre = req.params.genre
-    res.send(genre)
+    res.render('genre')
 })
 
 router.get('/artist/:artistid', (req,res)=>{

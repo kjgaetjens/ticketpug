@@ -13,6 +13,10 @@ router.get('/tickets', (req,res)=>{
     res.send("testing tickets")
 })
 
+router.get('/tickets/:ticketid' (req,res)=>{
+    res.send("testing")
+})
+
 router.get('/history', (req,res)=>{
     res.send("history")
 })

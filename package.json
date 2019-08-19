@@ -18,6 +18,10 @@
   "homepage": "https://github.com/kjgaetjens/tickets#readme",
   "dependencies": {
     "express": "^4.17.1",
-    "pug": "^2.0.4"
+    "pg": "^7.12.1",
+    "pg-promise": "^9.0.3",
+    "pug": "^2.0.4",
+    "sequelize": "^5.15.1",
+    "sequelize-cli": "^5.5.0"
   }
 }
