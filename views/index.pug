@@ -1,18 +1,31 @@
-extends layout.pug
+//- extends layout.pug
 
-block topMenu
-    ul
-        a(href="#") Music
-        a(href="#") Venue
-        a(href="#") Link
-        a(href="#") Search 
-        a(href="#") Log in 
-        a(href="#") Sign up
+//- block topMenu
+//-     ul
+//-         a(href="#") Music
+//-         a(href="#") Venue
+//-         a(href="#") Link
+//-         a(href="#") Search 
+//-         a(href="#") Log in 
+//-         a(href="#") Sign up
 
 
-block title
-    .title
-        h1 Welcome to Ticket Sales
-        p Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed dignissim lectus neque, at facilisis quam rutrum ut. Morbi varius velit lacus, eget facilisis orci porta nec
+//- block title
+//-     .title
+//-         h1 Welcome to Ticket Sales
+//-         p Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed dignissim lectus neque, at facilisis quam rutrum ut. Morbi varius velit lacus, eget facilisis orci porta nec
 
-block content
+//- block content
+
+html    
+    include includes/head
+    body
+            include includes/navigation.pug
+                    #index-search-container
+                        h1 lorem ipsum
+                        input(
+                            type='text'
+                            name='search'
+                            placeholder='search for...'
+                        )
+                        
