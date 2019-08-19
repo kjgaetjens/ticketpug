@@ -7,7 +7,7 @@ router.get('/:eventid', (req,res)=>{
 })
 
 
-router.get('/:eventid/confirmation/', (req,res)=>{
+router.get('/:eventid/confirmation', (req,res)=>{
     res.send("confirmation")
 })
 
