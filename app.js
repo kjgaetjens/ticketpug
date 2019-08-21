@@ -20,6 +20,12 @@ function authenticate(req,res,next){
         }
     }
 }
+app.use(session({
+    secret: 'keyboard cat',
+    resave: false,
+    saveUninitialized: false,
+    cookie: { secure: true }
+  }))
 
 app.use(express.static('static'))
 
