@@ -10,6 +10,7 @@ router.get('/', (req, res)=>{
 router.post('/register', (req,res)=>{
     let username = req.body.username
     let password = req.body.password 
+<<<<<<< HEAD
 
     bcrypt.hash(password, saltRounds).then(function(hash) {
         models.User.create({
@@ -19,31 +20,46 @@ router.post('/register', (req,res)=>{
         })
         res.redirect('/register')
     }).catch(e=>console.log(e))
-})
-
-
-//For login: make modal on index.pug 
-//insert message object onto pug.pug
-router.post('/login', (req,res)=>{
-    let username = req.body.username
-    let password = req.body.password
-
+=======
     models.User.findOne({
-        include: [
-            {
-                model: models.User
-            }
-        ],
         where: {
             username: username
         }
+    }).then(user=>{
+            if(user){
+                res.render("index", {message: "User already exists"})
+            }else{
+                bcrypt.hash(password, saltRounds).then(function(hash) {
+                    models.User.create({
+                        username: username,
+                        password: hash,
+                        status: "active"
+                    })
+                    res.redirect("/account")
+                })
+            }
+        }).catch(e=>console.log(e))
+>>>>>>> master
+})
+
+
+
+router.post('/login', (req,res)=>{
+    let username = req.body.username
+    let password = req.body.password
+    
+    models.User.findOne({
+        where: {
+            username: username
+        },
+        attributes:['password']
     }).then(user =>{
         if(user){
-            bcrypt.compare(password, hash).then(function(res) {
-                if(res){
+            bcrypt.compare(password, user.get('password')).then(function(response) {
+                if(response){
                     res.redirect('/account')
                 }else{
-                    res.render('/', {message: "wrong username or password"})
+                    res.render('index', {message: "wrong username or password"})
                 }
             })
         }else{
