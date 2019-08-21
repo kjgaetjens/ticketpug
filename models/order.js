@@ -5,12 +5,12 @@ module.exports = (sequelize, DataTypes) => {
     processed_date: DataTypes.DATE,
     quantity_total: DataTypes.INTEGER,
     pre_tax_total: DataTypes.FLOAT,
-    post_tax_total: DataTypes.FLOAT,
-    user_id: DataTypes.INTEGER,
-    payment_info_id: DataTypes.INTEGER
+    post_tax_total: DataTypes.FLOAT
   }, {});
   Order.associate = function(models) {
-    // associations can be defined here
+    Order.belongsTo(models.User,{as : 'User', foreignKey: 'user_id'})
+    Order.belongsTo(models.PaymentInfo,{as : 'PaymentInfo', foreignKey: 'payment_info_id'})
+    Order.hasMany(models.Ticket,{as : 'Ticket', foreignKey: 'id'})
   };
   return Order;
 };

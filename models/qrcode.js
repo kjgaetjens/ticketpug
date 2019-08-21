@@ -4,7 +4,7 @@ module.exports = (sequelize, DataTypes) => {
     url: DataTypes.STRING
   }, {});
   QRCode.associate = function(models) {
-    // associations can be defined here
+    QRCode.hasOne(models.Ticket,{as : 'Ticket', foreignKey: 'id'})
   };
   return QRCode;
 };
