@@ -2,9 +2,7 @@ extends layout.pug
 
 append topMenu
 
-block topContent
-    #index-search-container         
-    .title
+block topContent        
         include includes/artistmenu
 append bottomContent
     each val, index in {1: "event1", 2:"event2"}
