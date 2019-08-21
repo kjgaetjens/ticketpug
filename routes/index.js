@@ -17,6 +17,7 @@ router.post('/register', (req,res)=>{
             password: hash,
             status: "active"
         })
+        res.redirect('/register')
     }).catch(e=>console.log(e))
 })
 
