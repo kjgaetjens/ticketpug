@@ -2,7 +2,11 @@ const express = require('express')
 const router = express.Router()
 
 router.get('/', (req,res)=>{
+<<<<<<< HEAD
     res.render("settings")
+=======
+    res.render("account")
+>>>>>>> master
 })
 
 router.get('/payment', (req,res)=>{

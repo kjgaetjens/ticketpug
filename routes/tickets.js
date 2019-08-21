@@ -18,5 +18,13 @@ router.get('/eventinfo/:eventid', (req,res)=>{
     res.render("event")
 })
 
+router.get('/eventinfo/:eventid/seatgroup', (req,res)=>{
+    res.render("seat")
+})
+
+router.post('/eventinfo/:eventid/seatgroup/:seatgroupid/:quantity', (req,res)=>{
+    res.redirect('./checkout') //will this actually work?
+})
+
 module.exports = router
 
