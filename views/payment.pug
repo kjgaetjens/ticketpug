@@ -1,0 +1,59 @@
+extends layout.pug
+
+append topMenu
+
+block topContent
+    .topContainer
+        h2 Account Settings 
+        ul
+            a(href="/account") Settings
+            a(href="/account/payment") Payment
+            a(href="/account/history") History
+         
+block bottomContent
+    .payment
+        h2 Payment Method
+
+        h3 Update Billing Address
+
+        h3 Delete Payment
+        form(action='/account/delete-payment', method='post')
+            div Stored Payment Info
+                input(type="hidden" value=`${id}` name="paymentInfo")
+                button(type='delete') Delete
+
+
+    h3 Add New Payment
+    form(action="/account/create-payment", method="post")
+        div
+            label(for='name') Name:
+            input(type='text', placeholder='First and Last' name='full_name')
+        div
+            label(for='card_number') Card Number:
+            input(type='number', placeholder='#### #### #### ####' name='card_number')
+        div
+            label(for='cvv') CVV:
+            input(type='number', placeholder='cvv' min='100' max='999' name='cvv')            
+            label(for='exp_month') Expiration Month: 
+            input(type='number', placeholder='month' min='01' max='12' name='exp_month')  
+            label(for='exp_year') Expiration Year: 
+            input(type='number', placeholder='year' min='2019' max='2030' name='exp_year')                       
+        div
+            label(for='address1') Address:
+            input(type='text', placeholder='Address Line 1' name='address1')
+        div
+            label(for='address2') Address:
+            input(type='text', placeholder='Address Line 2' name='address2')
+        div
+            label(for='city') City:
+            input(type='text', placeholder='Address Line 2' name='city')
+            label(for='state') State:
+            input(type='text', placeholder='Address Line 2' name='state')
+            label(for='zipcode') Zip Code:
+            input(type='number', placeholder='Zip Code' name='zipcode')
+        div
+            label(for='country') Country:
+            input(type='text', placeholder='Country' name='country')
+        input(type="submit")
+            
+        

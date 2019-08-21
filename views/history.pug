@@ -1,0 +1,28 @@
+extends layout.pug
+
+append topMenu
+
+mixin(orderObj)
+    .orderDiv
+        p Price: #{orderObj.order.post_tax_total}
+
+block topContent
+
+    .topContainer
+        h2 Account Settings    
+        ul
+            a(href="/account") Settings
+            a(href="/account/payment") Payment
+            a(href="/account/history") History
+
+
+
+
+block bottomContent
+    .ticketHistory
+        h2 All Ticket Purchases
+            .displayTickets
+                p Order Date: Order Object
+                p Order Price: Order Object
+                P Venue: 
+                p Quantity: Count of Tickets associated with order number
