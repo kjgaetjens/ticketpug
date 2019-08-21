@@ -7,6 +7,11 @@ block topContent
     .title
         include includes/artistmenu
 append bottomContent
+    each val, index in {1: "event1", 2:"event2"}
         .event-div
-            //- events go here
+            span= val
+            p event date and description will go here
+            button more info
+
+            
 
