@@ -5,7 +5,13 @@
     "database": "d6ndudioi4nvhi",
     "host": "ec2-54-83-61-142.compute-1.amazonaws.com",
     "dialect": "postgres",
-    "operatorsAliases": false
+    "operatorsAliases": false,
+    "ssl": true,
+    "dialectOptions":{
+      "ssl": {
+        "require":true
+      }
+    }
   },
   "test": {
     "username": "root",
