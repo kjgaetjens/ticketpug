@@ -1,9 +1,9 @@
 {
   "development": {
-    "username": "postgres",
-    "password": null,
-    "database": "ticketsdb",
-    "host": "127.0.0.1",
+    "username": "tcxeuyvrvmjjwm",
+    "password": "f8829567b368aee5347490957f0167b6bb93e1297453053d790c13115ae4e95f",
+    "database": "d6ndudioi4nvhi",
+    "host": "ec2-54-83-61-142.compute-1.amazonaws.com",
     "dialect": "postgres",
     "operatorsAliases": false
   },
