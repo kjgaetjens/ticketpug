@@ -4,12 +4,22 @@ const tickets = require('./routes/tickets')
 const index = require('./routes/index')
 const checkout = require('./routes/checkout')
 const venues = require('./routes/venues')
-// global.models = require('./models')
+const models = require('./models')
 const app = express()
 const path = require('path')
 const axios = require('axios')
 const PORT = process.env.PORT || 8080
+const session = require('express-session')
 
+// function authenticate(req,res,next){
+//     if (req.session){
+//         if (req.session.username){
+//             next()
+//         }else{
+//             res.redirect('/login')
+//         }
+//     }
+// }
 
 app.use(express.static('static'))
 
@@ -25,8 +35,9 @@ app.use('/concert-tickets', tickets)
 app.use('/checkout', checkout)
 app.use('/venues', venues)
 
+app.all('/account/*', authenticate)
 
-//All concert API
+// All concert API
 axios.get('https://app.ticketmaster.com/discovery/v2/events.json?classificationName=music&preferredCountry=us&apikey=GgkMBDROaaG6jddcy0k07d6GGEyYG4gE')
     .then(response => {
         let eventinfo = response.data._embedded.events.map(event => {
