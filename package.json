@@ -17,6 +17,8 @@
   "homepage": "https://github.com/kjgaetjens/tickets#readme",
   "dependencies": {
     "express": "^4.17.1",
+    "express-session": "^1.16.2",
+    "pg": "^7.12.1",
     "pug": "^2.0.4",
     "sequelize": "^5.15.1"
   }

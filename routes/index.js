@@ -17,7 +17,7 @@ router.post('/register', (req,res)=>{
     user.save().then(savedUser => console.log(savedUser)).catch(e=>console.log(e))
 })
 
-router.post('/login', (req,res){
+router.post('/login', (req,res)=>{
     let username = req.body.username
     let password = req.body.password
 })
