@@ -1,9 +1,7 @@
 extends layout.pug
 
-append topMenu
 
-
-block topContent
+block topMenu
     #index-search-container         
     .title
         h1 Welcome to Ticket Sales
@@ -14,8 +12,9 @@ block topContent
             placeholder='search for...'
         )
         button submit
-
-
-
-
+block bottomContent
+    .genre-container
+        .genre-div
+        a(href="#") genre
+//- will change to add each genre from api!!!!
                         
