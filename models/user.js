@@ -7,7 +7,8 @@ module.exports = (sequelize, DataTypes) => {
     last_login: DataTypes.DATE
   }, {});
   User.associate = function(models) {
-    // associations can be defined here
+    User.hasMany(models.PaymentInfo,{as : 'PaymentInfo', foreignKey: 'id'})
+    User.hasMany(models.Order,{as : 'Order', foreignKey: 'id'})
   };
   return User;
 };

@@ -12,11 +12,11 @@ module.exports = (sequelize, DataTypes) => {
     address2: DataTypes.STRING,
     city: DataTypes.STRING,
     state: DataTypes.STRING,
-    zipcode: DataTypes.STRING,
-    user_id: DataTypes.INTEGER
+    zipcode: DataTypes.STRING
   }, {});
   PaymentInfo.associate = function(models) {
-    // associations can be defined here
+    PaymentInfo.belongsTo(models.User,{as : 'User', foreignKey: 'user_id'})
+    PaymentInfo.hasMany(models.Order,{as : 'Order', foreignKey: 'id'})
   };
   return PaymentInfo;
 };

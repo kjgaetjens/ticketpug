@@ -20,14 +20,6 @@ module.exports = {
         allowNull: false,
         type: Sequelize.STRING
       },
-      order_id: {
-        allowNull: false,
-        type: Sequelize.INTEGER
-      },
-      merchant_id: {
-        allowNull: false,
-        type: Sequelize.INTEGER
-      },
       seat_group: {
         type: Sequelize.STRING
       },
@@ -42,10 +34,6 @@ module.exports = {
       },
       ticket_status: {
         type: Sequelize.STRING
-      },
-      qr_code_id: {
-        allowNull: false,
-        type: Sequelize.INTEGER
       },
       createdAt: {
         allowNull: false,

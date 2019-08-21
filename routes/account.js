@@ -13,7 +13,7 @@ router.get('/tickets', (req,res)=>{
     res.send("testing tickets")
 })
 
-router.get('/tickets/:ticketid' (req,res)=>{
+router.get('/tickets/:ticketid', (req,res)=>{
     res.send("testing")
 })
 

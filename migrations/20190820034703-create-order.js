@@ -24,14 +24,6 @@ module.exports = {
       post_tax_total: {
         type: Sequelize.FLOAT
       },
-      user_id: {
-        allowNull: false,
-        type: Sequelize.INTEGER
-      },
-      payment_info_id: {
-        allowNull: false,
-        type: Sequelize.INTEGER
-      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE
