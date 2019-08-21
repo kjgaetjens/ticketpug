@@ -16,7 +16,7 @@ function authenticate(req,res,next){
         if (req.session.username){
             next()
         }else{
-            res.redirect('/login')
+            res.redirect('/')
         }
     }
 }
@@ -36,12 +36,11 @@ app.set('view engine', 'pug')
 
 
 app.use('/', index)
-app.use('/account', account)
+app.use('/account', authenticate, account)
 app.use('/concert-tickets', tickets)
 app.use('/checkout', checkout)
 app.use('/venues', venues)
 
-app.all('/account/*', authenticate)
 
 // All concert API
 axios.get('https://app.ticketmaster.com/discovery/v2/events.json?classificationName=music&preferredCountry=us&apikey=GgkMBDROaaG6jddcy0k07d6GGEyYG4gE')

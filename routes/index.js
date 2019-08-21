@@ -11,7 +11,7 @@ router.post('/register', (req,res)=>{
     let username = req.body.username
     let password = req.body.password 
 
-    bcrypt.hash(myPlaintextPassword, saltRounds).then(function(hash) {
+    bcrypt.hash(password, saltRounds).then(function(hash) {
         models.User.create({
             username: username,
             password: hash,
@@ -20,11 +20,12 @@ router.post('/register', (req,res)=>{
     }).catch(e=>console.log(e))
 })
 
+
+//For login: make modal on index.pug 
+//insert message object onto pug.pug
 router.post('/login', (req,res)=>{
     let username = req.body.username
     let password = req.body.password
-
-    
 
     models.User.findOne({
         include: [
@@ -41,11 +42,11 @@ router.post('/login', (req,res)=>{
                 if(res){
                     res.redirect('/account')
                 }else{
-                    res.render('login', {message: "wrong username or password"})
+                    res.render('/', {message: "wrong username or password"})
                 }
             })
         }else{
-            res.render('login', {message: "username or password does not exist"})
+            res.render('/', {message: "username or password does not exist"})
         }
     })
     .catch(e=>console.log(e))

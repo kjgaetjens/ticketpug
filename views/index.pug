@@ -12,6 +12,12 @@ append topMenu
             placeholder='search for...'
         )
         button submit
+
+        form(method="POST" action="/register")
+            input(type="text" name="username")
+            input(type="password" name="password")
+            button submit
+
 append bottomContent
     .genre-container
         .genre-div
