@@ -3,11 +3,11 @@ const router = express.Router()
 
 
 router.get('/:eventid', (req,res)=>{
-    res.send("testing")
+    res.render("checkout")
 })
 
 
-router.get('/:eventid/confirmation/', (req,res)=>{
+router.get('/:eventid/confirmation', (req,res)=>{
     res.send("confirmation")
 })
 

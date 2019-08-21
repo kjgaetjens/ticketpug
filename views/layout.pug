@@ -1,37 +1,31 @@
 doctype html
 html
-    head
-        meta(charset='utf-8')
-        meta(http-equiv='X-UA-Compatible', content='IE=edge')
-        meta(name='description', content='Some description')
-        meta(name='viewport', content='width=device-width, initial-scale=1')
-        link(rel='stylesheet' href='style.css')
-
+    include includes/head
     body
         block topMenu
-            ul
-                li
+            .nav
+                ul
                     a(href="#") Music
-                li
                     a(href="#") Venue
-                li
-                    a(href="#") Calendar
-                li
-                    a(href="#") Search
-                li
-                    a(href="#") Log Out
+                    a(href="#") Link
+                    a(href="#") Search 
+                    a(href="#") Log in 
+                    a(href="#") Sign up
+
         block topContent
+            .top-banner
+                p testing
 
         block bottomContent
-
-
-
-
+            .bottom-container
 
 
     footer
         ul
-            a(href="https://github.com/kjgaetjens/tickets") Github
+            li: a(href="/about") About Us
+            li: a(href="/contact") Contact Us
+            li: a(href="/sitemap") Sitemap
+            li: a(href="https://github.com/kjgaetjens/tickets") Github
 
 
 

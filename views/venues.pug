@@ -1,0 +1,16 @@
+extends layout.pug
+
+append topMenu
+
+block topContent
+    #index-search-container         
+    .title
+        include includes/venuesmenu
+block bottomContent
+    .info-container
+        each val, index in {1: "event1", 2:"event2"} //-needs to be replaced with info from api
+        .event-div
+            h3= val
+            p event date and description will go here
+            button more info
+

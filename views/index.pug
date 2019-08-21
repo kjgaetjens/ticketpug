@@ -1,18 +1,20 @@
 extends layout.pug
 
-block topMenu
-    ul
-        a(href="#") Music
-        a(href="#") Venue
-        a(href="#") Link
-        a(href="#") Search 
-        a(href="#") Log in 
-        a(href="#") Sign up
 
-
-block title
+append topMenu
+    #index-search-container         
     .title
         h1 Welcome to Ticket Sales
         p Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed dignissim lectus neque, at facilisis quam rutrum ut. Morbi varius velit lacus, eget facilisis orci porta nec
-
-block content
+        input(
+            type='text'
+            name='search'
+            placeholder='search for...'
+        )
+        button submit
+append bottomContent
+    .genre-container
+        .genre-div
+        a(href="#") genre
+//- will change to add each genre from api!!!!
+                        

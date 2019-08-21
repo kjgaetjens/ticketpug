@@ -6,15 +6,15 @@ router.get('/', (req, res)=>{
 })
 
 router.get('/about', (req,res)=>{
-    res.send("testing")
+    res.render("about")
 })
 
 router.get('/contactus', (req,res)=>{
-
+    res.render("contact")
 })
 
 router.get('/sitemap', (req,res)=>{
-
+    res.render("sitemap")
 })
 
 module.exports = router

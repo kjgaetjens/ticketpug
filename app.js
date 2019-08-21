@@ -4,14 +4,14 @@ const tickets = require('./routes/tickets')
 const index = require('./routes/index')
 const checkout = require('./routes/checkout')
 const venues = require('./routes/venues')
-const models = require('./models')
+// global.models = require('./models')
 const app = express()
 const path = require('path')
 const axios = require('axios')
 const PORT = process.env.PORT || 8080
 
 
-
+app.use(express.static('static'))
 
 
 app.use(express.urlencoded())
