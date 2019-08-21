@@ -110,29 +110,7 @@ axios.get('')
         console.log(error)
     })
 
-const user = models.User.build({
-    username: 'testusername',
-    password: 'testpassword',
-    status: 'active'
-})
 
-const paymentinfo = models.PaymentInfo.build({
-    exp_year: 2000,
-    cvv: 222,
-    user_id: 1
-})
-
-console.log('now finding the payment info')
-models.PaymentInfo.findOne({
-    include: [
-        {
-            model: models.User,
-            as : 'User'
-        }
-    ]
-}).then(function(PaymentInfo){
-    console.log(PaymentInfo.User)
-})
 
 app.listen(PORT, ()=>{
     console.log('running')
