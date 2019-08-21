@@ -9,7 +9,17 @@ const app = express()
 const path = require('path')
 const axios = require('axios')
 const PORT = process.env.PORT || 8080
+const session = require('express-session')
 
+function authenticate(req,res,next){
+    if req.session{
+        if req.session.username{
+            next()
+        }else{
+            res.redirect('/login')
+        }
+    }
+}
 
 app.use(express.static('static'))
 
