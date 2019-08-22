@@ -11,6 +11,8 @@ const axios = require('axios')
 const PORT = process.env.PORT || 8080
 const session = require('express-session')
 
+app.use(express.json())
+
 function authenticate(req,res,next){
     if (req.session){
         if (req.session.username){
@@ -23,8 +25,7 @@ function authenticate(req,res,next){
 app.use(session({
     secret: 'keyboard cat',
     resave: false,
-    saveUninitialized: false,
-    cookie: { secure: true }
+    saveUninitialized: false
   }))
 
 app.use(express.static('static'))
