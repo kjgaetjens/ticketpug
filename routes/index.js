@@ -5,7 +5,8 @@ const saltRounds = 10
 
 
 router.get('/', (req, res)=>{
-    res.render("index")
+    
+    res.render("index", {user: req.session.username})
 })
 
 router.post('/register', (req,res)=>{
@@ -61,7 +62,12 @@ router.post('/login', (req,res)=>{
     .catch(e=>console.log(e))
 })
 
-
+router.get('/logout', (req,res)=>{
+    req.session.destroy(e=>{
+        console.log(e)
+      })
+    res.redirect('/')
+})
 
 router.get('/about', (req,res)=>{
     res.render("about")
