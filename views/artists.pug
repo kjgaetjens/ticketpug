@@ -1,10 +1,24 @@
 extends layout.pug
-
 append topMenu
 
-block topContent        
+//-block topContent        
         include includes/artistmenu
+block topContent
+    ul
+        each event in artistinfo
+            li= 'Event: ' + event.eventname
+            li= 'Artist: ' + event.musician
+            li= 'Venue: ' + event.venue
+            li= 'Date: ' + event.date
+            p= ''
+
 append bottomContent
+
+
+
+
+
+//-append bottomContent
     each val, index in {1: "event1", 2:"event2"}
         .event-div
             span= val

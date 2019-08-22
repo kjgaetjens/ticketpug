@@ -9,9 +9,11 @@ router.get('/', (req, res)=>{
     res.render("index", {user: req.session.username})
 })
 
-router.post('/register', (req,res)=>{
+router.post('/register', async (req,res)=>{
     let username = req.body.username
-    let password = req.body.password 
+    let password = req.body.password
+
+
     models.User.findOne({
         where: {
             username: username
@@ -25,8 +27,17 @@ router.post('/register', (req,res)=>{
                         username: username,
                         password: hash,
                         status: "active"
+                    }).then(function() {
+                        models.User.findOne({
+                            where: {username: username},
+                            attributes:['id']
+                        }).then(user=>{
+                            let userId = user.get('id')
+                            req.session.userid = userId
+                            res.redirect("/account")
+                        }).catch(e=>console.log(e))
                     })
-                    res.redirect("/account")
+                    
                 })
             }
         }).catch(e=>console.log(e))
@@ -37,18 +48,19 @@ router.post('/register', (req,res)=>{
 router.post('/login', (req,res)=>{
     let username = req.body.username
     let password = req.body.password
-    
     models.User.findOne({
         where: {
             username: username
         },
-        attributes:['password']
+        attributes:['id','password']
     }).then(user =>{
+        let userId = user.get('id')
         if(user){
-            bcrypt.compare(password, user.get('password')).then(function(response) {
+            bcrypt.compare(password, user.get('password')).then((response) => {
                 if(response){
                     if(req.session){
-                        req.session.username = {username:username}
+                        req.session.username = username
+                        req.session.userid = userId
                     }
                     res.redirect('/account')
                 }else{
@@ -60,7 +72,7 @@ router.post('/login', (req,res)=>{
         }
     })
     .catch(e=>console.log(e))
-})
+ })
 
 router.get('/logout', (req,res)=>{
     req.session.destroy(e=>{
