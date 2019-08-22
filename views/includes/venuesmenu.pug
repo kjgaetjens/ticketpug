@@ -1,4 +1,11 @@
 .top-container
-    h1 Venue Name
-        a(href="#") Events
-        a(href="#") Seating Chart
+    if venue
+        h1= venue.name
+            ul
+                li: a(href=`events`) Events
+                li: a(href=`details`) Details
+    if event
+        h1= event[0].venue
+            ul
+                li: a(href=`events`) Events
+                li: a(href=`details`) Details
