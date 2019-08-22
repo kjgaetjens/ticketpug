@@ -62,7 +62,12 @@ router.post('/login', (req,res)=>{
     .catch(e=>console.log(e))
 })
 
-
+router.get('/logout', (req,res)=>{
+    req.session.destroy(e=>{
+        console.log(e)
+      })
+    res.redirect('/')
+})
 
 router.get('/about', (req,res)=>{
     res.render("about")
