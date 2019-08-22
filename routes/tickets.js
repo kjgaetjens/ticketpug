@@ -2,22 +2,6 @@ const express = require('express')
 const router = express.Router()
 const axios = require('axios')
 
-const getTicketInfo = (eventId) => {
-    axios.get(`https://app.ticketmaster.com/discovery/v2/events/${eventId}?apikey=GgkMBDROaaG6jddcy0k07d6GGEyYG4gE`)
-    .then(response => {
-        return {
-                eventName: response.data.name,
-                eventDate: response.data.dates.start.dateTime,
-                eventTimeZone: response.data.dates.timezone,
-                artistName: response.data._embedded.attractions[0].name,
-                venueName: response.data._embedded.venues[0].name
-            }
-    })
-    .catch(error => {
-        console.log(error)
-    })
-}
-
 router.get('/genre/:genreid', (req,res)=>{
     res.render('genre')
 })
@@ -58,9 +42,12 @@ router.post('/eventinfo/:eventid/seatgroup/:seatgroupid/:quantity/checkout/billi
     let eventId = req.params.eventid
     let seatGroupId = req.params.seatgroupid
     let ticketQuantity = req.params.quantity
-
-    let ticketInfo = await getTicketInfo(eventId)
-    console.log(ticketInfo)
+    let eventApiObject = await axios.get(`https://app.ticketmaster.com/discovery/v2/events/${eventId}?apikey=GgkMBDROaaG6jddcy0k07d6GGEyYG4gE`)
+    let eventName = eventApiObject.data.name
+    let eventDate = eventApiObject.data.dates.start.dateTime
+    let eventTimeZone = eventApiObject.data.dates.timezone
+    let artistName = eventApiObject.data._embedded.attractions[0].name
+    let venueName = eventApiObject.data._embedded.venues[0].name
     /*
     pull user from session
     */
