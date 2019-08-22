@@ -9,6 +9,7 @@ const path = require('path')
 const axios = require('axios')
 const PORT = process.env.PORT || 8080
 const session = require('express-session')
+global.uuidv1 = require('uuid/v1')
 
 app.use(express.json())
 
