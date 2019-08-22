@@ -3,6 +3,7 @@ const router = express.Router()
 const bcrypt = require('bcrypt')
 const saltRounds = 10
 
+
 router.get('/', (req, res)=>{
     res.render("index")
 })
@@ -45,6 +46,9 @@ router.post('/login', (req,res)=>{
         if(user){
             bcrypt.compare(password, user.get('password')).then(function(response) {
                 if(response){
+                    if(req.session){
+                        req.session.username = {username:username}
+                    }
                     res.redirect('/account')
                 }else{
                     res.render('index', {message: "wrong username or password"})
