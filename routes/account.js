@@ -1,8 +1,9 @@
 const express = require('express')
 const router = express.Router()
+const models = require('../models')
 
 router.get('/', (req,res)=>{
-    res.render("settings")
+    res.render("settings", {username: 'Welcome Username!'})
 })
 
 router.get('/payment', (req,res)=>{
@@ -17,19 +18,74 @@ router.get('/tickets', (req,res)=>{
 router.get('/tickets/:ticketid', (req,res)=>{
     res.send("testing")
 })
-
+/*
 router.get('/history', async (req,res)=>{
 
     let orders = await models.Order.findAll({
+        
+        
         where: {
-            userId: req.session.username.id
+            userId: req.session.user.id
         }
-    })
-    
-    res.render("history", {orders: orders})
 
+
+    })
+    if(orders = {}){
+        res.render("history", {orders: 'There are no orders to display'})
+    }else{
+    
+    res.render("history", {orders})
+    }     
 
 })
+*/
+
+// let qrcode = models.QRCode.build({
+//     url: 'https://randomqr.com/'
+// })
+// qrcode.save()
+
+
+// let ticket = models.Ticket.build({
+//     event_id: '123456',
+//     event_name: 'Pitbull',
+//     event_date: '08-31-2019',
+//     artist_name: 'Pitbull',
+//     venue_name: 'LA Place',
+//     seat_group: '1',
+//     seat: '3',
+//     class: '2',
+//     pre_tax: 50.04,
+//     ticket_status: 'Complete',
+//     qr_code_id: 1,
+//     order_id: 1,
+// })
+// ticket.save().then((persistedTicket) => {
+//     console.log(persistedTicket)
+// })
+// let order = models.Order.build({
+//     order_status: 'Complete',
+//     processed_date: '2019-08-22 00:14:16.334+00',
+//     quantity_total: 1,
+//     pre_tax_total: 50.05,
+//     post_tax_total: 75
+// })
+// order.save()
+
+// favorite: DataTypes.BOOLEAN,
+// full_name: DataTypes.STRING,
+// card_number: DataTypes.INTEGER,
+// exp_month: DataTypes.INTEGER,
+// exp_year: DataTypes.INTEGER,
+// cvv: DataTypes.INTEGER,
+// country: DataTypes.STRING,
+// address1: DataTypes.STRING,
+// address2: DataTypes.STRING,
+// city: DataTypes.STRING,
+// state: DataTypes.STRING,
+// zipcode: DataTypes.STRING
+
+
 
 router.post('/delete-payment', (req, res) => {
     let paymentId = parseInt(req.body.paymentInfo)

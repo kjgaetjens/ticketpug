@@ -2,9 +2,7 @@ extends layout.pug
 
 append topMenu
 
-mixin(orderObj)
-    .orderDiv
-        p Price: #{orderObj.order.post_tax_total}
+
 
 block topContent
 
@@ -21,8 +19,10 @@ block topContent
 block bottomContent
     .ticketHistory
         h2 All Ticket Purchases
-            .displayTickets
-                p Order Date: Order Object
-                p Order Price: Order Object
-                P Venue: 
-                p Quantity: Count of Tickets associated with order number
+        .displayTickets
+            p=orders        
+            p Order Date: Order Object
+            p Order Price: Order Object
+            P Venue: 
+            p Quantity: Count of Tickets associated with order number
+

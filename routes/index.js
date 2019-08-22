@@ -10,17 +10,6 @@ router.get('/', (req, res)=>{
 router.post('/register', (req,res)=>{
     let username = req.body.username
     let password = req.body.password 
-<<<<<<< HEAD
-
-    bcrypt.hash(password, saltRounds).then(function(hash) {
-        models.User.create({
-            username: username,
-            password: hash,
-            status: "active"
-        })
-        res.redirect('/register')
-    }).catch(e=>console.log(e))
-=======
     models.User.findOne({
         where: {
             username: username
@@ -39,7 +28,6 @@ router.post('/register', (req,res)=>{
                 })
             }
         }).catch(e=>console.log(e))
->>>>>>> master
 })
 
 

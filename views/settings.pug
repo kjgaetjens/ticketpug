@@ -3,12 +3,14 @@ extends layout.pug
 append topMenu
 
 block topContent
+
     .topContainer
+        h2 Account Settings    
         ul
             a(href="/account") Settings
             a(href="/account/payment") Payment
             a(href="/account/history") History
-        h2 Account Settings
+
 
 
 
@@ -17,4 +19,4 @@ block bottomContent
     .profile
         h2 Profile
         .userDisplayInfo
-            h3 Username from user session 
+            h3= username
