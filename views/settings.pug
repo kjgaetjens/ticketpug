@@ -1,0 +1,22 @@
+extends layout.pug
+
+append topMenu
+
+block topContent
+
+    .topContainer
+        h2 Account Settings    
+        ul
+            a(href="/account") Settings
+            a(href="/account/payment") Payment
+            a(href="/account/history") History
+
+
+
+
+
+block bottomContent
+    .profile
+        h2 Profile
+        .userDisplayInfo
+            h3= username
