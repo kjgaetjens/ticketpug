@@ -198,7 +198,7 @@ router.post('/eventinfo/:eventid/seatgroup/:seatgroupid/:quantity/checkout/billi
             }
         )
 
-        res.send('test')
+        res.render('confirmation')
     } else {
         res.redirect('/')
     }
