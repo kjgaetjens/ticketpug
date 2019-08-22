@@ -19,8 +19,16 @@ block bottomContent
         h3 Delete Payment
         form(action='/account/delete-payment', method='post')
             div Stored Payment Info
-                input(type="hidden" value=`${id}` name="paymentInfo")
-                button(type='delete') Delete
+                each payment in payments
+                    .displayPayment
+                        p Full Name:
+                        p=payment.full_name
+                        div
+                            span= payment.exp_month 
+                            span /
+                            span=payment.exp_year
+                        input(type="hidden" value=`${user_id}` name="paymentInfo")
+                        button(type='delete') Delete
 
 
     h3 Add New Payment

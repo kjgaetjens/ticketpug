@@ -18,11 +18,20 @@ block topContent
 
 block bottomContent
     .ticketHistory
-        h2 All Ticket Purchases
-        .displayTickets
-            p=orders        
-            p Order Date: Order Object
-            p Order Price: Order Object
-            P Venue: 
-            p Quantity: Count of Tickets associated with order number
+        h2 Upcoming Events
+        each order in orders
+            .displayTickets
+                p Artist:
+                p=order.eventName
+                p Number of Tickets:
+                p=order.ticketCount
+                p Date:
+                p=order.eventDate
 
+    .ticketHistory
+        h2 Past Events
+        each order in orders
+            .displayTickets
+                p=order.eventName
+                p=order.ticketCount
+                p=order.eventDate

@@ -3,21 +3,36 @@ const router = express.Router()
 const models = require('../models')
 
 router.get('/', (req,res)=>{
+
     res.render("settings", {username: 'Welcome Username!'})
 })
 
 router.get('/payment', (req,res)=>{
-    res.render('payment')
+    user_id = 3
+    models.PaymentInfo.findAll({
+        where:{
+            user_id: user_id,
+        }
+    }).then((payments) => {
+        let paymentInfo = [];
+        payments.forEach(payment => {
+            paymentInfo.push({
+                full_name: payment.full_name,
+                exp_month: payment.exp_month,
+                exp_year: payment.exp_year,
+
+            })
+        })
+
+
+    res.render('payment', {payments: paymentInfo})    
+    });
+
+
+    
 })
 
-router.get('/tickets', (req,res)=>{
-    res.send("testing tickets")
-})
 
-
-router.get('/tickets/:ticketid', (req,res)=>{
-    res.send("testing")
-})
 
 // router.get('/history', async (req,res)=>{
 
@@ -27,8 +42,6 @@ router.get('/tickets/:ticketid', (req,res)=>{
 //         where: {
 //             user_id: 3
 //         }
-
-
 //     })
 //     if(orders = {}){
 //         res.render("history", {orders: 'There are no orders to display'})
@@ -39,50 +52,48 @@ router.get('/tickets/:ticketid', (req,res)=>{
 
 // })
 
-router.get('/orderhistory/:user_id', (req, res)=> {
-    const id = req.params.user_id
+router.get('/history', async(req, res)=> {
+    user_id = 3
     models.Order.findAll({
-        //where: {user_id: 3},
-            include:[
-                {model: models.Ticket,
-                as: 'Ticket'}
-                ]
-        }).then(orders => {
-        const resObj = orders.map(order => {
-        //tidy user data
-            //clean up order data
-                return Object.assign(
-                    {},
-                    {
-                    user_id: order.user_id,
-                    order_id: order.id,
-                    order_total: order.post_tax_total,
-                    tickets: order.Ticket.map(ticket => {
-
-                        //clean up ticket data
-                        return Object.assign(
-                            {},
-                            {
-                                order_id: ticket.order_id,
-                                event_name: ticket.event_name,
-                                seat_number: ticket.seat,
-                                event_date: ticket.event_date,
-                            }
-                        )
-                    })
-                }
-            )
-                }
-                    
+        where: {
+            user_id: user_id,
+        },
+        include:[
+            {model: models.Ticket,
+            as: 'Ticket'}
+            ]
+    }).then(orders => {
+        // create array for view
+        let ordersView = [];
         
-        )
-        res.json(resObj)    
+        // loop through each order and create new view item
+        orders.forEach(order => {
+            ordersView.push({
+                total: order.post_tax_total,
+                id: order.id,
+                eventName: order.Ticket[0].event_name,
+                ticketCount: order.Ticket.length,
+                eventDate: order.Ticket[0].event_date,
+            })
+        });
+
+        //res.render('history', {orders: ordersView,})
+
+        let pastTickets = ordersView.filter(function(orders){
+            return (orders.eventDate < new Date());
+        })
+        console.log(new Date())
+        //ordersView.filter(order => order.eventDate <= order.today);
+        console.log(pastTickets)
+        res.render('history', {
+            orders: ordersView,
+            //pastOrders: pastTickets
+        })
     })
-    
 })
 
                 
-               
+         
             
         
         
@@ -153,14 +164,6 @@ router.get('/orderhistory/:user_id', (req, res)=> {
 // }).then((ticket) => console.log(ticket))
 
 
-/*
-//find all orders for user_id 3
-let orders = models.Order.findAll({    
-    where: {
-        user_id: 3
-    }
-}).then((order) => console.log(order))
-*/
 
 
 // let qrcode = models.QRCode.build({
@@ -171,25 +174,24 @@ let orders = models.Order.findAll({
 
 // let ticket = models.Ticket.build({
 //     event_id: '123456',
-//     event_name: 'Pitbull',
-//     event_date: '08-31-2019',
-//     artist_name: 'Pitbull',
-//     venue_name: 'LA Place',
+//     event_name: 'The Rolling Stones',
+//     event_date: '06-30-2019',
+//     artist_name: 'Beyonce',
+//     venue_name: 'NRG',
 //     seat_group: '1',
-//     seat: '6',
+//     seat: '11',
 //     class: '2',
 //     pre_tax: 50.04,
 //     ticket_status: 'Complete',
 //     qr_code_id: 1,
-//     order_id: 7,
+//     order_id: 22,
 // })
-// ticket.save().then((persistedTicket) => {
-//     console.log(persistedTicket)
-// })
+// ticket.save()
+
 
 // let order = models.Order.build({
 //     order_status: 'Complete',
-//     processed_date: '2019-08-22 00:14:16.334+00',
+//     processed_date: '2019-06-23 00:14:16.334+00',
 //     quantity_total: 1,
 //     pre_tax_total: 50.05,
 //     post_tax_total: 75,
