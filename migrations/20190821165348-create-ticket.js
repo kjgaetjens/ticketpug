@@ -12,12 +12,16 @@ module.exports = {
         allowNull: false,
         type: Sequelize.STRING
       },
-      venue_id: {
-        allowNull: false,
+      event_name: {
         type: Sequelize.STRING
       },
-      artist_id: {
-        allowNull: false,
+      event_date: {
+        type: Sequelize.STRING
+      },
+      artist_name: {
+        type: Sequelize.STRING
+      },
+      venue_name: {
         type: Sequelize.STRING
       },
       seat_group: {

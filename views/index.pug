@@ -12,9 +12,26 @@ append topMenu
             placeholder='search for...'
         )
         button submit
+        //- Registration and login will be put into modals
+        h2 Registration
+        form(method="POST" action="/register")
+            input(type="text" name="username")
+            input(type="password" name="password")
+            button submit
+            span= message
+
+        h2 Login
+            form(method="POST" action="/login")
+                input(type="text" name="username")
+                input(type="password" name="password")
+                button submit
+                span= message
+        
+
 append bottomContent
     .genre-container
         .genre-div
         a(href="#") genre
+
 //- will change to add each genre from api!!!!
-                        
+

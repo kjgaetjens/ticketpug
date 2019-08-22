@@ -2,24 +2,30 @@ const express = require('express')
 const account = require('./routes/account')
 const tickets = require('./routes/tickets')
 const index = require('./routes/index')
-const checkout = require('./routes/checkout')
 const venues = require('./routes/venues')
-const models = require('./models')
+global.models = require('./models')
 const app = express()
 const path = require('path')
 const axios = require('axios')
 //const PORT = process.env.PORT || 3000
 const session = require('express-session')
 
-// function authenticate(req,res,next){
-//     if (req.session){
-//         if (req.session.username){
-//             next()
-//         }else{
-//             res.redirect('/login')
-//         }
-//     }
-// }
+app.use(express.json())
+
+function authenticate(req,res,next){
+    if (req.session){
+        if (req.session.username){
+            next()
+        }else{
+            res.redirect('/')
+        }
+    }
+}
+app.use(session({
+    secret: 'keyboard cat',
+    resave: false,
+    saveUninitialized: false
+  }))
 
 app.use(express.static('static'))
 
@@ -30,9 +36,8 @@ app.set('view engine', 'pug')
 
 
 app.use('/', index)
-app.use('/account', account)
+app.use('/account', authenticate, account)
 app.use('/concert-tickets', tickets)
-app.use('/checkout', checkout)
 app.use('/venues', venues)
 
 //app.all('/account/*', authenticate)

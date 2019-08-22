@@ -17,6 +17,10 @@
   "homepage": "https://github.com/kjgaetjens/tickets#readme",
   "dependencies": {
     "axios": "^0.19.0",
+<<<<<<< HEAD
+=======
+    "bcrypt": "^3.0.6",
+>>>>>>> master
     "express": "^4.17.1",
     "express-session": "^1.16.2",
     "pg": "^7.12.1",
