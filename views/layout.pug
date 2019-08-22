@@ -1,5 +1,6 @@
 doctype html
 html
+    
     include includes/head
     body
         block topMenu
@@ -8,9 +9,12 @@ html
                     a(href="#") Music
                     a(href="#") Venue
                     a(href="#") Link
-                    a(href="#") Search 
-                    a(href="#") Log in 
-                    a(href="#") Sign up
+                    a(href="#") Search
+                    if user != null
+                        a(href="#") Log out
+                    else
+                        a(href="#") Log in
+                        a(href="#") Sign up
 
         block topContent
             .top-banner

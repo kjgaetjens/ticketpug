@@ -5,7 +5,8 @@ const saltRounds = 10
 
 
 router.get('/', (req, res)=>{
-    res.render("index")
+    
+    res.render("index", {user: req.session.username})
 })
 
 router.post('/register', (req,res)=>{
