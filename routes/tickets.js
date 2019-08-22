@@ -57,11 +57,14 @@ router.get('/artist/:artistid', (req,res)=>{
                     maxprice: event.priceRanges ? event.priceRanges[0].max : "N/A",
                 }
             })
+            res.render("artists", {
+                artistinfo:artistinfo
         })
         .catch(error => {
             console.log(error)
         })
-    res.render("artists", {artist: "testing"} )
+    //res.render("artists", {artist: "testing"} )
+})
 })
 
 router.get('/artist/:artistid/bio', (req,res)=>{
@@ -157,4 +160,3 @@ router.get('/eventinfo/:eventid/seatgroup/:seatgroupid/:quantity/checkout/confir
 
 
 module.exports = router
-
