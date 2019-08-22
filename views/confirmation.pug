@@ -3,6 +3,21 @@ extends layout.pug
 append topMenu
 
 block topContent        
-//take past order code
+    .confirmationContainer
+        h1 Order Confirmation
+        span Your tickets will be mailed to #{confirmation.username}
+        br
+        .eventDetails
+            h2 #{confirmation.event_name}
+            h4 Location: #{confirmation.venue_name}
+            h4 Date: #{(confirmation.event_date)}
+            h4 #{confirmation.ticket_qty} Tickets
+        br
+        .orderDetails
+            h3 Order ##{confirmation.id}
+            h3 Status: #{confirmation.status}
+            h4 Total Price: $#{confirmation.post_tax_total}
+            span $#{confirmation.ticket_price} x #{confirmation.ticket_qty} = $#{confirmation.ticket_price * confirmation.ticket_qty}
+            //- should include tax caclulation once functional
 
 append bottomContent
