@@ -29,9 +29,15 @@ append topMenu
         
 
 append bottomContent
+    h1= events
     .genre-container
-        .genre-div
-        a(href="#") genre
+        each val, index in event
+            .genre-div
+                a(href=`/genre/${val.genreid}`)= val.genre
+
+
+block script
+    script(src='./JS/genre.js') 
 
 //- will change to add each genre from api!!!!
 

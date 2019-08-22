@@ -43,7 +43,7 @@ app.use('/eventinfo/:eventid/seatgroup/:seatgroupid/:quantity/checkout', checkou
 app.use('/venues', venues)
 
 
-// // All concert API
+// All concert API
 // axios.get('https://app.ticketmaster.com/discovery/v2/events.json?classificationName=music&preferredCountry=us&apikey=GgkMBDROaaG6jddcy0k07d6GGEyYG4gE')
 //     .then(response => {
 //         let eventinfo = response.data._embedded.events.map(event => {
@@ -61,19 +61,22 @@ app.use('/venues', venues)
 //                 seatmap: event.seatmap ? event.seatmap.staticUrl : "N/A",
 //                 genre: event.classifications[0].genre ? event.classifications[0].genre.name : "N/A",
 //                 genreid: event.classifications[0].genre ? event.classifications[0].genre.id : "N/A",
-//                 minprice: event.priceRanges ? event.priceRanges[0].min : "N/A",
-//                 maxprice: event.priceRanges ? event.priceRanges[0].max: "N/A",
+//                 // minprice: event.priceRanges ? event.priceRanges[0].min : "N/A",
+//                 // maxprice: event.priceRanges ? event.priceRanges[0].max: "N/A",
 //             }
 //         })
-//         console.log(eventinfo)
+//         eventinfo.forEach(event=>{
+//             console.log(event)
+//         })
 //     })
 //     .catch(error => {
 //         console.log(error)
 //     })
 
 // //Genre API
-// axios.get('')
+// axios.get('/discovery/v2/classifications/genres/{id}')
 //     .then(response => {
+//         console.log(response.data._embedded.events)
 //         let genreinfo = response.data._embedded.events.map(event => {
 //             return {
 //                 eventid: event.id,
@@ -92,6 +95,7 @@ app.use('/venues', venues)
 //                 nimprice: event.priceRanges ? event.priceRanges[0].min : "N/A",
 //                 maxprice: event.priceRanges ? event.priceRanges[0].max : "N/A"
 //             }
+
 //         })
 //         console.log(genreinfo)
 //     })
@@ -99,7 +103,7 @@ app.use('/venues', venues)
 //         console.log(error)
 //     })
 
-// //Artist API
+// // //Artist API
 // axios.get('')
 //     .then(response => {
 //         let artistinfo = response.data._embedded.events.map(event => {
@@ -121,7 +125,7 @@ app.use('/venues', venues)
 //                 maxprice: event.priceRanges ? event.priceRanges[0].max : "N/A",
 //             }
 //         })
-//         console.log(artistinfo)
+//         // console.log(artistinfo)
 //     })
 //     .catch(error => {
 //         console.log(error)
