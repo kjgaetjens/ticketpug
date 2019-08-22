@@ -18,27 +18,150 @@ router.get('/tickets', (req,res)=>{
 router.get('/tickets/:ticketid', (req,res)=>{
     res.send("testing")
 })
-/*
-router.get('/history', async (req,res)=>{
 
-    let orders = await models.Order.findAll({
+// router.get('/history', async (req,res)=>{
+
+//     let orders = await models.Order.findAll({
         
         
-        where: {
-            userId: req.session.user.id
-        }
+//         where: {
+//             user_id: 3
+//         }
 
 
-    })
-    if(orders = {}){
-        res.render("history", {orders: 'There are no orders to display'})
-    }else{
+//     })
+//     if(orders = {}){
+//         res.render("history", {orders: 'There are no orders to display'})
+//     }else{
     
-    res.render("history", {orders})
-    }     
+//     res.render("history", {orders})
+//     }     
 
+// })
+
+router.get('/orderhistory/:user_id', (req, res)=> {
+    const id = req.params.user_id
+    models.Order.findAll({
+        //where: {user_id: 3},
+            include:[
+                {model: models.Ticket,
+                as: 'Ticket'}
+                ]
+        }).then(orders => {
+        const resObj = orders.map(order => {
+        //tidy user data
+            //clean up order data
+                return Object.assign(
+                    {},
+                    {
+                    user_id: order.user_id,
+                    order_id: order.id,
+                    order_total: order.post_tax_total,
+                    tickets: order.Ticket.map(ticket => {
+
+                        //clean up ticket data
+                        return Object.assign(
+                            {},
+                            {
+                                order_id: ticket.order_id,
+                                event_name: ticket.event_name,
+                                seat_number: ticket.seat,
+                                event_date: ticket.event_date,
+                            }
+                        )
+                    })
+                }
+            )
+                }
+                    
+        
+        )
+        res.json(resObj)    
+    })
+    
 })
+
+                
+               
+            
+        
+        
+    
+        
+
+
+
+// router.get('/orderhistory', (req, res)=> {
+//     models.User.findAll({
+//         //where: {user_id: 3},
+//         include:[
+//             {model: models.Order,
+//             as: 'Order',
+//             include:[
+//                 {model: models.Ticket,
+//                 as: 'Ticket'}
+
+//             ]
+//             }
+//         ]
+//         }).then(users => {
+//         const resObj = users.map(user => {
+//             //tidy user data
+//             return Object.assign(
+//                 {},
+//                 {
+//                     user_id: user.id,
+//                     username: user.username,
+//                     orders: user.Order.map(order => {
+                        
+//                         //clean up order data
+//                         return Object.assign(
+//                             {},
+//                             {
+//                                 user_id: order.user_id,
+//                                 order_id: order.id,
+//                                 order_total: order.post_tax_total,
+//                                 tickets: order.Ticket.map(ticket => {
+
+//                                     //clean up ticket data
+//                                     return Object.assign(
+//                                         {},
+//                                         {
+//                                             order_id: ticket.order_id,
+//                                             event_name: ticket.event_name,
+//                                             seat_number: ticket.seat,
+//                                             event_date: ticket.event_date,
+//                                         }
+//                                     )
+//                                 })
+//                             }
+//                         )
+//                     }
+//                         )
+//                 }
+//             )
+//         })
+//         res.json(resObj)
+//         }) 
+        
+//     })
+
+// let tickets = models.Ticket.findAll({
+//     where: {
+//         order_id: 7,
+//     }
+// }).then((ticket) => console.log(ticket))
+
+
+/*
+//find all orders for user_id 3
+let orders = models.Order.findAll({    
+    where: {
+        user_id: 3
+    }
+}).then((order) => console.log(order))
 */
+
 
 // let qrcode = models.QRCode.build({
 //     url: 'https://randomqr.com/'
@@ -53,38 +176,44 @@ router.get('/history', async (req,res)=>{
 //     artist_name: 'Pitbull',
 //     venue_name: 'LA Place',
 //     seat_group: '1',
-//     seat: '3',
+//     seat: '6',
 //     class: '2',
 //     pre_tax: 50.04,
 //     ticket_status: 'Complete',
 //     qr_code_id: 1,
-//     order_id: 1,
+//     order_id: 7,
 // })
 // ticket.save().then((persistedTicket) => {
 //     console.log(persistedTicket)
 // })
+
 // let order = models.Order.build({
 //     order_status: 'Complete',
 //     processed_date: '2019-08-22 00:14:16.334+00',
 //     quantity_total: 1,
 //     pre_tax_total: 50.05,
-//     post_tax_total: 75
+//     post_tax_total: 75,
+//     payment_info_id: 2,
+//     user_id: 3,
 // })
 // order.save()
 
-// favorite: DataTypes.BOOLEAN,
-// full_name: DataTypes.STRING,
-// card_number: DataTypes.INTEGER,
-// exp_month: DataTypes.INTEGER,
-// exp_year: DataTypes.INTEGER,
-// cvv: DataTypes.INTEGER,
-// country: DataTypes.STRING,
-// address1: DataTypes.STRING,
-// address2: DataTypes.STRING,
-// city: DataTypes.STRING,
-// state: DataTypes.STRING,
-// zipcode: DataTypes.STRING
-
+// let payment = models.PaymentInfo.build({
+//     favorite: true,
+//     full_name: "John Doe",
+//     card_number: "12345",
+//     exp_month: 04,
+//     exp_year: 2023,
+//     cvv: 444,
+//     country: "USA",
+//     address1: '1234 Main St',
+//     address2: 'Apt 4',
+//     city: 'Houston',
+//     state: 'TX',
+//     zipcode: 77014,
+//     user_id: 3
+// })
+// payment.save()
 
 
 router.post('/delete-payment', (req, res) => {
