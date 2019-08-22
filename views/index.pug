@@ -28,16 +28,15 @@ append topMenu
                 span= message
         
 
-append bottomContent
-    h1= events
-    .genre-container
-        each val, index in event
-            .genre-div
-                a(href=`/genre/${val.genreid}`)= val.genre
+//- append bottomContent
+//-     h1= events
+//-     .genre-container
+//-         each val, index in event
+//-             .genre-div
+//-                 a(href=`./venues/${val.venueid}/details`)= val.venue
 
 
-block script
-    script(src='./JS/genre.js') 
+
 
 //- will change to add each genre from api!!!!
 
