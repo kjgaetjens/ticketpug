@@ -1,6 +1,17 @@
-extends layout.pug
-append topMenu
-append topContent
-    //-event name goes here
-append bottomContent
+//- extends layout.pug
+//- append topMenu
+//- append topContent
+//-     //-event name goes here
+//- append bottomContent
 //- Seating chart ticket prices will go here
+html
+    head
+    body
+        ul
+            each eventkey in eventinfo
+                li= 'Event: ' + eventkey.eventname
+                li= 'Musician: ' + eventkey.musician
+                li= 'Date: ' + eventkey.date
+                li= 'Venue: ' + eventkey.venue
+                li= 'Location: ' + eventkey.venuecity + ', ' + eventkey.venuestate
+                li= 'Genre: ' + eventkey.genre
