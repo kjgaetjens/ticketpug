@@ -37,9 +37,11 @@ router.get('/', (req, res)=>{
     
     
 
-router.post('/register', (req,res)=>{
+router.post('/register', async (req,res)=>{
     let username = req.body.username
-    let password = req.body.password 
+    let password = req.body.password
+
+
     models.User.findOne({
         where: {
             username: username
@@ -53,8 +55,17 @@ router.post('/register', (req,res)=>{
                         username: username,
                         password: hash,
                         status: "active"
+                    }).then(function() {
+                        models.User.findOne({
+                            where: {username: username},
+                            attributes:['id']
+                        }).then(user=>{
+                            let userId = user.get('id')
+                            req.session.userid = userId
+                            res.redirect("/account")
+                        }).catch(e=>console.log(e))
                     })
-                    res.redirect("/account")
+                    
                 })
             }
         }).catch(e=>console.log(e))
@@ -65,7 +76,6 @@ router.post('/register', (req,res)=>{
 router.post('/login', (req,res)=>{
     let username = req.body.username
     let password = req.body.password
-    
     models.User.findOne({
         where: {
             username: username
@@ -78,7 +88,8 @@ router.post('/login', (req,res)=>{
                 if(response){
                     console.log(response)
                     if(req.session){
-                        req.session.username = {userid: userId, username:username}
+                        req.session.username = username
+                        req.session.userid = userId
                     }
                     res.redirect('/account')
                 }else{
@@ -90,7 +101,7 @@ router.post('/login', (req,res)=>{
         }
     })
     .catch(e=>console.log(e))
-})
+ })
 
 router.get('/logout', (req,res)=>{
     req.session.destroy(e=>{

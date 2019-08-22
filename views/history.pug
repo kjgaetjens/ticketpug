@@ -1,0 +1,37 @@
+extends layout.pug
+
+append topMenu
+
+
+
+block topContent
+
+    .topContainer
+        h2 Account Settings    
+        ul
+            a(href="/account") Settings
+            a(href="/account/payment") Payment
+            a(href="/account/history") History
+
+
+
+
+block bottomContent
+    .ticketHistory
+        h2 Upcoming Events
+        each order in orders
+            .displayTickets
+                p Artist:
+                p=order.eventName
+                p Number of Tickets:
+                p=order.ticketCount
+                p Date:
+                p=order.eventDate
+
+    .ticketHistory
+        h2 Past Events
+        each order in orders
+            .displayTickets
+                p=order.eventName
+                p=order.ticketCount
+                p=order.eventDate
