@@ -3,24 +3,15 @@ html
 
     include includes/head
     body
-        div.topDash
-            block topMenu
-                    ul.topMenu
-                        a(href="#") Music
-                        a(href="#") Venue
-                        a(href="#") Link
-                        a(href="#") Search
-                        if user != null
-                            a(href="/logout") Log out
-                        else
-                            a(href="#") Log in
-                            a(href="#") Sign up
+        block topMenu
+            
+            
 
-            block topContent
-                .top-banner
-
-            block bottomContent
-                .bottom-container
+        block topContent
+            .top-banner
+                
+        block bottomContent
+            .bottom-container
 
 
     footer
