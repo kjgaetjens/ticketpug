@@ -54,8 +54,8 @@ router.get('/eventinfo/:eventid', (req,res)=>{
                     musicianid: event._embedded.attractions ? event._embedded.attractions[0].id : "N/A",
                     date: event.dates.start.dateTime,
                     venue: event._embedded.venues[0].name,
-                    venuecity: event._embedded.venues[0].city.name,
-                    venuestate: event._embedded.venues[0].state.stateCode,
+                    // venuecity: event._embedded.venues[0].city.name,
+                    // venuestate: event._embedded.venues[0].state.stateCode,
                     venueaddress: event._embedded.venues[0].address.line1,
                     venueid: event._embedded.venues[0].id,
                     seatmap: event.seatmap ? event.seatmap.staticUrl : "N/A",
@@ -88,7 +88,8 @@ router.get('/eventinfo/:eventid/seatgroup/:seatgroupid/:quantity/checkout', (req
 })
 
 router.get('/eventinfo/:eventid/seatgroup/:seatgroupid/:quantity/checkout/billing', (req,res)=>{
-    res.render("billing")
+    //need to generate the cost info and send it client side somehow
+    res.sendFile(rootdir + '/views/payment.html')
 })
 
 //concert-tickets/eventinfo/:eventid/seatgroup/:seatgroupid/:quantity/checkout
@@ -97,7 +98,6 @@ router.post('/eventinfo/:eventid/seatgroup/:seatgroupid/:quantity/checkout/billi
     let eventId = req.params.eventid
     let seatGroupId = req.params.seatgroupid
     let ticketQuantity = Number(req.params.quantity)
-    //need to pull actual paymentinfo id once we figure out how to integrate stripe or other application
     let paymentinfoId = 2
     let eventApiObj = await axios.get(`https://app.ticketmaster.com/discovery/v2/events/${eventId}?apikey=GgkMBDROaaG6jddcy0k07d6GGEyYG4gE`)
     let eventName = eventApiObj.data.name
@@ -111,9 +111,6 @@ router.post('/eventinfo/:eventid/seatgroup/:seatgroupid/:quantity/checkout/billi
     let preTaxTotal = randomTicketPrice * ticketQuantity
     //add in tax caclulation if we have time
     let postTaxTotal = preTaxTotal
-    /*
-    need to add await here that takes payment info and resolves payment before actually generating the order and ticket db rows I think. once that's done, do the stuff below
-    */
 
     //create order row 
     let orderObj = await models.Order.create({

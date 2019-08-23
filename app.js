@@ -3,6 +3,7 @@ const account = require('./routes/account')
 const tickets = require('./routes/tickets')
 const index = require('./routes/index')
 const venues = require('./routes/venues')
+const search = require('./routes/search')
 global.models = require('./models')
 const app = express()
 const path = require('path')
@@ -11,6 +12,10 @@ const axios = require('axios')
 const session = require('express-session')
 global.uuidv1 = require('uuid/v1')
 const authenticate = require('./utils/authenticate.js')
+global.rootdir = __dirname
+
+app.use('/public',express.static('public'))
+
 app.use(express.json())
 
 //added authenticate to own folder
@@ -41,6 +46,7 @@ app.use('/', index)
 app.use('/account', authenticate, account)
 app.use('/concert-tickets', tickets)
 app.use('/venues', venues)
+app.use('/search', search)
 
 //app.all('/account/*', authenticate)
 

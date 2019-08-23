@@ -7,9 +7,8 @@ router.get('/', (req,res)=>{
     models.User.findByPk(user_id)
     .then((user) => {
 
-        //console.log(user.dataValues.username)
-    res.render("settings", {username: user.dataValues.username})
-    })
+    res.render("settings", {username: req.session.username})
+})
 })
 
 router.get('/payment', (req,res)=>{
