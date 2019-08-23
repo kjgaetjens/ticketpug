@@ -1,8 +1,9 @@
 console.log('client side is working');
 
 
-const faveButton = document.getElementById('faveButton');
+document.querySelectorAll('.fa-heart').forEach(function(e) {
+    e.addEventListener('click', function() {
+      this.style.color = "red";
+    })
+  });
 
-faveButton.addEventListener('click', function(e) {
-    console.log('button was clicked');
-});

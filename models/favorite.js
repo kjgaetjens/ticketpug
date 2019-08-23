@@ -1,7 +1,7 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
   const Favorite = sequelize.define('Favorite', {
-    event_id: DataTypes.INTEGER,
+    event_id: DataTypes.STRING,
     event_name: DataTypes.STRING,
     event_date: DataTypes.STRING,
     venue_name: DataTypes.STRING

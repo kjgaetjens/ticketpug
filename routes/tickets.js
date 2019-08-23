@@ -1,6 +1,7 @@
 const express = require('express')
 const router = express.Router()
 const axios = require('axios')
+const authenticate = require('../utils/authenticate.js')
 
 router.get('/artist/:artistid', (req,res)=>{
     let artistid = req.params.artistid
@@ -197,6 +198,43 @@ router.get('/:createdOrderObjId/confirmation', async (req,res)=>{
 })
 
 
+router.post('/like', authenticate, (req, res) => {
+    models.Favorite.findAll({
+        where: {
+            user_id: req.session.userid,
+            event_id: req.body.event_id
+        }
+    }).then(favorites => {
+        if (favorites.length == 0){
+            const like = models.Favorite.build({
+            event_id: req.body.event_id,
+            event_name: req.body.event_name,
+            venue_name: req.body.venue_name,
+            event_date: req.body.event_date,
+            user_id: req.session.userid
+            })
+            like.save().then(function(like){
+            //console.log(like)  
+            })  
+        }else{
+            models.Favorite.destroy({
+                where: {
+                    user_id: req.session.userid,
+                    event_id: req.body.event_id
+                }
+            }).then(result => console.log(result))
+        }
 
+    })
+
+    
+    res.redirect('back')    
+    })
+
+
+
+
+
+    
 
 module.exports = router

@@ -74,7 +74,7 @@ router.get('/history', async(req, res)=> {
         // loop through each order and create new view item
         orders.forEach(order => {
             ordersView.push({
-                total: order.post_tax_total,
+                //total: order.post_tax_total,
                 id: order.id,
                 eventName: order.Ticket[0].event_name,
                 ticketCount: order.Ticket.length,
@@ -104,9 +104,42 @@ router.get('/history', async(req, res)=> {
     
     })
     
+router.get('/favorites', async(req, res) => {
+    user_id = req.session.userid
+    models.Favorite.findAll({
 
+        where:{
+            user_id: user_id,
+        }
+    }).then(favorites => {
+        let favoritesView = []
+
+        favorites.forEach(favorite => {
+            favoritesView.push({
+                event_id: favorite.event_id,
+                event_name: favorite.event_name,
+                event_date: favorite.event_date,
+                venue_name: favorite.venue_name
+            })
+        });
+        console.log(favoritesView)
+        res.render('favorites', {favorites: favoritesView})
+    })
+})
                 
-         
+router.post('/delete-favorite', async(req, res) => {
+    user_id = req.session.userid
+    event_id = req.body.event_id
+    models.Favorite.destroy({
+        where: {
+            user_id: user_id,
+            event_id: event_id
+        }
+
+    }).then(result => console.log(result))
+
+    res.redirect('back') 
+})         
             
         
         
@@ -255,7 +288,7 @@ router.post('/add-payment', async (req, res) => {
 	let city = req.body.city
 	let state = req.body.state
 	let zipcode = parseInt(req.body.zipcode)
-    let user_id = req.session.user.userid
+    let user_id = req.session.userid
     let country = req.body.country
 
 	let payment = models.Payment.build({

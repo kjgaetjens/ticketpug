@@ -10,18 +10,19 @@ const axios = require('axios')
 //const PORT = process.env.PORT || 3000
 const session = require('express-session')
 global.uuidv1 = require('uuid/v1')
-
+const authenticate = require('./utils/authenticate.js')
 app.use(express.json())
 
-function authenticate(req,res,next){
-    if (req.session){
-        if (req.session.username){
-            next()
-        }else{
-            res.redirect('/')
-        }
-    }
-}
+//added authenticate to own folder
+// function authenticate(req,res,next){
+//     if (req.session){
+//         if (req.session.username){
+//             next()
+//         }else{
+//             res.redirect('/')
+//         }
+//     }
+// }
 app.use(session({
     secret: 'keyboard cat',
     resave: false,

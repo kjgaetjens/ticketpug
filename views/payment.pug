@@ -9,6 +9,7 @@ block topContent
             a(href="/account") Settings
             a(href="/account/payment") Payment
             a(href="/account/history") History
+            a(href="/account/favorites") Favorites
          
 block bottomContent
     .payment
@@ -22,10 +23,7 @@ block bottomContent
                     .displayPayment
                         p Full Name:
                         p=payment.full_name
-                        div
-                            span= payment.exp_month 
-                            span /
-                            span=payment.exp_year
+                        span=#{payment.exp_month}/#{payment.exp_year}
                         input(type="hidden" value=`${user_id}` name="paymentInfo")
                         button(type='delete') Delete
 
