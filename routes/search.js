@@ -27,7 +27,7 @@ router.get('/', async (req,res)=>{
     //         })
        console.log(eventinfo)
        
-       res.render('search', {event: eventinfo})
+       res.render('search', {event: eventinfo, result: search})
     })
 
     })
