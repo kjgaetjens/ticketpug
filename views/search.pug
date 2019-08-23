@@ -1,0 +1,20 @@
+extends layout.pug
+
+append topMenu
+
+append topContent
+
+append bottomContent
+    each val in event
+        .search-result-div
+            .date-div
+                p.date #{val.dates.start.localDate}
+                p.time #{val.dates.start.localTime}
+            .event.info-div
+                h3 #{val.name}
+                p #{val._embedded.venues[0].name}
+                p #{val.info}
+            a(href=`../concert-tickets/eventinfo/${val.id}`) Get more info
+            
+            
+            
