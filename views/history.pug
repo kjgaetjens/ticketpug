@@ -1,37 +1,36 @@
-extends layout.pug
+extends userLayout.pug
 
 append topMenu
-
-
 
 block topContent
 
     .topContainer
-        h2 Account Settings    
-        ul
-            a(href="/account") Settings
-            a(href="/account/payment") Payment
-            a(href="/account/history") History
-
+        h1.settingTitle Account History    
+    ul.accountMenu
+        a.firstLink(href="/account") Settings
+        a(href="/account/payment") Payment
+        a(href="/account/history") History
+        a(href="/account/favorites") Favorites
 
 
 
 block bottomContent
     .ticketHistory
         h2 Upcoming Events
+        if orders.length == 0
+            h3.noEvents You have no upcoming events
         each order in orders
             .displayTickets
-                p Artist:
-                p=order.eventName
-                p Number of Tickets:
-                p=order.ticketCount
-                p Date:
-                p=order.eventDate
+                p Artist: #{order.eventName}
+                p Number of Tickets: #{order.ticketCount}
+                p Date: #{order.eventDate}
 
     .ticketHistory
         h2 Past Events
-        each order in orders
+        if pastOrders.length == 0
+            h3.noEvents You have no past events
+        each order in pastOrders
             .displayTickets
-                p=order.eventName
-                p=order.ticketCount
-                p=order.eventDate
+                p Artist: #{order.eventName}
+                p Number of Tickets: #{order.ticketCount}
+                p Date: #{order.eventDate}

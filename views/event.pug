@@ -7,11 +7,25 @@ append topMenu
 block topContent
         ul
             each eventkey in eventinfo
-                li= 'Event: ' + eventkey.eventname
-                li= 'Musician: ' + eventkey.musician
-                li= 'Date: ' + eventkey.date
-                li= 'Venue: ' + eventkey.venue
-                li= 'Location: ' + eventkey.venuecity + ', ' + eventkey.venuestate
-                li= 'Genre: ' + eventkey.genre
+                form(action='/concert-tickets/like' method='post')
+                    li= 'Event: ' + eventkey.eventname
+                    li= 'Musician: ' + eventkey.musician
+                    li= 'Date: ' + eventkey.date
+                    li= 'Venue: ' + eventkey.venue
+                    li= 'Location: ' + eventkey.venuecity + ', ' +  eventkey.venuestate
+                    li= 'Genre: ' + eventkey.genre
+                    input(type="hidden" name="event_name" value=`${eventkey.eventname}`)
+                    input(type="hidden" name="venue_name" value=`${eventkey.venue}`)
+                    input(type="hidden" name="event_date" value=`${eventkey.date}`)
+                    input(type="hidden" name="event_id" value=`${eventkey.eventid}`)
+                    button(type='submit' class='like-button')
+                        i(class='fa fa-heart')
 
 append bottomContent
+
+    block scripts
+        script(src='/js/client.js')
+
+
+
+
