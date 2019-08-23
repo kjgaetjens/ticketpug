@@ -3,29 +3,32 @@ extends layout.pug
 
 append topMenu
     #index-search-container         
-    .title
-        h1 Welcome to Ticket Sales
-        p Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed dignissim lectus neque, at facilisis quam rutrum ut. Morbi varius velit lacus, eget facilisis orci porta nec
-        input(
-            type='text'
-            name='search'
-            placeholder='search for...'
-        )
-        button submit
-        //- Registration and login will be put into modals
-        h2 Registration
-        form(method="POST" action="/register")
-            input(type="text" name="username")
-            input(type="password" name="password")
+        div.topTitle
+            h1 Welcome to Ticket Sales
+            p Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed dignissim lectus neque, at facilisis quam rutrum ut. Morbi varius velit lacus, eget facilisis orci porta nec
+        div.topSearch
+            input(
+                type='text'
+                name='search'
+                placeholder='Search for...'
+            )
             button submit
-            span= message
+        //- Registration and login will be put into modals
 
-        h2 Login
-            form(method="POST" action="/login")
-                input(type="text" name="username")
-                input(type="password" name="password")
-                button submit
-                span= message
+        //- div.topRegisterLogin
+        //-     h2 Registration
+        //-     form(method="POST" action="/register")
+        //-         input(type="text" name="username")
+        //-         input(type="password" name="password")
+        //-         button submit
+        //-         span= message
+
+        //-     h2 Login
+        //-         form(method="POST" action="/login")
+        //-             input(type="text" name="username")
+        //-             input(type="password" name="password")
+        //-             button submit
+        //-             span= message
         
 
 //- append bottomContent
