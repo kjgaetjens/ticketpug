@@ -20,10 +20,16 @@ a{
     text-decoration:none;
     color:black;
 }
+.nav a:hover{
+    color:rgb(9, 88, 84);
+    font-weight: 800;
+}
+
 /***TOP SIDE OF PAGE***/
 .top-banner{
-    background: linear-gradient(180deg, rgb(9, 88, 84), rgb(67, 199, 199));
-    height: 80vh;
+    background: linear-gradient(45deg, #1CB5E0 0%, #000851 100%);
+    /* linear-gradient(45deg, #1cb5e073 0%, #000851 100%),linear-gradient(20deg, #1cb5e0 20%, #000851 7%) */
+    height: 50vh;
     background-size:cover;
     display: flex;
     align-items: center;
@@ -37,10 +43,17 @@ a{
     font-size: 3em;
 }
 .top-banner > h2 {
-    color:white;
+    color:#222;
 }
 
+.search-div{
+    width: 40%;
+}
 
+.search-div> form{
+    display:flex;
+    justify-content:center;
+}
 .search-div input {
     outline: none;
     padding: 10px;
