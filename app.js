@@ -10,6 +10,9 @@ const axios = require('axios')
 //const PORT = process.env.PORT || 3000
 const session = require('express-session')
 global.uuidv1 = require('uuid/v1')
+global.rootdir = __dirname
+
+app.use('/public',express.static('public'))
 
 app.use(express.json())
 
