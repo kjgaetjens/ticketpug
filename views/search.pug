@@ -1,11 +1,10 @@
 html
-    include includes/head
+    head
+        link(rel='stylesheet', href='./css/events.css', type='text/css')
     body
         include includes/navigation
-
         .top-banner
-            p test
-
+            p Search Results
         .bottom-container
             each val in event
                 .search-result-div
