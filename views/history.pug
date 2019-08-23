@@ -1,13 +1,11 @@
-extends layout.pug
+extends userLayout.pug
 
 append topMenu
-
-
 
 block topContent
 
     .topContainer
-        h1.settingTitle Account Settings    
+        h1.settingTitle Account History    
     ul.accountMenu
         a.firstLink(href="/account") Settings
         a(href="/account/payment") Payment
