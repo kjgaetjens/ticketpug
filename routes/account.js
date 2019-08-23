@@ -4,7 +4,7 @@ const models = require('../models')
 
 router.get('/', (req,res)=>{
 
-    res.render("settings", {username: 'Welcome Username!'})
+    res.render("settings", {username: req.session.username})
 })
 
 router.get('/payment', (req,res)=>{

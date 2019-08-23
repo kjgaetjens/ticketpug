@@ -14,32 +14,24 @@ append topMenu
             )
             button submit
         //- Registration and login will be put into modals
+        h2 Registration
+        form(method="POST" action="/register")
+            input(type="text" name="username" placeholder="username")
+            input(type="password" name="password" placeholder="password")
+            button submit
+            span= message
 
-        //- div.topRegisterLogin
-        //-     h2 Registration
-        //-     form(method="POST" action="/register")
-        //-         input(type="text" name="username")
-        //-         input(type="password" name="password")
-        //-         button submit
-        //-         span= message
-
-        //-     h2 Login
-        //-         form(method="POST" action="/login")
-        //-             input(type="text" name="username")
-        //-             input(type="password" name="password")
-        //-             button submit
-        //-             span= message
+        h2 Login
+            form(method="POST" action="/login")
+                input(type="text" name="username" placeholder="username")
+                input(type="password" name="password" placeholder="password")
+                button submit
+                span= message
         
 
-//- append bottomContent
-//-     h1= events
-//-     .genre-container
-//-         each val, index in event
-//-             .genre-div
-//-                 a(href=`./venues/${val.venueid}/details`)= val.venue
-
-
-
-
-//- will change to add each genre from api!!!!
-
+append bottomContent
+    h1= events
+    .genre-container
+        each val, index in event
+            .genre-div
+                a(href=`./venues/${val.venueid}/details`)= val.venue
