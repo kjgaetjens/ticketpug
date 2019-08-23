@@ -1,20 +1,22 @@
-extends layout.pug
+html
+    include includes/head
+    body
+        include includes/navigation
 
-append topMenu
+        .top-banner
+            p test
 
-append topContent
-
-append bottomContent
-    each val in event
-        .search-result-div
-            .date-div
-                p.date #{val.dates.start.localDate}
-                p.time #{val.dates.start.localTime}
-            .event.info-div
-                h3 #{val.name}
-                p #{val._embedded.venues[0].name}
-                p #{val.info}
-            a(href=`../concert-tickets/eventinfo/${val.id}`) Get more info
-            
+        .bottom-container
+            each val in event
+                .search-result-div
+                    .date-div
+                        p.date #{val.dates.start.localDate}
+                        p.time #{val.dates.start.localTime}
+                    .event-info-div
+                        h3 #{val.name}
+                        p #{val._embedded.venues[0].name}
+                        span #{val.info}
+                    .info-btn: a(href=`../concert-tickets/eventinfo/${val.id}`) Get more info
+                    
             
             
