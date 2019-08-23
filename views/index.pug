@@ -2,17 +2,17 @@ extends layout.pug
 
 
 append topMenu
-    h1 Welcome to Ticket Sales
-    #index-search-container        
-        form(method="GET" action="/search")
+    #index-search-container         
+        div.topTitle
+            h1 Welcome to Ticket Sales
+            p Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed dignissim lectus neque, at facilisis quam rutrum ut. Morbi varius velit lacus, eget facilisis orci porta nec
+        div.topSearch
             input(
                 type='text'
-                name='eventSearch'
-                placeholder='Search'
+                name='search'
+                placeholder='Search for...'
             )
             button submit
-
-    
         //- Registration and login will be put into modals
         h2 Registration
         form(method="POST" action="/register")
@@ -35,6 +35,3 @@ append bottomContent
         each val, index in event
             .genre-div
                 a(href=`./venues/${val.venueid}/details`)= val.venue
-
-
-
