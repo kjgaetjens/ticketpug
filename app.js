@@ -3,6 +3,7 @@ const account = require('./routes/account')
 const tickets = require('./routes/tickets')
 const index = require('./routes/index')
 const venues = require('./routes/venues')
+const search = require('./routes/search')
 global.models = require('./models')
 const app = express()
 const path = require('path')
@@ -40,9 +41,10 @@ app.set('view engine', 'pug')
 
 
 app.use('/', index)
-app.use('/account',/* authenticate,*/ account)
+app.use('/account', authenticate, account)
 app.use('/concert-tickets', tickets)
 app.use('/venues', venues)
+app.use('/search', search)
 
 //app.all('/account/*', authenticate)
 

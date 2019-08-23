@@ -6,28 +6,30 @@ block topContent
         include includes/venuesmenu
 block bottomContent
     .info-container
-        img(src=`${venue.images[0].url}`)
+        if venue.images
+            img(src=`${venue.images[0].url}`)
         h2 Address
         p #{venue.address.line1}
         span #{venue.city.name}, 
         span #{venue.state.stateCode}
-        h2 Phone Number
-        if venue.boxOfficeInfo.phoneNumberDetail !== undefined
-            p= venue.boxOfficeInfo.phoneNumberDetail
-        else 
-            p N/A
-        h2 Box Office Hours
-        p #{venue.boxOfficeInfo.openHoursDetail}
-        h2 Accepted Payments
-        p #{venue.boxOfficeInfo.acceptedPaymentDetail}
-        h2 Parking
-        p #{venue.parkingDetail}
-        h2 General Rules
-        p #{venue.generalInfo.generalRule}
-        h2 Children Rules
-        p #{venue.generalInfo.childRule}
-        h2 Accessible Seating
-        p #{venue.accessibleSeatingDetail}
+        if venue.boxOfficeInfo
+            h2 Phone Number
+            p #{venue.boxOfficeInfo.phoneNumberDetail}
+            h2 Box Office Hours
+            p #{venue.boxOfficeInfo.openHoursDetail}
+            h2 Accepted Payments
+            p #{venue.boxOfficeInfo.acceptedPaymentDetail}
+        if venue.parkingDetail
+            h2 Parking
+            p #{venue.parkingDetail}
+        if venue.generalInfo
+            h2 General Rules
+            p #{venue.generalInfo.generalRule}
+            h2 Children Rules
+            p #{venue.generalInfo.childRule}
+        if venue.accessibleSeatingDetail
+            h2 Accessible Seating
+            p #{venue.accessibleSeatingDetail}
 //- each val, index in event
 //-             .genre-div
 //-                 a(href=`/genre/${val.genreid}`)= val.genre
