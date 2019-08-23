@@ -1,0 +1,16 @@
+extends layout.pug
+
+append topMenu
+
+block topContent
+    #index-search-container         
+    .title
+        include includes/venuesmenu
+block bottomContent
+        .info-container
+            each val, index in event
+                .event-div
+                    h3= val.eventname
+                    p= val.musician
+                    p= val.date
+                    button more info
