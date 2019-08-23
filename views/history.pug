@@ -19,6 +19,8 @@ block topContent
 block bottomContent
     .ticketHistory
         h2 Upcoming Events
+        if orders.length == 0
+            h3 You have no upcoming events
         each order in orders
             .displayTickets
                 p Artist:
@@ -30,7 +32,9 @@ block bottomContent
 
     .ticketHistory
         h2 Past Events
-        each order in orders
+        if pastOrders.length == 0
+            h3 You have no past events
+        each order in pastOrders
             .displayTickets
                 p=order.eventName
                 p=order.ticketCount

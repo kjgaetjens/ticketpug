@@ -3,12 +3,17 @@ const router = express.Router()
 const models = require('../models')
 
 router.get('/', (req,res)=>{
+    let user_id = req.session.userid
+    models.User.findByPk(user_id)
+    .then((user) => {
 
-    res.render("settings", {username: 'Welcome Username!'})
+        //console.log(user.dataValues.username)
+    res.render("settings", {username: user.dataValues.username})
+    })
 })
 
 router.get('/payment', (req,res)=>{
-    user_id = 3
+    user_id = req.session.userid
     models.PaymentInfo.findAll({
         where:{
             user_id: user_id,
@@ -53,7 +58,7 @@ router.get('/payment', (req,res)=>{
 // })
 
 router.get('/history', async(req, res)=> {
-    user_id = 3
+    user_id = req.session.userid
     models.Order.findAll({
         where: {
             user_id: user_id,
@@ -74,23 +79,31 @@ router.get('/history', async(req, res)=> {
                 eventName: order.Ticket[0].event_name,
                 ticketCount: order.Ticket.length,
                 eventDate: order.Ticket[0].event_date,
+                newDate: Date.parse(order.Ticket[0].event_date)
             })
         });
 
-        //res.render('history', {orders: ordersView,})
+        let currentDate = new Date()
+        currentDate = Date.parse(currentDate)
+
 
         let pastTickets = ordersView.filter(function(orders){
-            return (orders.eventDate < new Date());
+            return (orders.newDate < currentDate);
         })
-        console.log(new Date())
-        //ordersView.filter(order => order.eventDate <= order.today);
+
+        let currentOrders = ordersView.filter(function(orders){
+            return (currentDate < orders.newDate);
+        })
+        console.log(currentOrders)
         console.log(pastTickets)
-        res.render('history', {
-            orders: ordersView,
-            //pastOrders: pastTickets
-        })
+
+        //ordersView.filter(order => order.eventDate <= order.today);
+        //console.log(pastTickets)
+    res.render('history', {orders: currentOrders, pastOrders: pastTickets})
     })
-})
+    
+    })
+    
 
                 
          
