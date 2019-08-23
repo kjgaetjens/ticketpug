@@ -1,17 +1,44 @@
-extends layout.pug
-append topMenu
+//- extends layout.pug
+//- append topMenu
 //- append topContent
     //-event name goes here
 
 //- Seating chart ticket prices will go here
-block topContent
-        ul
-            each eventkey in eventinfo
-                li= 'Event: ' + eventkey.eventname
-                li= 'Musician: ' + eventkey.musician
-                li= 'Date: ' + eventkey.date
-                li= 'Venue: ' + eventkey.venue
-                li= 'Location: ' + eventkey.venuecity + ', ' + eventkey.venuestate
-                li= 'Genre: ' + eventkey.genre
+//- block topContent
+//-         ul
+//-             each eventkey in eventinfo
+//-                 li= 'Event: ' + eventkey.eventname
+//-                 li= 'Musician: ' + eventkey.musician
+//-                 li= 'Date: ' + eventkey.date
+//-                 li= 'Venue: ' + eventkey.venue
+//-                 li= 'Location: ' + eventkey.venuecity + ', ' + eventkey.venuestate
+//-                 li= 'Genre: ' + eventkey.genre
 
-append bottomContent
+//- append bottomContent
+
+
+html
+    head
+        link(rel='stylesheet', href='/css/events.css', type='text/css')
+    body
+        include includes/navigation
+        .top-banner
+            each event in eventinfo
+                h1 #{event.eventname}
+                h2 #{event.venue}
+            .search-div
+                form(method="GET" action="/search")
+                    input(
+                        type='text'
+                        name='eventSearch'
+                        placeholder='New search...'
+                    )
+                    button submit
+        .bottom-container
+            each event in eventinfo
+                .drop-down 
+                    h3 Seatmap
+                    img(src=`${event.seatmap}`) 
+            
+    include includes/footer           
+            
