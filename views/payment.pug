@@ -23,7 +23,7 @@ block bottomContent
                     .displayPayment
                         p Full Name:
                         p=payment.full_name
-                        span=#{payment.exp_month}/#{payment.exp_year}
+                        span #{payment.exp_month}/ #{payment.exp_year}
                         input(type="hidden" value=`${user_id}` name="paymentInfo")
                         button(type='delete') Delete
 

@@ -45,3 +45,25 @@ body {
 .noEvents {
     font-style: italic;
 }
+
+
+/* Button Stylings */
+.fa-heart:hover {
+    color: red;
+    cursor: pointer;
+}
+
+.fa-heart:hover {
+    color: red;
+    cursor: pointer;
+}
+
+.fa-trash-o:hover {
+    cursor: pointer;
+}
+
+.delete-button {
+    padding: 0;
+    border: none;
+    background: none;
+}
