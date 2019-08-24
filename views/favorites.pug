@@ -22,14 +22,18 @@ block bottomContent
             h2 Favorites
             each favorite in favorites
                 .favoriteDisplay
-                    form(action='/account/delete-favorite' method='post')
+                    i(class='fa fa-heart fa-2x')
+                    form(action='/account/delete-favorite' class="formClass" method='post')
                     
-                        i(class='fa fa-heart' style={color: 'red'})
+                        
                         p #{favorite.event_name}
                         p Event Date: #{favorite.event_date}
-                        p Venue Name: #{favorite.venue_name}
+                        if favorite.venue_name == 'undefined'
+                            p.noEvents No venue assigned
+                        else
+                            p Venue Name: #{favorite.venue_name}
                         input(type="hidden" name="event_id" value=`${favorite.event_id}`)
                         button(type='submit' class='delete-button')
-                            i(class='fa fa-trash-o')
+                            i(class='fa fa-trash-o fa-2x')
 
     

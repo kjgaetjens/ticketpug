@@ -21,7 +21,7 @@ block bottomContent
         each order in orders
             .displayTickets
                 h3 #{order.eventName} 
-                p Tickets Purchased: #{order.ticketCount} | Date: #{order.date_format} | Order Total: $ #{order.total}
+                p Tickets Purchased: #{order.ticketCount} | Date: #{order.eventDate} | Order Total: $ #{order.total}
                 p.purchasedDate Purchased Date: #{order.purchased_date}                
 
     .ticketHistory
@@ -31,5 +31,5 @@ block bottomContent
         each order in pastOrders
             .displayTickets
                 h3 #{order.eventName} 
-                p Tickets Purchased: #{order.ticketCount} | Event Date: #{order.event_date_format} | Order Total: $ #{order.total}
+                p Tickets Purchased: #{order.ticketCount} | Event Date: #{order.eventDate} | Order Total: $ #{order.total}
                 p.purchasedDate Purchased Date: #{order.purchased_date}

@@ -63,12 +63,12 @@ router.get('/history', async(req, res)=> {
                 ticketCount: order.Ticket.length,
                 eventDate: order.Ticket[0].event_date,
                 newDate: Date.parse(order.Ticket[0].event_date),
-                event_date_format: (order.Ticket[0].event_date).substring(0,10),
+                //event_date_format: (order.Ticket[0].event_date).substring(0,10),
                 purchased_date: order.processed_date,
                 
 
             })
-
+            //console.log((order.Ticket[0].event_date).substring(0,10))
         });
 
         let currentDate = new Date()
