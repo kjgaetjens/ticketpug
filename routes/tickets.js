@@ -74,30 +74,83 @@ router.get('/eventinfo/:eventid', (req,res)=>{
             //res.render("event")
         })
 
-router.get('/eventinfo/:eventid/seatgroup', (req,res)=>{
-    res.render("seat")
-})
 
-router.post('/eventinfo/:eventid/seatgroup/:seatgroupid/:quantity', (req,res)=>{
-    res.redirect('./checkout') //will this actually work?
-})
 
-router.get('/eventinfo/:eventid/seatgroup/:seatgroupid/:quantity/checkout', (req,res)=>{
+//maybe remove and go straight from event to the next one
+router.get('/eventinfo/:eventid/:quantity/checkout', (req,res)=>{
     res.render("checkout")
 })
 
-router.get('/eventinfo/:eventid/seatgroup/:seatgroupid/:quantity/checkout/billing', (req,res)=>{
-    //need to generate the cost info and send it client side somehow
+router.post('/eventinfo/:eventid/:quantity/checkout', async (req,res)=>{
+    let userId = req.session.userid
+    let eventId = req.params.eventid
+    let ticketQuantity = Number(req.params.quantity)
+    let randomTicketPrice = Math.floor((Math.random()*250)+50)
+    let preTaxIndividual = randomTicketPrice
+    let preTaxTotal = randomTicketPrice * ticketQuantity
+    //add in tax caclulation if we have time
+    let postTaxTotal = preTaxTotal
+
+    //create payment row
+    let paymentinfoObj = await models.PaymentInfo.create({
+        user_id: userId
+    })
+
+    let createdPaymentinfoObjId = await paymentinfoObj.dataValues.id
+
+    //create order row 
+    let orderObj = await models.Order.create({
+        order_status: "created",
+        quantity_total: ticketQuantity,
+        pre_tax_total: preTaxTotal,
+        post_tax_total: postTaxTotal,
+        user_id: userId,
+        payment_info_id: createdPaymentinfoObjId 
+    })
+
+    let createdOrderObjId = await orderObj.dataValues.id
+
+    res.redirect(`./checkout/${createdOrderObjId}/billing`)
+})
+
+router.get('/eventinfo/:eventid/:quantity/checkout/:orderId/billing', async (req,res)=>{
     res.sendFile(rootdir + '/views/payment.html')
 })
 
-//concert-tickets/eventinfo/:eventid/seatgroup/:seatgroupid/:quantity/checkout
-router.post('/eventinfo/:eventid/seatgroup/:seatgroupid/:quantity/checkout/billing', async (req, res) => {
+router.get('/eventinfo/:eventid/:quantity/checkout/:orderId/billing/getorder', async (req,res)=>{
+    let orderId = req.params.orderId
+    let orderObj = await models.Order.findOne({
+        where: {
+            id: orderId
+        }
+    })
+    let checkoutObj = {
+        ticket_qty: orderObj.dataValues.quantity_total,
+        pre_tax_total: orderObj.dataValues.pre_tax_total,
+        post_tax_total: orderObj.dataValues.post_tax_total,
+        tax: orderObj.dataValues.post_tax_total - orderObj.dataValues.pre_tax_total
+    }
+    res.json(checkoutObj)
+})
+
+router.post('/eventinfo/:eventid/:quantity/checkout/:orderId/billing', async (req, res) => {
     let userId = req.session.userid
     let eventId = req.params.eventid
-    let seatGroupId = req.params.seatgroupid
-    let ticketQuantity = Number(req.params.quantity)
-    let paymentinfoId = 2
+    let orderId = req.params.orderId
+
+    let orderObj = await models.Order.findOne({
+        where: {
+            id: orderId
+        }
+    })
+
+    // let ticketQuantity = Number(req.params.quantity)
+    let ticketQuantity = orderObj.quantity_total
+    let preTaxTotal = orderObj.pre_tax_total
+    //add in tax caclulation if we have time
+    let postTaxTotal = orderObj.post_tax_total
+    let preTaxIndividual = preTaxTotal/ticketQuantity
+
     let eventApiObj = await axios.get(`https://app.ticketmaster.com/discovery/v2/events/${eventId}?apikey=GgkMBDROaaG6jddcy0k07d6GGEyYG4gE`)
     let eventName = eventApiObj.data.name
     let eventTime = eventApiObj.data.dates.start.localTime
@@ -105,30 +158,25 @@ router.post('/eventinfo/:eventid/seatgroup/:seatgroupid/:quantity/checkout/billi
     let eventDateTime = (new Date(eventDate + ':' + eventTime)).toLocaleString()
     let artistName = eventApiObj.data._embedded.attractions[0].name
     let venueName = eventApiObj.data._embedded.venues[0].name
-    let randomTicketPrice = Math.floor((Math.random()*250)+50)
-    let preTaxIndividual = randomTicketPrice
-    let preTaxTotal = randomTicketPrice * ticketQuantity
-    //add in tax caclulation if we have time
-    let postTaxTotal = preTaxTotal
 
-    //create order row 
-    let orderObj = await models.Order.create({
-        order_status: "processing",
-        quantity_total: ticketQuantity,
-        pre_tax_total: preTaxTotal,
-        post_tax_total: postTaxTotal,
-        user_id: userId,
-        payment_info_id: paymentinfoId 
-    })
 
-    let createdOrderObjId = await orderObj.dataValues.id
+    //update order row
+    let processOrder = await models.Order.update(
+        {
+            order_status: 'processing'
+        },
+        {
+            where: {id: orderId} 
+        }
+    )
 
     for(let i = 1; i <= ticketQuantity; i++) {
         //generate url
         let uniqueId = uuidv1()
         let qrCodeUrl = `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${uniqueId}`
-        //this seat isn't real either
-        let seat = seatGroupId+(i.toString())
+        //this seat isn't real
+        let seatGroup = 'A'
+        let seat = seatGroup+(i.toString())
 
         //create qrcode rows
         let qrObj = await models.QRCode.create({
@@ -144,11 +192,11 @@ router.post('/eventinfo/:eventid/seatgroup/:seatgroupid/:quantity/checkout/billi
             event_date: eventDateTime,
             artist_name: artistName,
             venue_name: venueName,
-            seat_group: seatGroupId,
+            seat_group: seatGroup,
             seat: seat,
             pre_tax: preTaxIndividual,
             ticket_status: 'purchased',
-            order_id: createdOrderObjId,
+            order_id: orderId,
             qr_code_id: createdQrObjId
         })
     }
@@ -159,15 +207,15 @@ router.post('/eventinfo/:eventid/seatgroup/:seatgroupid/:quantity/checkout/billi
             order_status: 'processed'
         },
         {
-            where: {id: createdOrderObjId} 
+            where: {id: orderId} 
         }
     )
     //send an email if time
-    res.redirect(`/concert-tickets/${createdOrderObjId}/confirmation`)
+    res.redirect(`/concert-tickets/${orderId}/confirmation`)
 })
 
-router.get('/:createdOrderObjId/confirmation', async (req,res)=>{
-    let orderId = req.params.createdOrderObjId
+router.get('/:orderId/confirmation', async (req,res)=>{
+    let orderId = req.params.orderId
     let orderObj = await models.Order.findOne({
         where: {
             id: orderId
