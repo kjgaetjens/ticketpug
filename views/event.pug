@@ -28,7 +28,7 @@ html
                     h1 #{event.name}
                     h2 #{event._embedded.venues[0].name}
                     h3 #{event.dates.start.localDate}
-                    img(src=`${event.images[0].url}`)
+                img(src=`${event.images[0].url}`)
             .search-div
                 form(method="GET" action="/search")
                     input(
@@ -38,12 +38,15 @@ html
                     )
                     button submit
         .bottom-container
-            .drop-down 
+            .flex-container
+                if event.priceRanges
+                    //-needs to link to tickets?? or list tickets
+                    p Tickets from #{event.priceRanges[0].min} 
                 if event.seatmap 
                     h3 Seatmap
-                    img(src=`${event.seatmap}`) 
-
-                p #{event.info}
+                    img(src=`${event.seatmap.staticUrl}`) 
+                if event.info
+                    p #{event.info}
             
     include includes/footer           
             
