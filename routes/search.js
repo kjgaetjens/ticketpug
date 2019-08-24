@@ -10,13 +10,13 @@ router.get('/', async (req,res)=>{
     let search= req.query.eventSearch
     
 
-    axios.get(`https://app.ticketmaster.com/discovery/v2/events?apikey=${apikey}&keyword=${search}&locale=en-us&classificationName=music`)
+    axios.get(`https://app.ticketmaster.com/discovery/v2/events?apikey=${apikey}&keyword=${search}&locale=*&classificationName=music&countryCode=US`)
     .then(response =>{
        let eventinfo =response.data._embedded.events
        console.log(eventinfo)
        
        res.render('search', {event: eventinfo, result: search})
-    })
+    }).catch(e=>res.render("search", {message: "No upcoming events in the U.S.", name: search}))
 
     })
 

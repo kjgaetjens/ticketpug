@@ -24,11 +24,11 @@ html
         include includes/navigation
         .top-banner
             #event-header
-                each event in eventinfo
-                    .event-name-venue
-                        h1 #{event.eventname}
-                        h2 #{event.venue}
-                    img(src=`${event.image}`)
+                .event-name-venue
+                    h1 #{event.name}
+                    h2 #{event._embedded.venues[0].name}
+                    h3 #{event.dates.start.localDate}
+                    img(src=`${event.images[0].url}`)
             .search-div
                 form(method="GET" action="/search")
                     input(
@@ -38,13 +38,12 @@ html
                     )
                     button submit
         .bottom-container
-            each event in eventinfo
-                .drop-down 
-                    if event.seatmap != "N/A"
-                        h3 Seatmap
-                        img(src=`${event.seatmap}`) 
+            .drop-down 
+                if event.seatmap 
+                    h3 Seatmap
+                    img(src=`${event.seatmap}`) 
 
-                    p #{event.info}
+                p #{event.info}
             
     include includes/footer           
             
