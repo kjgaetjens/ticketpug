@@ -23,9 +23,12 @@ html
     body
         include includes/navigation
         .top-banner
-            each event in eventinfo
-                h1 #{event.eventname}
-                h2 #{event.venue}
+            #event-header
+                each event in eventinfo
+                    .event-name-venue
+                        h1 #{event.eventname}
+                        h2 #{event.venue}
+                    img(src=`${event.image}`)
             .search-div
                 form(method="GET" action="/search")
                     input(
@@ -39,6 +42,8 @@ html
                 .drop-down 
                     h3 Seatmap
                     img(src=`${event.seatmap}`) 
+
+                    p #{event.info}
             
     include includes/footer           
             

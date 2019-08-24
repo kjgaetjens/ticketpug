@@ -1,3 +1,4 @@
+@import url("//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css");
 body{
     margin: 0;
     box-sizing: border-box;
@@ -27,25 +28,42 @@ a{
 
 /***TOP SIDE OF PAGE***/
 .top-banner{
-    background: linear-gradient(45deg, #1CB5E0 0%, #000851 100%);
-    /* linear-gradient(45deg, #1cb5e073 0%, #000851 100%),linear-gradient(20deg, #1cb5e0 20%, #000851 7%) */
+    /* background: linear-gradient(45deg, #1CB5E0 0%, #000851 100%); */
+    background: linear-gradient(45deg, #1cb5e073 0%, #000851 100%),linear-gradient(20deg, #1cb5e0 20%, #000851 7%);
     height: 50vh;
     background-size:cover;
     display: flex;
     align-items: center;
     justify-content: center;
     flex-direction:column;
+    padding:30px;
+    box-shadow: 0px 4px 33px rgba(0, 0, 0, 0.34);
     /* box-shadow: 6px -6px 20px 10px #999; */
     /* clip-path: polygon(0 0, 100% 0, 100% 68%, 0% 100%); */
 }
-.top-banner > h1 {
+.top-banner > h1, .event-name-venue > h1 {
     color:white;
-    font-size: 3em;
 }
-.top-banner > h2 {
-    color:#222;
+.top-banner > h2, .event-name-venue > h2 {
+    color:coral;
 }
-
+#event-header img{
+    border-radius:10px;
+    max-width: 400px;
+    border: 1px solid white;
+    box-shadow: 10px 10px white;
+}
+#event-header{
+    display:flex;
+    justify-content: space-around;
+    margin-bottom: 5%;
+    padding: 30px;
+    width: 100%;
+}
+.event-name-venue{
+    display:flex;
+    flex-direction: column;
+}
 .search-div{
     width: 40%;
 }
@@ -93,7 +111,7 @@ a{
 }
 .info-btn{
     padding:10px;
-    background-color: rgb(67, 199, 199);
+    background-color: #154381;
     color:white;
     border-radius:10px;
 }
@@ -102,7 +120,7 @@ a{
 }
 
 .info-btn:hover{
-    background-color: rgb(9, 88, 84);
+    background-color: #4880d0;
 }
 .event-info-div > p {
     color: #777;
