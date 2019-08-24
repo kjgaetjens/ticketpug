@@ -4,18 +4,32 @@ html
     body
         include includes/navigation
         .top-banner
-            p Search Results
+            h1 Search Results
+            if event
+                h2 "#{result}"
+            else 
+                h2 "#{name}"
+            .search-div
+                form(method="GET" action="/search")
+                    input(
+                        type='text'
+                        name='eventSearch'
+                        placeholder='New search...'
+                    )
+                    button submit
         .bottom-container
-            each val in event
-                .search-result-div
-                    .date-div
-                        p.date #{val.dates.start.localDate}
-                        p.time #{val.dates.start.localTime}
-                    .event-info-div
-                        h3 #{val.name}
-                        p #{val._embedded.venues[0].name}
-                        span #{val.info}
-                    .info-btn: a(href=`../concert-tickets/eventinfo/${val.id}`) Get more info
-                    
-            
+            if event
+                each val in event
+                    .search-result-div
+                        .date-div
+                            p.date #{val.dates.start.localDate}
+                            p.time #{val.dates.start.localTime}
+                        .event-info-div
+                            h3 #{val.name}
+                            p #{val._embedded.venues[0].name}
+                            span #{val.info}
+                        .info-btn: a(href=`../concert-tickets/eventinfo/${val.id}`) More info
+            else
+                h2= message
+    include includes/footer           
             

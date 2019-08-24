@@ -1,31 +1,52 @@
-extends layout.pug
-append topMenu
+//- extends layout.pug
+//- append topMenu
 //- append topContent
     //-event name goes here
 
 //- Seating chart ticket prices will go here
-block topContent
-        ul
-            each eventkey in eventinfo
-                form(action='/concert-tickets/like' method='post')
-                    li= 'Event: ' + eventkey.eventname
-                    li= 'Musician: ' + eventkey.musician
-                    li= 'Date: ' + eventkey.date
-                    li= 'Venue: ' + eventkey.venue
-                    li= 'Location: ' + eventkey.venuecity + ', ' +  eventkey.venuestate
-                    li= 'Genre: ' + eventkey.genre
-                    input(type="hidden" name="event_name" value=`${eventkey.eventname}`)
-                    input(type="hidden" name="venue_name" value=`${eventkey.venue}`)
-                    input(type="hidden" name="event_date" value=`${eventkey.date}`)
-                    input(type="hidden" name="event_id" value=`${eventkey.eventid}`)
-                    button(type='submit' class='like-button')
-                        i(class='fa fa-heart')
+//- block topContent
+//-         ul
+//-             each eventkey in eventinfo
+//-                 li= 'Event: ' + eventkey.eventname
+//-                 li= 'Musician: ' + eventkey.musician
+//-                 li= 'Date: ' + eventkey.date
+//-                 li= 'Venue: ' + eventkey.venue
+//-                 li= 'Location: ' + eventkey.venuecity + ', ' + eventkey.venuestate
+//-                 li= 'Genre: ' + eventkey.genre
 
-append bottomContent
-
-    block scripts
-        script(src='/js/client.js')
+//- append bottomContent
 
 
-
-
+html
+    head
+        link(rel='stylesheet', href='/css/events.css', type='text/css')
+    body
+        include includes/navigation
+        .top-banner
+            #event-header
+                .event-name-venue
+                    h1 #{event.name}
+                    h2 #{event._embedded.venues[0].name}
+                    h3 #{event.dates.start.localDate}
+                img(src=`${event.images[0].url}`)
+            .search-div
+                form(method="GET" action="/search")
+                    input(
+                        type='text'
+                        name='eventSearch'
+                        placeholder='New search...'
+                    )
+                    button submit
+        .bottom-container
+            .flex-container
+                if event.priceRanges
+                    //-needs to link to tickets?? or list tickets
+                    p Tickets from #{event.priceRanges[0].min} 
+                if event.seatmap 
+                    h3 Seatmap
+                    img(src=`${event.seatmap.staticUrl}`) 
+                if event.info
+                    p #{event.info}
+            
+    include includes/footer           
+            
