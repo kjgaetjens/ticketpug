@@ -13,9 +13,6 @@ block topContent
         a(href="/account/payment") Payment
 
 
-
-
-
 block bottomContent
     .profile
         .favoriteDiv
@@ -32,6 +29,7 @@ block bottomContent
                             p.noEvents No venue assigned
                         else
                             p Venue Name: #{favorite.venue_name}
+                            a(href=`../concert-tickets/eventinfo/${favorite.event_id}`) Get more info
                         input(type="hidden" name="event_id" value=`${favorite.event_id}`)
                         button(type='submit' class='delete-button')
                             i(class='fa fa-trash-o fa-2x')

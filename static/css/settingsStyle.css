@@ -137,6 +137,8 @@ a{
     flex-direction: row;
     justify-content: center;
     margin-bottom: 10vh;
+    text-align: center;
+
 }
 
 .favoriteDiv h2 {
