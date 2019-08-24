@@ -128,6 +128,12 @@ a{
 .event-info-div > h3{
     margin: 0;
 }
+
+.flex-container{
+    display:flex;
+    margin-top: 10%;
+    flex-direction: column;
+}
 /* 
 width: 96%;
 box-shadow: 15px 17px;
