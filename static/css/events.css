@@ -1,3 +1,4 @@
+@import url("//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css");
 body{
     margin: 0;
     box-sizing: border-box;
@@ -20,29 +21,84 @@ a{
     text-decoration:none;
     color:black;
 }
+.nav a:hover{
+    color:rgb(9, 88, 84);
+    font-weight: 800;
+}
+
 /***TOP SIDE OF PAGE***/
 .top-banner{
-    background: 
-    linear-gradient(-18deg, rgb(27, 22, 105) 50%, rgba(40, 13, 102)),
-    url('/images/background.jpeg');
-    height: 70vh;
+    background: linear-gradient(45deg, #1cb5e073 0%, #000851 100%),linear-gradient(20deg, #1cb5e0 20%, #000851 7%);
+    height: 50vh;
     background-size:cover;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction:column;
+    padding: 50px 30px 50px 30px;
+    box-shadow: 0px 4px 33px rgba(0, 0, 0, 0.34);
     /* box-shadow: 6px -6px 20px 10px #999; */
     /* clip-path: polygon(0 0, 100% 0, 100% 68%, 0% 100%); */
 }
-.top-banner > p {
+.top-banner > h1, .event-name-venue > h1 {
     color:white;
 }
+.top-banner > h2, .event-name-venue > h2 {
+    color:coral;
+}
+#event-header img{
+    border-radius:10px;
+    max-width: 400px;
+    border: 1px solid white;
+    box-shadow: 10px 10px white;
+}
+#event-header{
+    display:flex;
+    justify-content: space-around;
+    margin-bottom: 5%;
+    padding: 30px;
+    width: 100%;
+}
+.event-name-venue{
+    display:flex;
+    flex-direction: column;
+}
+.search-div{
+    width: 40%;
+}
+
+.search-div> form{
+    display:flex;
+    justify-content:center;
+}
+.search-div input {
+    outline: none;
+    padding: 10px;
+    border-radius: 10px;
+    border: 1px solid black;
+}
+
+.search-div button{
+    padding: 10px;
+    border-radius: 10px;
+    border: 1px solid black;
+}
+
+
+
+/***BOTTOM***/
 .bottom-container{
     display:flex;
     flex-direction: column;
-    
+    margin:0 auto;
+    width:90%;
 }
 .search-result-div{
     display: flex;
     align-items: center;
     justify-content: space-evenly;
     margin: 10px 0 10px 0;
+    border: 1px solid #777;
 }
 .event-info-div{
     display: flex;
@@ -50,20 +106,36 @@ a{
     width: 50%;
     justify-content: center;
     align-items:center;
+    padding: 10px;
 }
 .info-btn{
     padding:10px;
-    background-color: rgb(27, 22, 105);
+    background-color: #154381;
     color:white;
     border-radius:10px;
 }
 .info-btn > a{
     color: white;
 }
+
+.info-btn:hover{
+    background-color: #4880d0;
+}
 .event-info-div > p {
     color: #777;
+}
+.event-info-div > h3{
+    margin: 0;
+}
+
+.flex-container{
+    display:flex;
+    margin-top: 10%;
+    flex-direction: column;
 }
 /* 
 width: 96%;
 box-shadow: 15px 17px;
 margin: 10px auto; */
+
+
