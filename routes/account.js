@@ -29,7 +29,7 @@ router.get('/payment', (req,res)=>{
         })
 
 
-    res.render('payment', {payments: paymentInfo})    
+    res.render('payment', {payments: paymentInfo, username: req.session.username})    
     });
 
 
@@ -38,29 +38,13 @@ router.get('/payment', (req,res)=>{
 
 
 
-// router.get('/history', async (req,res)=>{
-
-//     let orders = await models.Order.findAll({
-        
-        
-//         where: {
-//             user_id: 3
-//         }
-//     })
-//     if(orders = {}){
-//         res.render("history", {orders: 'There are no orders to display'})
-//     }else{
-    
-//     res.render("history", {orders})
-//     }     
-
-// })
 
 router.get('/history', async(req, res)=> {
     user_id = req.session.userid
     models.Order.findAll({
         where: {
             user_id: user_id,
+            order_status: 'processed'
         },
         include:[
             {model: models.Ticket,
@@ -73,13 +57,18 @@ router.get('/history', async(req, res)=> {
         // loop through each order and create new view item
         orders.forEach(order => {
             ordersView.push({
-                //total: order.post_tax_total,
+                total: order.post_tax_total,
                 id: order.id,
-                eventName: order.Ticket[0].event_name,
+                eventName: order.Ticket[0].artist_name,
                 ticketCount: order.Ticket.length,
                 eventDate: order.Ticket[0].event_date,
-                newDate: Date.parse(order.Ticket[0].event_date)
+                newDate: Date.parse(order.Ticket[0].event_date),
+                event_date_format: (order.Ticket[0].event_date).substring(0,10),
+                purchased_date: order.processed_date,
+                
+
             })
+
         });
 
         let currentDate = new Date()
@@ -93,16 +82,19 @@ router.get('/history', async(req, res)=> {
         let currentOrders = ordersView.filter(function(orders){
             return (currentDate < orders.newDate);
         })
-        console.log(currentOrders)
-        console.log(pastTickets)
+
 
         //ordersView.filter(order => order.eventDate <= order.today);
         //console.log(pastTickets)
-    res.render('history', {orders: currentOrders, pastOrders: pastTickets})
+    res.render('history', {orders: currentOrders, pastOrders: pastTickets, username: req.session.username})
     })
     
     })
-    
+
+
+
+
+
 router.get('/favorites', async(req, res) => {
     user_id = req.session.userid
     models.Favorite.findAll({
@@ -119,10 +111,12 @@ router.get('/favorites', async(req, res) => {
                 event_name: favorite.event_name,
                 event_date: favorite.event_date,
                 venue_name: favorite.venue_name
+            
             })
         });
-        console.log(favoritesView)
-        res.render('favorites', {favorites: favoritesView})
+        //console.log(favorite.event_date)
+        
+        res.render('favorites', {favorites: favoritesView, username: req.session.username})
     })
 })
                 
@@ -141,126 +135,7 @@ router.post('/delete-favorite', async(req, res) => {
 })         
             
         
-        
-    
-        
 
-
-
-// router.get('/orderhistory', (req, res)=> {
-//     models.User.findAll({
-//         //where: {user_id: 3},
-//         include:[
-//             {model: models.Order,
-//             as: 'Order',
-//             include:[
-//                 {model: models.Ticket,
-//                 as: 'Ticket'}
-
-//             ]
-//             }
-//         ]
-//         }).then(users => {
-//         const resObj = users.map(user => {
-//             //tidy user data
-//             return Object.assign(
-//                 {},
-//                 {
-//                     user_id: user.id,
-//                     username: user.username,
-//                     orders: user.Order.map(order => {
-                        
-//                         //clean up order data
-//                         return Object.assign(
-//                             {},
-//                             {
-//                                 user_id: order.user_id,
-//                                 order_id: order.id,
-//                                 order_total: order.post_tax_total,
-//                                 tickets: order.Ticket.map(ticket => {
-
-//                                     //clean up ticket data
-//                                     return Object.assign(
-//                                         {},
-//                                         {
-//                                             order_id: ticket.order_id,
-//                                             event_name: ticket.event_name,
-//                                             seat_number: ticket.seat,
-//                                             event_date: ticket.event_date,
-//                                         }
-//                                     )
-//                                 })
-//                             }
-//                         )
-//                     }
-//                         )
-//                 }
-//             )
-//         })
-//         res.json(resObj)
-//         }) 
-        
-//     })
-
-// let tickets = models.Ticket.findAll({
-//     where: {
-//         order_id: 7,
-//     }
-// }).then((ticket) => console.log(ticket))
-
-
-
-
-// let qrcode = models.QRCode.build({
-//     url: 'https://randomqr.com/'
-// })
-// qrcode.save()
-
-
-// let ticket = models.Ticket.build({
-//     event_id: '123456',
-//     event_name: 'The Rolling Stones',
-//     event_date: '06-30-2019',
-//     artist_name: 'Beyonce',
-//     venue_name: 'NRG',
-//     seat_group: '1',
-//     seat: '11',
-//     class: '2',
-//     pre_tax: 50.04,
-//     ticket_status: 'Complete',
-//     qr_code_id: 1,
-//     order_id: 22,
-// })
-// ticket.save()
-
-
-// let order = models.Order.build({
-//     order_status: 'Complete',
-//     processed_date: '2019-06-23 00:14:16.334+00',
-//     quantity_total: 1,
-//     pre_tax_total: 50.05,
-//     post_tax_total: 75,
-//     payment_info_id: 2,
-//     user_id: 3,
-// })
-// order.save()
-
-// let payment = models.PaymentInfo.build({
-//     favorite: true,
-//     full_name: "John Doe",
-//     card_number: "12345",
-//     exp_month: 04,
-//     exp_year: 2023,
-//     cvv: 444,
-//     country: "USA",
-//     address1: '1234 Main St',
-//     address2: 'Apt 4',
-//     city: 'Houston',
-//     state: 'TX',
-//     zipcode: 77014,
-//     user_id: 3
-// })
-// payment.save()
 
 
 router.post('/delete-payment', (req, res) => {

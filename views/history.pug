@@ -1,17 +1,16 @@
 extends userLayout.pug
 
-append topMenu
-
+block topMenu
+    include includes/navigation
 block topContent
 
     .topContainer
         h1.settingTitle Account History    
     ul.accountMenu
         a.firstLink(href="/account") Settings
-        a(href="/account/payment") Payment
         a(href="/account/history") History
         a(href="/account/favorites") Favorites
-
+        a(href="/account/payment") Payment
 
 
 block bottomContent
@@ -21,9 +20,9 @@ block bottomContent
             h3.noEvents You have no upcoming events
         each order in orders
             .displayTickets
-                p Artist: #{order.eventName}
-                p Number of Tickets: #{order.ticketCount}
-                p Date: #{order.eventDate}
+                h3 #{order.eventName} 
+                p Tickets Purchased: #{order.ticketCount} | Date: #{order.date_format} | Order Total: $ #{order.total}
+                p.purchasedDate Purchased Date: #{order.purchased_date}                
 
     .ticketHistory
         h2 Past Events
@@ -31,6 +30,6 @@ block bottomContent
             h3.noEvents You have no past events
         each order in pastOrders
             .displayTickets
-                p Artist: #{order.eventName}
-                p Number of Tickets: #{order.ticketCount}
-                p Date: #{order.eventDate}
+                h3 #{order.eventName} 
+                p Tickets Purchased: #{order.ticketCount} | Event Date: #{order.event_date_format} | Order Total: $ #{order.total}
+                p.purchasedDate Purchased Date: #{order.purchased_date}
