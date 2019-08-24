@@ -1,32 +1,31 @@
-extends layout.pug
+extends userLayout.pug
 
 append topMenu
 
 block topContent
+
     .topContainer
-        h2 Account Settings 
-        ul
-            a(href="/account") Settings
-            a(href="/account/payment") Payment
-            a(href="/account/history") History
-         
+        h1.settingTitle Account Settings    
+    ul.accountMenu
+        a.firstLink(href="/account") Settings
+        a(href="/account/payment") Payment
+        a(href="/account/history") History
+        a(href="/account/favorites") Favorites
+
+
 block bottomContent
     .payment
         h2 Payment Method
 
         h3 Update Billing Address
 
-        h3 Delete Payment
         form(action='/account/delete-payment', method='post')
             div Stored Payment Info
                 each payment in payments
                     .displayPayment
                         p Full Name:
                         p=payment.full_name
-                        div
-                            span= payment.exp_month 
-                            span /
-                            span=payment.exp_year
+                        span #{payment.exp_month}/ #{payment.exp_year}
                         input(type="hidden" value=`${user_id}` name="paymentInfo")
                         button(type='delete') Delete
 
