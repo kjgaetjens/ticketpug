@@ -1,22 +1,3 @@
-//- extends layout.pug
-//- append topMenu
-//- append topContent
-    //-event name goes here
-
-//- Seating chart ticket prices will go here
-//- block topContent
-//-         ul
-//-             each eventkey in eventinfo
-//-                 li= 'Event: ' + eventkey.eventname
-//-                 li= 'Musician: ' + eventkey.musician
-//-                 li= 'Date: ' + eventkey.date
-//-                 li= 'Venue: ' + eventkey.venue
-//-                 li= 'Location: ' + eventkey.venuecity + ', ' + eventkey.venuestate
-//-                 li= 'Genre: ' + eventkey.genre
-
-//- append bottomContent
-
-
 html
     head
         link(rel='stylesheet', href='/css/events.css', type='text/css')
@@ -38,15 +19,24 @@ html
                     )
                     button submit
         .bottom-container
-            .flex-container
-                if event.priceRanges
-                    //-needs to link to tickets?? or list tickets
-                    p Tickets from #{event.priceRanges[0].min} 
-                if event.seatmap 
-                    h3 Seatmap
-                    img(src=`${event.seatmap.staticUrl}`) 
-                if event.info
-                    p #{event.info}
+            .event-container
+                .tickets-container
+                    if event.priceRanges
+                        each price in prices
+                            .ticket-price
+                                .price $#{price.toFixed(2)}
+                                .quantity-div Qty: 
+                                    input(type='text' placeholder='2')
+                                .info-btn Checkout
+                #zoomin +
+                #zoomout -
+                .seatmap-container
+                    if event.seatmap 
+                        img(id = 'img' src=`${event.seatmap.staticUrl}`) 
+                //- if event.info
+                //-     p #{event.info}
             
-    include includes/footer           
-            
+    include includes/footer  
+
+script(src="/js/event.js")
+    

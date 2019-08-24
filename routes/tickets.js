@@ -47,8 +47,18 @@ router.get('/eventinfo/:eventid', (req,res)=>{
     let eventid = req.params.eventid
     axios.get(`https://app.ticketmaster.com/discovery/v2/events/${eventid}?apikey=${apikey}&locale=en-us`)
         .then(response=>{
+            let price=(min, max)=>{
+                return Math.random() * (max-min) + min
+            }
             let eventinfo = response.data
-            res.render('event', {event:eventinfo})
+            let min = response.data.priceRanges[0].min
+            let max = response.data.priceRanges[0].max
+            let randomPrices = []
+            for(let i= 0; i<21; i++){
+                randomPrices.push(price(min, max))
+            }
+            console.log(randomPrices)
+            res.render('event', {event:eventinfo, prices: randomPrices})
         }).catch(e=>console.log(e))
 })
 
