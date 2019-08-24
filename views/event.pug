@@ -40,8 +40,9 @@ html
         .bottom-container
             each event in eventinfo
                 .drop-down 
-                    h3 Seatmap
-                    img(src=`${event.seatmap}`) 
+                    if event.seatmap != "N/A"
+                        h3 Seatmap
+                        img(src=`${event.seatmap}`) 
 
                     p #{event.info}
             
