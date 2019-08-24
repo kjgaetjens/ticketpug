@@ -1,16 +1,12 @@
-extends layout.pug
+include includes/navigation.pug
 
-append topMenu
-
-block topContent
-    #index-search-container         
-    .title
-        include includes/venuesmenu
-block bottomContent
-        .info-container
-            each val, index in event
-                .event-div
-                    h3= val.eventname
-                    p= val.musician
-                    p= val.date
-                    button more info
+    each val in event
+        .search-result-div
+            .date-div
+                p.date #{val.dates.start.localDate}
+                p.time #{val.dates.start.localTime}
+            .event.info-div
+                h3 #{val.name}
+                p #{val._embedded.venues[0].name}
+                p #{val.info}
+            a(href=`../concert-tickets/eventinfo/${val.id}`) Get more info

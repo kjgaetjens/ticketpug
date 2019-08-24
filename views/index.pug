@@ -1,42 +1,39 @@
-extends layout.pug
 
+head
+    link(rel='stylesheet', href='./css/style.css', type='text/css')
 
 append topMenu
     #index-search-container         
-    .title
-        h1 Welcome to Ticket Sales
-        p Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed dignissim lectus neque, at facilisis quam rutrum ut. Morbi varius velit lacus, eget facilisis orci porta nec
-        input(
-            type='text'
-            name='search'
-            placeholder='search for...'
-        )
-        button submit
+        div.topTitle
+            h1 Welcome to Ticket Sales
+        div.topSearch
+            #index-search-container        
+            form(method="GET" action="/search")
+                input(
+                    type='text'
+                    name='eventSearch'
+                    placeholder='Search'
+                )
+                button submit
         //- Registration and login will be put into modals
         h2 Registration
         form(method="POST" action="/register")
-            input(type="text" name="username")
-            input(type="password" name="password")
+            input(type="text" name="username" placeholder="username")
+            input(type="password" name="password" placeholder="password")
             button submit
             span= message
 
         h2 Login
             form(method="POST" action="/login")
-                input(type="text" name="username")
-                input(type="password" name="password")
+                input(type="text" name="username" placeholder="username")
+                input(type="password" name="password" placeholder="password")
                 button submit
                 span= message
         
 
-//- append bottomContent
-//-     h1= events
-//-     .genre-container
-//-         each val, index in event
-//-             .genre-div
-//-                 a(href=`./venues/${val.venueid}/details`)= val.venue
-
-
-
-
-//- will change to add each genre from api!!!!
-
+append bottomContent
+    h1= events
+    .genre-container
+        each val, index in event
+            .genre-div
+                a(href=`./venues/${val.venueid}/details`)= val.venue

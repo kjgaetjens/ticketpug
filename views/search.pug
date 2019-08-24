@@ -1,0 +1,21 @@
+html
+    head
+        link(rel='stylesheet', href='./css/events.css', type='text/css')
+    body
+        include includes/navigation
+        .top-banner
+            p Search Results
+        .bottom-container
+            each val in event
+                .search-result-div
+                    .date-div
+                        p.date #{val.dates.start.localDate}
+                        p.time #{val.dates.start.localTime}
+                    .event-info-div
+                        h3 #{val.name}
+                        p #{val._embedded.venues[0].name}
+                        span #{val.info}
+                    .info-btn: a(href=`../concert-tickets/eventinfo/${val.id}`) Get more info
+                    
+            
+            

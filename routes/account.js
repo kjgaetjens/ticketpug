@@ -3,12 +3,16 @@ const router = express.Router()
 const models = require('../models')
 
 router.get('/', (req,res)=>{
+    let user_id = req.session.userid
+    models.User.findByPk(user_id)
+    .then((user) => {
 
-    res.render("settings", {username: 'Welcome Username!'})
+    res.render("settings", {username: req.session.username})
+})
 })
 
 router.get('/payment', (req,res)=>{
-    user_id = 3
+    user_id = req.session.userid
     models.PaymentInfo.findAll({
         where:{
             user_id: user_id,
@@ -53,7 +57,7 @@ router.get('/payment', (req,res)=>{
 // })
 
 router.get('/history', async(req, res)=> {
-    user_id = 3
+    user_id = req.session.userid
     models.Order.findAll({
         where: {
             user_id: user_id,
@@ -69,31 +73,72 @@ router.get('/history', async(req, res)=> {
         // loop through each order and create new view item
         orders.forEach(order => {
             ordersView.push({
-                total: order.post_tax_total,
+                //total: order.post_tax_total,
                 id: order.id,
                 eventName: order.Ticket[0].event_name,
                 ticketCount: order.Ticket.length,
                 eventDate: order.Ticket[0].event_date,
+                newDate: Date.parse(order.Ticket[0].event_date)
             })
         });
 
-        //res.render('history', {orders: ordersView,})
+        let currentDate = new Date()
+        currentDate = Date.parse(currentDate)
+
 
         let pastTickets = ordersView.filter(function(orders){
-            return (orders.eventDate < new Date());
+            return (orders.newDate < currentDate);
         })
-        console.log(new Date())
-        //ordersView.filter(order => order.eventDate <= order.today);
+
+        let currentOrders = ordersView.filter(function(orders){
+            return (currentDate < orders.newDate);
+        })
+        console.log(currentOrders)
         console.log(pastTickets)
-        res.render('history', {
-            orders: ordersView,
-            //pastOrders: pastTickets
-        })
+
+        //ordersView.filter(order => order.eventDate <= order.today);
+        //console.log(pastTickets)
+    res.render('history', {orders: currentOrders, pastOrders: pastTickets})
+    })
+    
+    })
+    
+router.get('/favorites', async(req, res) => {
+    user_id = req.session.userid
+    models.Favorite.findAll({
+
+        where:{
+            user_id: user_id,
+        }
+    }).then(favorites => {
+        let favoritesView = []
+
+        favorites.forEach(favorite => {
+            favoritesView.push({
+                event_id: favorite.event_id,
+                event_name: favorite.event_name,
+                event_date: favorite.event_date,
+                venue_name: favorite.venue_name
+            })
+        });
+        console.log(favoritesView)
+        res.render('favorites', {favorites: favoritesView})
     })
 })
-
                 
-         
+router.post('/delete-favorite', async(req, res) => {
+    user_id = req.session.userid
+    event_id = req.body.event_id
+    models.Favorite.destroy({
+        where: {
+            user_id: user_id,
+            event_id: event_id
+        }
+
+    }).then(result => console.log(result))
+
+    res.redirect('back') 
+})         
             
         
         
@@ -242,7 +287,7 @@ router.post('/add-payment', async (req, res) => {
 	let city = req.body.city
 	let state = req.body.state
 	let zipcode = parseInt(req.body.zipcode)
-    let user_id = req.session.user.userid
+    let user_id = req.session.userid
     let country = req.body.country
 
 	let payment = models.Payment.build({
