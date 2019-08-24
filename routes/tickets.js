@@ -47,7 +47,7 @@ router.get('/eventinfo/:eventid', (req,res)=>{
     let eventid = req.params.eventid
     axios.get(`https://app.ticketmaster.com/discovery/v2/events/${eventid}?apikey=${apikey}&locale=en-us`)
         .then(response=>{
-            let price=(min, max)=>{
+            const price=(min, max)=>{
                 return Math.random() * (max-min) + min
             }
             let eventinfo = response.data
@@ -62,21 +62,17 @@ router.get('/eventinfo/:eventid', (req,res)=>{
         }).catch(e=>console.log(e))
 })
 
-
-
-
-//maybe remove and go straight from event to the next one
-router.get('/eventinfo/:eventid/:quantity/checkout', (req,res)=>{
-    res.render("checkout")
+//this .get is just used for testing the rest of the checkout process. you delete it and have the form submit on eventinfo/:eventid post directly to the checkout below
+router.get('/eventinfo/:eventid/checkout', async (req,res)=>{
+    res.render('checkout')
 })
 
-router.post('/eventinfo/:eventid/:quantity/checkout', async (req,res)=>{
+router.post('/eventinfo/:eventid/checkout', async (req,res)=>{
     let userId = req.session.userid
     let eventId = req.params.eventid
-    let ticketQuantity = Number(req.params.quantity)
-    let randomTicketPrice = Math.floor((Math.random()*250)+50)
-    let preTaxIndividual = randomTicketPrice
-    let preTaxTotal = randomTicketPrice * ticketQuantity
+    let ticketQuantity = req.body.quantity
+    let preTaxIndividual = req.body.price
+    let preTaxTotal = preTaxIndividual * ticketQuantity
     //add in tax caclulation if we have time
     let postTaxTotal = preTaxTotal
 
@@ -102,11 +98,11 @@ router.post('/eventinfo/:eventid/:quantity/checkout', async (req,res)=>{
     res.redirect(`./checkout/${createdOrderObjId}/billing`)
 })
 
-router.get('/eventinfo/:eventid/:quantity/checkout/:orderId/billing', async (req,res)=>{
+router.get('/eventinfo/:eventid/checkout/:orderId/billing', async (req,res)=>{
     res.sendFile(rootdir + '/views/payment.html')
 })
 
-router.get('/eventinfo/:eventid/:quantity/checkout/:orderId/billing/getorder', async (req,res)=>{
+router.get('/eventinfo/:eventid/checkout/:orderId/billing/getorder', async (req,res)=>{
     let orderId = req.params.orderId
     let orderObj = await models.Order.findOne({
         where: {
@@ -122,7 +118,7 @@ router.get('/eventinfo/:eventid/:quantity/checkout/:orderId/billing/getorder', a
     res.json(checkoutObj)
 })
 
-router.post('/eventinfo/:eventid/:quantity/checkout/:orderId/billing', async (req, res) => {
+router.post('/eventinfo/:eventid/checkout/:orderId/billing', async (req, res) => {
     let userId = req.session.userid
     let eventId = req.params.eventid
     let orderId = req.params.orderId
