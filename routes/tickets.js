@@ -66,7 +66,6 @@ router.get('/eventinfo/:eventid', (req,res)=>{
                     randomPrices.push(price(min, max))
                 }
             }
-            console.log(randomPrices)
             res.render('event', {event:eventinfo, prices: randomPrices})
         }).catch(e=>console.log(e))
 })
@@ -86,6 +85,17 @@ router.get('/eventinfo/:eventid/checkout/:price/:quantity', async (req,res)=>{
     //add in tax caclulation if we have time
     let postTaxTotal = preTaxTotal
 
+    let eventApiObj = await axios.get(`https://app.ticketmaster.com/discovery/v2/events/${eventId}?apikey=GgkMBDROaaG6jddcy0k07d6GGEyYG4gE`)
+    let eventName = eventApiObj.data.name
+    let eventTime = eventApiObj.data.dates.start.localTime
+    let eventDate = eventApiObj.data.dates.start.localDate
+    let eventDateTime = (new Date(eventDate + ':' + eventTime)).toLocaleString()
+    let artistName = eventApiObj.data._embedded.attractions[0].name
+    let venueName = eventApiObj.data._embedded.venues[0].name
+    let seatGroupChoices = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+    let seatGroupRandom = Math.floor(Math.random()*26)
+    let seatGroup = seatGroupChoices.substring(seatGroupRandom, seatGroupRandom+1)
+
     //create payment row
     let paymentinfoObj = await models.PaymentInfo.create({
         user_id: userId
@@ -104,6 +114,36 @@ router.get('/eventinfo/:eventid/checkout/:price/:quantity', async (req,res)=>{
     })
 
     let createdOrderObjId = await orderObj.dataValues.id
+
+    for(let i = 1; i <= ticketQuantity; i++) {
+        //generate url
+        let uniqueId = uuidv1()
+        let qrCodeUrl = `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${uniqueId}`
+        //this seat isn't real
+        let seat = seatGroup+(i.toString())
+
+        //create qrcode rows
+        let qrObj = await models.QRCode.create({
+            url: qrCodeUrl
+        })
+
+        let createdQrObjId = await qrObj.dataValues.id
+        
+        //create ticket rows
+        let ticketObj = await models.Ticket.create({
+            event_id: eventId,
+            event_name: eventName,
+            event_date: eventDateTime,
+            artist_name: artistName,
+            venue_name: venueName,
+            seat_group: seatGroup,
+            seat: seat,
+            pre_tax: preTaxIndividual,
+            ticket_status: 'created',
+            order_id: createdOrderObjId,
+            qr_code_id: createdQrObjId
+        })
+    }
 
     res.redirect(`./${ticketQuantity}/${createdOrderObjId}/billing`)
 })
@@ -165,36 +205,15 @@ router.post('/eventinfo/:eventid/checkout/:price/:quantity/:orderId/billing', as
         }
     )
 
-    for(let i = 1; i <= ticketQuantity; i++) {
-        //generate url
-        let uniqueId = uuidv1()
-        let qrCodeUrl = `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${uniqueId}`
-        //this seat isn't real
-        let seatGroup = 'A'
-        let seat = seatGroup+(i.toString())
-
-        //create qrcode rows
-        let qrObj = await models.QRCode.create({
-            url: qrCodeUrl
-        })
-
-        let createdQrObjId = await qrObj.dataValues.id
-        
-        //create ticket rows
-        let ticketObj = await models.Ticket.create({
-            event_id: eventId,
-            event_name: eventName,
-            event_date: eventDateTime,
-            artist_name: artistName,
-            venue_name: venueName,
-            seat_group: seatGroup,
-            seat: seat,
-            pre_tax: preTaxIndividual,
-            ticket_status: 'purchased',
-            order_id: orderId,
-            qr_code_id: createdQrObjId
-        })
-    }
+    //update ticket rows
+    let processTickets = await models.Ticket.update(
+        {
+            ticket_status: 'purchased'
+        },
+        {
+            where: {order_id: orderId} 
+        }
+    )
 
     //update order row
     let processedOrder = await models.Order.update(

@@ -1,3 +1,12 @@
+.confirmation-container .order-summary, .event-details, .order-details{
+    margin-bottom: 3vh;
+}
+
+.event-details h3, .event-details h4 {
+    margin-top: 0;
+    margin-bottom: 1vh;
+}
+
 .order-details {
     display: flex;
 }
@@ -5,10 +14,15 @@
 .order-column {
     display: flex;
     flex-direction: column;
+    margin-right: 4em;
 }
 
 .order-column h4 {
     margin: 0;
+}
+
+.order-column .header h4 {
+    margin-bottom: 1vh;
 }
 
 .order-column .details h4 {
