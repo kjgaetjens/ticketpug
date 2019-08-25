@@ -3,6 +3,7 @@ html
         link(rel='stylesheet', href='/css/events.css', type='text/css')
     body
         include includes/navigation
+        include includes/login
         .top-banner
             #event-header
                 .event-name-venue
@@ -22,7 +23,6 @@ html
             .event-container
                 .tickets-container
                     each price in prices
-                        
                         .ticket-price
                             .price $#{price.toFixed(2)}
                             .quantity-div Qty: 
@@ -40,4 +40,4 @@ html
     include includes/footer  
 
 script(src="/js/event.js")
-    
+script(src="/js/modal.js")
