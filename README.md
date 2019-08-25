@@ -27,10 +27,13 @@ Technologies
   * Axios
 
 
-### Launch
+Launch
 ------
 
 TicketPug can be accessed at the following url:
+
+Authors
+______
 
 
 
