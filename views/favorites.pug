@@ -6,11 +6,14 @@ block topContent
 
     .topContainer
         h1.settingTitle Favorites    
-    ul.accountMenu
+    ul(class="accountMenu" id="accountMenu")
         a.firstLink(href="/account") Settings
         a(href="/account/history") History
-        a(href="/account/favorites") Favorites
+        a(href="/account/favorites" class="active") Favorites
         a(href="/account/payment") Payment
+        a(href="javascript:void(0);" class="menuIcon" onclick="myFunction()")
+            i(class="fa fa-bars")
+
 
 
 block bottomContent
@@ -19,11 +22,10 @@ block bottomContent
             h2 Favorites
             each favorite in favorites
                 .favoriteDisplay
-                    i(class='fa fa-heart fa-2x')
                     form(action='/account/delete-favorite' class="formClass" method='post')
                     
                         
-                        p #{favorite.event_name}
+                        h3 #{favorite.event_name}
                         p Event Date: #{favorite.event_date}
                         if favorite.venue_name == 'undefined'
                             p.noEvents No venue assigned
@@ -34,4 +36,7 @@ block bottomContent
                         button(type='submit' class='delete-button')
                             i(class='fa fa-trash-o fa-2x')
 
-    
+
+block script
+    script(src="/js/menuToggle.js")
+        
