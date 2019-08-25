@@ -1,23 +1,45 @@
-extends layout.pug
+html
+    head
+        link(rel='stylesheet', href='/css/events.css', type='text/css')
+        link(rel='stylesheet', href='/css/confirmation.css', type='text/css')
+    body
+        include includes/navigation
 
-append topMenu
+        .confirmation-container
+            .banner
+            .order-summary
+            h2 Order Confirmation Number: #{confirmation.id}
+            p Thank you for purchasing tickets through StubPug. This is confirmation that your order has been processed. Please print and retain a copy for your records. Your tickets will be mailed to #{confirmation.username}
+            br
+            .event-details
+                h3 #{confirmation.event_name}
+                if confirmation.event_name != confirmation.artist_name
+                    h4 Artist: #{confirmation.artist_name}
+                h4 Location: #{confirmation.venue_name}
+                h4 Date: #{(confirmation.event_date)}
+            br
+            .order-details
+                .order-column
+                    .header
+                        h4 Item
+                    .details
+                        h4 #{confirmation.event_name} Ticket
+                .order-column
+                    .header
+                        h4 Price
+                    .details
+                        h4 $#{confirmation.ticket_price}
+                .order-column
+                    .header
+                        h4 Quantity
+                    .details
+                        h4 #{confirmation.ticket_qty}
+                .order-column
+                    .header
+                        h4 Total Price
+                    .details
+                        h4 $#{confirmation.post_tax_total}
 
-block topContent        
-    .confirmationContainer
-        h1 Order Confirmation
-        span Your tickets will be mailed to #{confirmation.username}
-        br
-        .eventDetails
-            h2 #{confirmation.event_name}
-            h4 Location: #{confirmation.venue_name}
-            h4 Date: #{(confirmation.event_date)}
-            h4 #{confirmation.ticket_qty} Tickets
-        br
-        .orderDetails
-            h3 Order ##{confirmation.id}
-            h3 Status: #{confirmation.status}
-            h4 Total Price: $#{confirmation.post_tax_total}
-            span $#{confirmation.ticket_price} x #{confirmation.ticket_qty} = $#{confirmation.ticket_price * confirmation.ticket_qty}
-            //- should include tax caclulation once functional
-
-append bottomContent
+        include includes/footer
+        
+        //- http://localhost:3000/concert-tickets/61/confirmation
