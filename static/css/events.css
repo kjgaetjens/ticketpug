@@ -1,4 +1,4 @@
-@import url("//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css");
+
 body{
     margin: 0;
     box-sizing: border-box;
@@ -59,6 +59,15 @@ a{
     padding: 30px;
     width: 100%;
 }
+
+#event-header ul{
+    margin:0;
+    padding: 0;
+}
+#event-header li{
+    display: inline;
+
+}
 .event-name-venue{
     display: flex;
     flex-direction: column;
@@ -102,6 +111,8 @@ a{
     justify-content: space-evenly;
     margin: 10px 0 10px 0;
     border: 1px solid #777;
+    background-color:white;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.34);
 }
 .event-info-div{
     display: flex;
@@ -150,13 +161,23 @@ a{
 
 .ticket-price{
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
     padding: 30px;
     border-top: 1px solid #777;
+}
+select{
+    margin-right:30%;
+}
+.ticket-price form{
+    display:flex;
+
 }
 
 .seatmap-container{
     overflow: scroll;
+    width:40%;
+    display: flex;
+    align-items: center;
 }
 #img{
     transform: scale(0.5);
@@ -179,3 +200,15 @@ box-shadow: 15px 17px;
 margin: 10px auto; */
 
 
+/****venues****/
+
+.top-container{
+    background-color: white;
+    padding:10px;
+    box-shadow: 0px 4px 33px rgba(0, 0, 0, 0.34);
+}
+.top-container ul li{
+    display:inline;
+    padding: 20px;
+
+}
