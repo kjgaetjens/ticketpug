@@ -1,35 +1,34 @@
-extends layout.pug
+html
+    include includes/head 
+        link(rel='stylesheet', href='/css/events.css', type='text/css')
+    body
+        include includes/navigation
+        include includes/login
+        .top-banner
+            include includes/venueshead
+            
+        .bottom-container
+            .info-container
+                if venue.boxOfficeInfo
+                    h2 Phone Number
+                    p #{venue.boxOfficeInfo.phoneNumberDetail}
+                    h2 Box Office Hours
+                    p #{venue.boxOfficeInfo.openHoursDetail}
+                    h2 Accepted Payments
+                    p #{venue.boxOfficeInfo.acceptedPaymentDetail}
+                if venue.parkingDetail
+                    h2 Parking
+                    p #{venue.parkingDetail}
+                if venue.generalInfo
+                    h2 General Rules
+                    p #{venue.generalInfo.generalRule}
+                    h2 Children Rules
+                    p #{venue.generalInfo.childRule}
+                if venue.accessibleSeatingDetail
+                    h2 Accessible Seating
+                    p #{venue.accessibleSeatingDetail}
+            
+    include includes/footer  
 
-append topMenu
-
-block topContent      
-        include includes/venuesmenu
-block bottomContent
-    .info-container
-        if venue.images
-            img(src=`${venue.images[0].url}`)
-        h2 Address
-        p #{venue.address.line1}
-        span #{venue.city.name}, 
-        span #{venue.state.stateCode}
-        if venue.boxOfficeInfo
-            h2 Phone Number
-            p #{venue.boxOfficeInfo.phoneNumberDetail}
-            h2 Box Office Hours
-            p #{venue.boxOfficeInfo.openHoursDetail}
-            h2 Accepted Payments
-            p #{venue.boxOfficeInfo.acceptedPaymentDetail}
-        if venue.parkingDetail
-            h2 Parking
-            p #{venue.parkingDetail}
-        if venue.generalInfo
-            h2 General Rules
-            p #{venue.generalInfo.generalRule}
-            h2 Children Rules
-            p #{venue.generalInfo.childRule}
-        if venue.accessibleSeatingDetail
-            h2 Accessible Seating
-            p #{venue.accessibleSeatingDetail}
-//- each val, index in event
-//-             .genre-div
-//-                 a(href=`/genre/${val.genreid}`)= val.genre
+script(src="/js/event.js")
+script(src="/js/modal.js")
