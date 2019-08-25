@@ -62,6 +62,12 @@ router.get('/eventinfo/:eventid', (req,res)=>{
         }).catch(e=>console.log(e))
 })
 
+router.post('/eventinfo/:eventid/checkout/:price', (req,res) => {
+    let price = req.params.price
+    let quantity = req.body.ticketQuantity
+    res.redirect(`./${price}/${quantity}`)
+})
+
 router.get('/eventinfo/:eventid/checkout/:price/:quantity', async (req,res)=>{
     let userId = req.session.userid
     let eventId = req.params.eventid
