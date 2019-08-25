@@ -1,17 +1,16 @@
 extends userLayout.pug
 
-append topMenu
-
+block topMenu
+    include includes/navigation
 block topContent
 
     .topContainer
-        h1.settingTitle Account Settings    
+        h1.settingTitle Payment Info    
     ul.accountMenu
         a.firstLink(href="/account") Settings
-        a(href="/account/payment") Payment
         a(href="/account/history") History
         a(href="/account/favorites") Favorites
-
+        a(href="/account/payment") Payment
 
 block bottomContent
     .payment

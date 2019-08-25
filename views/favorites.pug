@@ -1,33 +1,37 @@
 extends userLayout.pug
 
-append topMenu
-
+block topMenu
+    include includes/navigation
 block topContent
 
     .topContainer
         h1.settingTitle Favorites    
     ul.accountMenu
         a.firstLink(href="/account") Settings
-        a(href="/account/payment") Payment
         a(href="/account/history") History
         a(href="/account/favorites") Favorites
-
-
-
+        a(href="/account/payment") Payment
 
 
 block bottomContent
     .profile
-        h2 Favorites
-        each favorite in favorites
-            .favoriteDisplay
-            form(action='/account/delete-favorite' method='post')
-                i(class='fa fa-heart' style={color: 'red'})
-                p #{favorite.event_name}
-                p #{favorite.event_date}
-                p #{favorite.venue_name}
-                input(type="hidden" name="event_id" value=`${favorite.event_id}`)
-                button(type='submit' class='delete-button')
-                    i(class='fa fa-trash-o')
+        .favoriteDiv
+            h2 Favorites
+            each favorite in favorites
+                .favoriteDisplay
+                    i(class='fa fa-heart fa-2x')
+                    form(action='/account/delete-favorite' class="formClass" method='post')
+                    
+                        
+                        p #{favorite.event_name}
+                        p Event Date: #{favorite.event_date}
+                        if favorite.venue_name == 'undefined'
+                            p.noEvents No venue assigned
+                        else
+                            p Venue Name: #{favorite.venue_name}
+                            a(href=`../concert-tickets/eventinfo/${favorite.event_id}`) Get more info
+                        input(type="hidden" name="event_id" value=`${favorite.event_id}`)
+                        button(type='submit' class='delete-button')
+                            i(class='fa fa-trash-o fa-2x')
 
     
