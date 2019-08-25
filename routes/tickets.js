@@ -159,6 +159,7 @@ router.get('/eventinfo/:eventid/checkout/:price/:quantity/:orderId/billing/getor
             id: orderId
         }
     })
+    //add code here to send the additional information that i want to display on the credit card page
     let checkoutObj = {
         ticket_qty: orderObj.dataValues.quantity_total,
         pre_tax_total: orderObj.dataValues.pre_tax_total,
@@ -170,8 +171,10 @@ router.get('/eventinfo/:eventid/checkout/:price/:quantity/:orderId/billing/getor
 
 router.post('/eventinfo/:eventid/checkout/:price/:quantity/:orderId/billing', async (req, res) => {
     let userId = req.session.userid
-    let eventId = req.params.eventid
     let orderId = req.params.orderId
+    //make sure I can actually pull these
+    let orderEmail = req.body.orderEmail
+    let orderPhone = req.body.orderPhone
 
     let orderObj = await models.Order.findOne({
         where: {
@@ -179,26 +182,12 @@ router.post('/eventinfo/:eventid/checkout/:price/:quantity/:orderId/billing', as
         }
     })
 
-    // let ticketQuantity = Number(req.params.quantity)
-    let ticketQuantity = orderObj.quantity_total
-    let preTaxTotal = orderObj.pre_tax_total
-    //add in tax caclulation if we have time
-    let postTaxTotal = orderObj.post_tax_total
-    let preTaxIndividual = preTaxTotal/ticketQuantity
-
-    let eventApiObj = await axios.get(`https://app.ticketmaster.com/discovery/v2/events/${eventId}?apikey=GgkMBDROaaG6jddcy0k07d6GGEyYG4gE`)
-    let eventName = eventApiObj.data.name
-    let eventTime = eventApiObj.data.dates.start.localTime
-    let eventDate = eventApiObj.data.dates.start.localDate
-    let eventDateTime = (new Date(eventDate + ':' + eventTime)).toLocaleString()
-    let artistName = eventApiObj.data._embedded.attractions[0].name
-    let venueName = eventApiObj.data._embedded.venues[0].name
-
-
     //update order row
     let processOrder = await models.Order.update(
         {
-            order_status: 'processing'
+            order_status: 'processing',
+            order_email: orderEmail,
+            order_phone: orderPhone
         },
         {
             where: {id: orderId} 
@@ -240,7 +229,7 @@ router.get('/eventinfo/:eventid/checkout/:price/:quantity/:orderId/confirmation'
         ]
     })
     let confirmationObj = {
-        username: req.session.username,
+        email: orderObj.order_email,
         id: orderObj.id,
         status: orderObj.order_status,
         event_name: orderObj.Ticket[0].event_name,
