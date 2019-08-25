@@ -1,64 +1,4 @@
-body {
-    margin: 0px;
-    font-family:arial;
-}
-ul{
-    margin:0;
-}
-
-.nav {
-    display: flex;
-    justify-content: space-between;
-    padding:20px; 
-    background-color:white;
-}
-#menu-nav{
-    display:flex; 
-}
-.nav span{
-    margin: 0 20px 0 20px;
-}
-a{
-    text-decoration:none;
-    color:black;
-}
-
-.topDash {
-    background: url('concert.jpeg');
-    background-size: 100%;
-    height: 45vh;
-    background-position: center;
-    color: white;
-}
-
-.topMenu {
-    font-size: 20px;
-    align-content: center;
-}
-.topMenu>a{
-    padding-left: 10vw;
-}
-.topMenu a:link {
-    color: white;
-}
-.topMenu a:visited {
-    color: white;
-}
-.topMenu a:hover {
-    color: red;
-}
-
-.topTitle {
-    text-align: center;
-}
-
-.topSearch {
-    margin: 0 auto;
-    width: 183px;
-}
-
-/******LOGIN MODAL****/
-
+/*****LOGIN*****/
 #login-modal{
     background-color: #fefefe;
     margin: 10% auto;
@@ -78,6 +18,7 @@ a{
 .login-container > h2{
     text-align:center;
     font-size: 3em;
+    color: #333;
 }
 
 .login-container form{
@@ -91,7 +32,16 @@ a{
     padding: 10px;
     border-radius: 10px;
     border: 1px solid #777;
-
+    width: 80%;
+}
+.modal button{
+    background-color: #000851;
+    color: white;
+    padding: 10px 30px;
+    border-radius: 15px;
+    margin-top: 10px;
+    margin-bottom: 30px;
+    border: none;
 }
 #login:hover{
     cursor: pointer;
@@ -107,4 +57,14 @@ a{
     overflow: auto;
     background-color: rgb(0,0,0);
     background-color: rgba(0, 0, 0, 0.7);
+}
+
+.close{
+    color: #777;
+    float: right;
+    font-size:20px;
+    font-weight: bold;
+}
+.close:hover{
+    cursor:pointer;
 }
