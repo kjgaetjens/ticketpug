@@ -9,7 +9,7 @@ router.get('/:venueid/details', (req, res)=>{
     axios.get(`https://app.ticketmaster.com/discovery/v2/venues/${venueId}?apikey=GgkMBDROaaG6jddcy0k07d6GGEyYG4gE`)
     .then(response => {
         let venueInfo = response.data
-        // console.log(venueInfo)
+        console.log(venueInfo)
         res.render('venues',{venue: venueInfo})
     })
     .catch(e=>console.log(e))
@@ -26,7 +26,7 @@ router.get('/:venueid/events', (req,res)=>{
                 eventname: event.name,
                 musician: event._embedded.attractions ? event._embedded.attractions[0].name : "N/A",
                 musicianid: event._embedded.attractions ? event._embedded.attractions[0].id : "N/A",
-                date: event.dates.start.dateTime,
+                date: event.dates.start.localDate,
                 venue: event._embedded.venues[0].name,
                 venuecity: event._embedded.venues[0].city.name,
                 venuestate: event._embedded.venues[0].state.stateCode,
@@ -34,8 +34,11 @@ router.get('/:venueid/events', (req,res)=>{
                 venueid: event._embedded.venues[0].id,
                 seatmap: event.seatmap ? event.seatmap.staticUrl : "N/A"
                 }
+            
             })
-            res.render("venueevents", {event: eventInfo})
+            let venue = eventInfo[0].venue
+            console.log(venue)
+            res.render("venueevents", {event: eventInfo, venueInfo: venue})
         }).catch(e=>console.log(e))
 })
 
