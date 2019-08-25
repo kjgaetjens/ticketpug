@@ -24,7 +24,7 @@ html
                     if event.priceRanges
                         each price in prices
                             .ticket-price
-                                .price $#{price.toFixed(2)}
+                                .price $#{price}
                                 .quantity-div Qty: 
                                     input(type='text' placeholder='2')
                                 .info-btn Checkout

@@ -1,0 +1,16 @@
+.order-details {
+    display: flex;
+}
+
+.order-column {
+    display: flex;
+    flex-direction: column;
+}
+
+.order-column h4 {
+    margin: 0;
+}
+
+.order-column .details h4 {
+    font-weight: normal;
+}
