@@ -104,7 +104,7 @@ router.get('/eventinfo/:eventid/checkout/:price/:quantity', async (req,res)=>{
     })
 
     let createdOrderObjId = await orderObj.dataValues.id
-
+        
     res.redirect(`./${ticketQuantity}/${createdOrderObjId}/billing`)
 })
 
@@ -194,7 +194,9 @@ router.post('/eventinfo/:eventid/checkout/:price/:quantity/:orderId/billing', as
             order_id: orderId,
             qr_code_id: createdQrObjId
         })
+    
     }
+    
 
     //update order row
     let processedOrder = await models.Order.update(
@@ -205,6 +207,7 @@ router.post('/eventinfo/:eventid/checkout/:price/:quantity/:orderId/billing', as
             where: {id: orderId} 
         }
     )
+    
     //send an email if time
     res.redirect(`./confirmation`)
 })
