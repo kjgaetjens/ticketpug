@@ -1,12 +1,13 @@
+extends layout.pug
 
-head
-    link(rel='stylesheet', href='./css/style.css', type='text/css')
-
-    append topMenu
-        div.topDash      
+append topMenu
+    #index-search-container
+        div.topTitle      
             h1 Welcome to Ticket Sales
-            #index-search-container   
-            //-SEARCH      
+        include includes/login
+            
+        //-SEARCH 
+        div.topSearch    
             form(method="GET" action="/search")
                 input(
                     type='text'
@@ -14,21 +15,21 @@ head
                     placeholder='Search'
                 )
                 button submit
-    append topContent
-        //- Registration and login will be put into modals
-        h2 Registration
-        form(method="POST" action="/register")
-            input(type="text" name="username" placeholder="username")
-            input(type="password" name="password" placeholder="password")
-            button submit
-            span= message
 
-        h2 Login
-            form(method="POST" action="/login")
-                input(type="text" name="username" placeholder="username")
-                input(type="password" name="password" placeholder="password")
-                button submit
-                span= message
-        
+//-     //- Registration and login will be put into modals
+//-     h2 Registration
+//-     form(method="POST" action="/register")
+//-         input(type="text" name="username" placeholder="username")
+//-         input(type="password" name="password" placeholder="password")
+//-         button submit
+//-         span= message
 
-append bottomContent
+//- h2 Login
+//-     form(method="POST" action="/login")
+//-         input(type="text" name="username" placeholder="username")
+//-         input(type="password" name="password" placeholder="password")
+//-         button submit
+//-         span= message
+    
+
+//- append bottomContent

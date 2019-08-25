@@ -22,7 +22,7 @@ a{
     color:black;
 }
 .nav a:hover{
-    color:rgb(9, 88, 84);
+    color:#1cb5e0;
     font-weight: 800;
 }
 
@@ -171,6 +171,7 @@ a{
 #zoomin:hover, #zoomout:hover {
     cursor: pointer;
 }
+
 
 /* 
 width: 96%;

@@ -213,6 +213,7 @@ router.post('/eventinfo/:eventid/checkout/:price/:quantity/:orderId/billing', as
             where: {id: orderId} 
         }
     )
+    
     //send an email if time
     res.redirect(`./confirmation`)
 })
