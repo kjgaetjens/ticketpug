@@ -6,11 +6,14 @@ block topContent
 
     .topContainer
         h1.settingTitle Account History    
-    ul.accountMenu
+    ul(class="accountMenu" id="accountMenu")
         a.firstLink(href="/account") Settings
-        a(href="/account/history") History
+        a(href="/account/history" class="active") History
         a(href="/account/favorites") Favorites
         a(href="/account/payment") Payment
+        a(href="javascript:void(0);" class="menuIcon" onclick="myFunction()")
+            i(class="fa fa-bars")
+
 
 
 block bottomContent
@@ -33,3 +36,9 @@ block bottomContent
                 h3 #{order.eventName} 
                 p Tickets Purchased: #{order.ticketCount} | Event Date: #{order.eventDate} | Order Total: $ #{order.total}
                 p.purchasedDate Purchased Date: #{order.purchased_date}
+
+
+block script
+    script(src="/js/menuToggle.js")
+        
+
