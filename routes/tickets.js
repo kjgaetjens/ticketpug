@@ -66,7 +66,6 @@ router.get('/eventinfo/:eventid', (req,res)=>{
                     randomPrices.push(price(min, max))
                 }
             }
-            console.log(randomPrices)
             res.render('event', {event:eventinfo, prices: randomPrices})
         }).catch(e=>console.log(e))
 })
@@ -86,6 +85,17 @@ router.get('/eventinfo/:eventid/checkout/:price/:quantity', async (req,res)=>{
     //add in tax caclulation if we have time
     let postTaxTotal = preTaxTotal
 
+    let eventApiObj = await axios.get(`https://app.ticketmaster.com/discovery/v2/events/${eventId}?apikey=GgkMBDROaaG6jddcy0k07d6GGEyYG4gE`)
+    let eventName = eventApiObj.data.name
+    let eventTime = eventApiObj.data.dates.start.localTime
+    let eventDate = eventApiObj.data.dates.start.localDate
+    let eventDateTime = (new Date(eventDate + ':' + eventTime)).toLocaleString()
+    let artistName = eventApiObj.data._embedded.attractions[0].name
+    let venueName = eventApiObj.data._embedded.venues[0].name
+    let seatGroupChoices = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+    let seatGroupRandom = Math.floor(Math.random()*26)
+    let seatGroup = seatGroupChoices.substring(seatGroupRandom, seatGroupRandom+1)
+
     //create payment row
     let paymentinfoObj = await models.PaymentInfo.create({
         user_id: userId
@@ -104,73 +114,12 @@ router.get('/eventinfo/:eventid/checkout/:price/:quantity', async (req,res)=>{
     })
 
     let createdOrderObjId = await orderObj.dataValues.id
-        
-    res.redirect(`./${ticketQuantity}/${createdOrderObjId}/billing`)
-})
-
-router.get('/eventinfo/:eventid/checkout/:price/:quantity/:orderId/billing', async (req,res)=>{
-    res.sendFile(rootdir + '/views/payment.html')
-})
-
-router.get('/eventinfo/:eventid/checkout/:price/:quantity/:orderId/billing/getorder', async (req,res)=>{
-    let orderId = req.params.orderId
-    let orderObj = await models.Order.findOne({
-        where: {
-            id: orderId
-        }
-    })
-    let checkoutObj = {
-        ticket_qty: orderObj.dataValues.quantity_total,
-        pre_tax_total: orderObj.dataValues.pre_tax_total,
-        post_tax_total: orderObj.dataValues.post_tax_total,
-        tax: orderObj.dataValues.post_tax_total - orderObj.dataValues.pre_tax_total
-    }
-    res.json(checkoutObj)
-})
-
-router.post('/eventinfo/:eventid/checkout/:price/:quantity/:orderId/billing', async (req, res) => {
-    let userId = req.session.userid
-    let eventId = req.params.eventid
-    let orderId = req.params.orderId
-
-    let orderObj = await models.Order.findOne({
-        where: {
-            id: orderId
-        }
-    })
-
-    // let ticketQuantity = Number(req.params.quantity)
-    let ticketQuantity = orderObj.quantity_total
-    let preTaxTotal = orderObj.pre_tax_total
-    //add in tax caclulation if we have time
-    let postTaxTotal = orderObj.post_tax_total
-    let preTaxIndividual = preTaxTotal/ticketQuantity
-
-    let eventApiObj = await axios.get(`https://app.ticketmaster.com/discovery/v2/events/${eventId}?apikey=GgkMBDROaaG6jddcy0k07d6GGEyYG4gE`)
-    let eventName = eventApiObj.data.name
-    let eventTime = eventApiObj.data.dates.start.localTime
-    let eventDate = eventApiObj.data.dates.start.localDate
-    let eventDateTime = (new Date(eventDate + ':' + eventTime)).toLocaleString()
-    let artistName = eventApiObj.data._embedded.attractions[0].name
-    let venueName = eventApiObj.data._embedded.venues[0].name
-
-
-    //update order row
-    let processOrder = await models.Order.update(
-        {
-            order_status: 'processing'
-        },
-        {
-            where: {id: orderId} 
-        }
-    )
 
     for(let i = 1; i <= ticketQuantity; i++) {
         //generate url
         let uniqueId = uuidv1()
         let qrCodeUrl = `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${uniqueId}`
         //this seat isn't real
-        let seatGroup = 'A'
         let seat = seatGroup+(i.toString())
 
         //create qrcode rows
@@ -190,13 +139,70 @@ router.post('/eventinfo/:eventid/checkout/:price/:quantity/:orderId/billing', as
             seat_group: seatGroup,
             seat: seat,
             pre_tax: preTaxIndividual,
-            ticket_status: 'purchased',
-            order_id: orderId,
+            ticket_status: 'created',
+            order_id: createdOrderObjId,
             qr_code_id: createdQrObjId
         })
-    
     }
-    
+
+    res.redirect(`./${ticketQuantity}/${createdOrderObjId}/billing`)
+})
+
+router.get('/eventinfo/:eventid/checkout/:price/:quantity/:orderId/billing', async (req,res)=>{
+    res.sendFile(rootdir + '/views/payment.html')
+})
+
+router.get('/eventinfo/:eventid/checkout/:price/:quantity/:orderId/billing/getorder', async (req,res)=>{
+    let orderId = req.params.orderId
+    let orderObj = await models.Order.findOne({
+        where: {
+            id: orderId
+        }
+    })
+    //add code here to send the additional information that i want to display on the credit card page
+    let checkoutObj = {
+        ticket_qty: orderObj.dataValues.quantity_total,
+        pre_tax_total: orderObj.dataValues.pre_tax_total,
+        post_tax_total: orderObj.dataValues.post_tax_total,
+        tax: orderObj.dataValues.post_tax_total - orderObj.dataValues.pre_tax_total
+    }
+    res.json(checkoutObj)
+})
+
+router.post('/eventinfo/:eventid/checkout/:price/:quantity/:orderId/billing', async (req, res) => {
+    let userId = req.session.userid
+    let orderId = req.params.orderId
+    //make sure I can actually pull these
+    let orderEmail = req.body.orderEmail
+    let orderPhone = req.body.orderPhone
+
+    let orderObj = await models.Order.findOne({
+        where: {
+            id: orderId
+        }
+    })
+
+    //update order row
+    let processOrder = await models.Order.update(
+        {
+            order_status: 'processing',
+            order_email: orderEmail,
+            order_phone: orderPhone
+        },
+        {
+            where: {id: orderId} 
+        }
+    )
+
+    //update ticket rows
+    let processTickets = await models.Ticket.update(
+        {
+            ticket_status: 'purchased'
+        },
+        {
+            where: {order_id: orderId} 
+        }
+    )
 
     //update order row
     let processedOrder = await models.Order.update(
@@ -224,7 +230,7 @@ router.get('/eventinfo/:eventid/checkout/:price/:quantity/:orderId/confirmation'
         ]
     })
     let confirmationObj = {
-        username: req.session.username,
+        email: orderObj.order_email,
         id: orderObj.id,
         status: orderObj.order_status,
         event_name: orderObj.Ticket[0].event_name,

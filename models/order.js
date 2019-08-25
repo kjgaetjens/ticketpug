@@ -5,7 +5,9 @@ module.exports = (sequelize, DataTypes) => {
     processed_date: DataTypes.DATE,
     quantity_total: DataTypes.INTEGER,
     pre_tax_total: DataTypes.FLOAT,
-    post_tax_total: DataTypes.FLOAT
+    post_tax_total: DataTypes.FLOAT,
+    order_email: DataTypes.STRING,
+    order_phone: DataTypes.STRING
   }, {});
   Order.associate = function(models) {
     Order.belongsTo(models.User,{as : 'User', foreignKey: 'user_id'})

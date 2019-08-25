@@ -28,11 +28,26 @@ a{
 
 .topContainer {
     background: linear-gradient(45deg, #1cb5e073 0%, #000851 100%),linear-gradient(209deg, #1cb5e0 20%, #000851 7%);
-    height: 40vh;
+    height: 50vh;
     display: flex;
     flex-direction: column; 
     justify-content: flex-end;
+    background-size: cover;
+    width: 100%;
 }
+
+/* .top-banner{
+
+    background-size:cover;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction:column;
+    padding: 5%;
+    box-shadow: 0px 4px 33px rgba(0, 0, 0, 0.34);
+    /* box-shadow: 6px -6px 20px 10px #999; */
+    /* clip-path: polygon(0 0, 100% 0, 100% 68%, 0% 100%); */
+
 
 .settingTitle {
     margin-left: 10%;
@@ -57,9 +72,19 @@ a{
     text-decoration: none;
     
 }
+.accountMenu a.active {
+    color: rgb(82, 79, 79);
+
+    
+}
+
 .accountMenu a:hover {
     color: rgb(82, 79, 79);
     font-weight: bold;
+}
+
+.menuIcon {
+    display: none;
 }
 
 .userDisplayInfo {
@@ -138,7 +163,10 @@ a{
     justify-content: center;
     margin-bottom: 10vh;
     text-align: center;
-
+    border: rgb(240, 232, 232) solid 1px;
+    margin-right: 5vh;
+    margin-left: 5vh;
+    padding-bottom: 5vh;
 }
 
 .favoriteDiv h2 {
@@ -146,4 +174,80 @@ a{
     color: rgb(82, 79, 79);
     margin-top: 10vh;
     font-size: 1.8em;
+}
+
+
+
+/**RESPONSIVE BELOW**/
+@media only screen and (max-width: 600px){
+    .accountMenu {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-around;
+        margin-top: 0;
+        border-bottom: rgb(240, 232, 232) solid 2px;
+        padding: 0;
+        font-size: 20px;
+        padding-bottom: 4px;
+        padding-top: 4px;
+    }
+
+    .nav {
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+        padding: 2vh;
+    }
+
+    #menu-nav {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .ticketHistory {
+        margin: 2vh;
+        text-align: center;
+
+    }
+
+    .ticketHistory h2 {
+        margin-top: 5vh;
+        font-size: 1.5rem;
+    }
+
+    .topContainer {
+        height: 30vh;
+    }
+
+    .displayTickets h3 {
+        margin-top: 1vh;
+        margin-bottom: 0;
+    }
+
+    .displayTickets p {
+        margin: 2vh;
+    }
+
+    .accountMenu a:not(:last-child){
+        display: none;
+    }
+
+    .menuIcon {
+        float: right;
+        display: block;
+    }
+    .accountMenu.responsive {
+        position: relative;
+    }
+    .accountMenu.responsive.menuIcon {
+        position: absolute;
+        right: 0;
+        top: 0;
+    }
+    .accountMenu.responsive a {
+        float: none;
+        display: block;
+        text-align: left;
+    }
 }
