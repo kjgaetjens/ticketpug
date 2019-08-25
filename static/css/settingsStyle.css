@@ -22,12 +22,12 @@ a{
     color:black;
 }
 .nav a:hover{
-    color:rgb(9, 88, 84);
+    color:#1cb5e0;
     font-weight: 800;
 }
 
 .topContainer {
-    background-color: rgba(40, 13, 102);
+    background: linear-gradient(45deg, #1cb5e073 0%, #000851 100%),linear-gradient(209deg, #1cb5e0 20%, #000851 7%);
     height: 40vh;
     display: flex;
     flex-direction: column; 
