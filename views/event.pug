@@ -21,13 +21,14 @@ html
         .bottom-container
             .event-container
                 .tickets-container
-                    if event.priceRanges
-                        each price in prices
-                            .ticket-price
-                                .price $#{price.toFixed(2)}
-                                .quantity-div Qty: 
-                                    input(type='text' placeholder='2')
-                                .info-btn Checkout
+                    each price in prices
+                        
+                        .ticket-price
+                            .price $#{price.toFixed(2)}
+                            .quantity-div Qty: 
+                                input(type='text' placeholder='2' name='ticketQuantity')
+                            form(method="POST" action=`./checkout/${price}`)
+                                button Checkout
                 #zoomin +
                 #zoomout -
                 .seatmap-container
