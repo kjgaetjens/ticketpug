@@ -6,11 +6,13 @@ block topContent
 
     .topContainer
         h1.settingTitle Account Settings    
-    ul.accountMenu
-        a.firstLink(href="/account") Settings
+    ul(class="accountMenu" id="accountMenu")
+        a.firstLink(href="/account" class="active") Settings
         a(href="/account/history") History
         a(href="/account/favorites") Favorites
         a(href="/account/payment") Payment
+        a(href="javascript:void(0);" class="menuIcon" onclick="myFunction()")
+            i(class="fa fa-bars")
 
 
 
@@ -21,5 +23,6 @@ block bottomContent
         h2 Welcome #{username}!
 
 
-
+block script
+    script(src="/js/menuToggle.js")
         
