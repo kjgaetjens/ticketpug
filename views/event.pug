@@ -3,6 +3,7 @@ html
         link(rel='stylesheet', href='/css/events.css', type='text/css')
     body
         include includes/navigation
+        include includes/login
         .top-banner
             #event-header
                 .event-name-venue
@@ -22,13 +23,12 @@ html
             .event-container
                 .tickets-container
                     each price in prices
-                        
                         .ticket-price
                             .price $#{price.toFixed(2)}
                             .quantity-div Qty: 
-                                form(method="POST" action=`${event.id}/checkout/${price}`)
-                                    input(type='text' placeholder='2' value ='2' name='ticketQuantity')
-                                    button Checkout
+                            form(method="POST" action=`${event.id}/checkout/${price}`)
+                                input(type='text' placeholder='2' name='ticketQuantity')
+                                button Checkout
                 #zoomin +
                 #zoomout -
                 .seatmap-container
@@ -40,4 +40,4 @@ html
     include includes/footer  
 
 script(src="/js/event.js")
-    
+script(src="/js/modal.js")

@@ -22,12 +22,12 @@ a{
     color:black;
 }
 .nav a:hover{
-    color:rgb(9, 88, 84);
+    color:#1cb5e0;
     font-weight: 800;
 }
 
 .topContainer {
-    background: linear-gradient(45deg, #1cb5e073 20%, #000851 100%),linear-gradient(20deg, #1cb5e0 0%, #000851 80%);
+    background: linear-gradient(45deg, #1cb5e073 0%, #000851 100%),linear-gradient(209deg, #1cb5e0 20%, #000851 7%);
     height: 50vh;
     display: flex;
     flex-direction: column; 
@@ -36,17 +36,10 @@ a{
     width: 100%;
 }
 
-/* .top-banner{
-
-    background-size:cover;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction:column;
-    padding: 5%;
-    box-shadow: 0px 4px 33px rgba(0, 0, 0, 0.34);
-    /* box-shadow: 6px -6px 20px 10px #999; */
-    /* clip-path: polygon(0 0, 100% 0, 100% 68%, 0% 100%); */
+.topDash {
+    background-position: center;
+    color: white;
+}
 
 
 .settingTitle {
@@ -94,6 +87,7 @@ a{
 
 .ticketHistory {
     margin-left: 5%;
+    margin-right: 5%;
 }
 
 .noEvents {
@@ -128,6 +122,7 @@ a{
     padding: 0;
     border: none;
     background: none;
+    margin-top: 3vh;
 }
 
 
@@ -146,7 +141,13 @@ a{
     display: flex;
     align-items: center;
     flex-direction: column;
-    justify-content: space-evenly
+    justify-content: space-evenly;
+    border: rgb(240, 232, 232) solid 1px;
+    margin-top: 5vh;
+}
+
+.topDash img{
+    display: none;
 }
 
 .userDisplayInfo h2 {
@@ -166,7 +167,7 @@ a{
     border: rgb(240, 232, 232) solid 1px;
     margin-right: 5vh;
     margin-left: 5vh;
-    padding-bottom: 5vh;
+    padding-bottom: 2vh;
 }
 
 .favoriteDiv h2 {
@@ -176,10 +177,25 @@ a{
     font-size: 1.8em;
 }
 
+.info-btn{
+    padding:10px;
+    background-color: #154381;
+    color:white;
+    border-radius:10px;
+    width: 10vw;
+    align-self: center;
+}
+.info-btn > a{
+    color: white;
+}
+
+.info-btn:hover{
+    background-color: #4880d0;
+}
 
 
 /**RESPONSIVE BELOW**/
-@media only screen and (max-width: 600px){
+@media only screen and (max-width: 650px){
     .accountMenu {
         display: flex;
         flex-direction: column;
@@ -250,4 +266,11 @@ a{
         display: block;
         text-align: left;
     }
+
+    .settingTitle {
+        margin-left: 10%;
+        color: white;
+        font-size: 1.5em;
+    }
 }
+
