@@ -1,24 +1,27 @@
 html
     include includes/head
         link(rel='stylesheet', href='./css/events.css', type='text/css')
+        link(rel='stylesheet', href='./css/search.css', type='text/css')
     body
-        include includes/navigation
         include includes/login
         .top-banner
-            h1 Search Results
-            if event
-                h2 "#{result}"
-            else 
-                h2 "#{name}"
-            .search-div
-                form(method="GET" action="/search")
-                    input(
-                        type='text'
-                        name='eventSearch'
-                        placeholder='New search...'
-                    )
-                    button submit
+            include includes/navigation
+            .top-header
+                h1 Search Results 
+                    if event
+                        h2 "#{result}"
+                    else 
+                        h2 "#{name}"
+                .search-div
+                    form(method="GET" action="/search")
+                        input(
+                            type='text'
+                            name='eventSearch'
+                            placeholder='New search...'
+                        )
+                        button: i(class="fas fa-search")
         .bottom-container
+        p(class="event-returned") #{event.length} events returned
             if event
                 each val in event
                     .search-result-div
