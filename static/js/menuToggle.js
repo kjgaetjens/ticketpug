@@ -1,4 +1,4 @@
-// console.log('client side is working');
+ console.log('client side is working');
 
 
 // document.querySelectorAll('.fa-heart').forEach(function(e) {

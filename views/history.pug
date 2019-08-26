@@ -1,22 +1,18 @@
-extends userLayout.pug
+extends sub-account.pug
 
-block topMenu
-    include includes/navigation
-block topContent
-
+block append topContent
     .topContainer
-        h1.settingTitle Account History    
+        h1.settingTitle Account History   
+
+block bottomContent
     ul(class="accountMenu" id="accountMenu")
         a.firstLink(href="/account") Settings
         a(href="/account/history" class="active") History
         a(href="/account/favorites") Favorites
-        a(href="/account/payment") Payment
+        a(href="/account") Payment
         a(href="javascript:void(0);" class="menuIcon" onclick="myFunction()")
             i(class="fa fa-bars")
 
-
-
-block bottomContent
     .ticketHistory
         h2 Upcoming Events
         if orders.length == 0
@@ -37,8 +33,8 @@ block bottomContent
                 p Tickets Purchased: #{order.ticketCount} | Event Date: #{order.eventDate} | Order Total: $ #{order.total}
                 p.purchasedDate Purchased Date: #{order.purchased_date}
 
+    include includes/footer  
+        script(src="/js/menuToggle.js")
 
-block script
-    script(src="/js/menuToggle.js")
-        
+
 

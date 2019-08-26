@@ -1,11 +1,10 @@
-extends userLayout.pug
+extends sub-account.pug
 
-block topMenu
-    include includes/navigation
-block topContent
-
+block append topContent
     .topContainer
-        h1.settingTitle Payment Info    
+        h1.settingTitle Payment Info   
+
+block bottomContent
     ul(class="accountMenu" id="accountMenu")
         a.firstLink(href="/account") Settings
         a(href="/account/history") History
@@ -15,7 +14,6 @@ block topContent
             i(class="fa fa-bars")
 
 
-block bottomContent
     .payment
         h2 Payment Method
 
@@ -65,6 +63,6 @@ block bottomContent
             input(type='text', placeholder='Country' name='country')
         input(type="submit")
             
-block script
-    script(src="/js/menuToggle.js")
-        
+    include includes/footer  
+        script(src="/js/menuToggle.js")
+       

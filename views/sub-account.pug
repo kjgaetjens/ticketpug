@@ -1,15 +1,17 @@
-extends layout.pug
+html
+    head
+        meta(charset='utf-8')
+        meta(http-equiv='X-UA-Compatible', content='IE=edge')
+        meta(name='description', content='Some description')
+        meta(name='viewport', content='width=device-width, initial-scale=1')
+        link(href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet")
+        link(rel='stylesheet', href='/css/settingsStyle.css', type='text/css')
+    body
+        include includes/navigation
 
+        block topContent
 
-block topContent
-    .topContainer
-        h2 Account Settings
-        ul
-            li
-                a(href="/account") Settings
-            li
-                a(href="/account/payment") Payment
-            li
-                a(href="/account/history") History
-
-
+        block bottomContent
+            script(src="/js/menuToggle.js")
+            include includes/footer  
+            
