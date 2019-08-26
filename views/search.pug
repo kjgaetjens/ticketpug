@@ -1,8 +1,9 @@
 html
-    head
+    include includes/head
         link(rel='stylesheet', href='./css/events.css', type='text/css')
     body
         include includes/navigation
+        include includes/login
         .top-banner
             h1 Search Results
             if event
@@ -26,7 +27,7 @@ html
                             p.time #{val.dates.start.localTime}
                         .event-info-div
                             h3 #{val.name}
-                            p #{val._embedded.venues[0].name}
+                            a(href=`/venues/${val._embedded.venues[0].id}/details`) #{val._embedded.venues[0].name}
                             span #{val.info}
                         .info-btn: a(href=`../concert-tickets/eventinfo/${val.id}`) More info
             else
