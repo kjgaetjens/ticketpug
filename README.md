@@ -42,9 +42,4 @@ Authors
 * [Phillip Kennedy](https://github.com/PhilKennedy86)
 
 
-* [Elizabeth Vasquez](https://github.com/elizabethsv)
-* [Kelly Benson](https://github.com/kelz877)
-* [Kelsey Gaetjens](https://github.com/kjgaetjens/)
-* [Phillip Kennedy](https://github.com/PhilKennedy86)
-
 
