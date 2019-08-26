@@ -27,6 +27,7 @@ router.get('/:venueid/events', (req,res)=>{
                 musician: event._embedded.attractions ? event._embedded.attractions[0].name : "N/A",
                 musicianid: event._embedded.attractions ? event._embedded.attractions[0].id : "N/A",
                 date: event.dates.start.localDate,
+                time: event.dates.start.localTime,
                 venue: event._embedded.venues[0].name,
                 venuecity: event._embedded.venues[0].city.name,
                 venuestate: event._embedded.venues[0].state.stateCode,
