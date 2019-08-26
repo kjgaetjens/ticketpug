@@ -44,7 +44,7 @@ app.set('view engine', 'pug')
 
 app.use('/', index)
 app.use('/account', authenticate, account)
-app.use('/concert-tickets', tickets)
+app.use('/concert-tickets', authenticate, tickets)
 app.use('/venues', venues)
 app.use('/search', search)
 
