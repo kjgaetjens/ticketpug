@@ -1,0 +1,14 @@
+html
+    include includes/head
+    link(rel='stylesheet', href='/css/register.css', type='text/css')
+    body
+        include includes/navigation
+        .register-container
+            h2 Register
+            form(method="POST" action="/register")
+                input(type="text" name="username" placeholder="username")
+                input(type="password" name="password" placeholder="password")
+                button submit
+                span= message
+
+script(src="js/modal.js")
