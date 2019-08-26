@@ -12,6 +12,7 @@ html
                         a(href="#") Search
                         if user != null
                             a(href="/logout") Log out
+                            a(href="account") #{user}
                         else
                             span(id="login") Log in
                             a(href="#") Sign up
