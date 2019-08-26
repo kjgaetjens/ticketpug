@@ -3,7 +3,13 @@
 var stripe = Stripe('pk_test_5ilmqKs9fDWBuZyRuN52gAjN00SWGmSXqC');
 var elements = stripe.elements();
 
+const eventDiv = document.getElementById('event-container')
 const orderDiv = document.getElementById('order-info')
+const emailDiv = document.getElementById('email')
+const phoneDiv = document.getElementById('phone')
+const orderinfoDiv = document.getElementById('order-info')
+const eventinfoDiv = document.getElementById('event-info')
+
 let url = window.location.href
 let parsedUrl
 if (url.charAt(url.length-1) == '/') {
@@ -17,25 +23,66 @@ let strEnd = url.indexOf('/billing')
 let orderId = url.substring(strStart,strEnd)
 
 
-
-
-
-
 async function fetchOrder(orderId) {
   let response = await fetch(`${parsedUrl}/getorder`)
   let orderObj = await response.json()
 
+  let eventName = orderObj.event_name
+  let eventDate = orderObj.event_date
+  let eventLocation = orderObj.event_location
+
+  let ticketPrice = orderObj.ticket_price
   let ticketQty = orderObj.ticket_qty
   let preTaxTotal = orderObj.pre_tax_total
   let postTaxTotal = orderObj.post_tax_total
   let tax = orderObj.tax
 
-  orderDiv.innerHTML = 
-    `<h2>Total Price: $${postTaxTotal}</h2>
-    <h3>Number of tickets: ${ticketQty}</h3>`
+  let userEmail = orderObj.username
+
+  eventDiv.innerHTML =
+    `<h3>${eventName}</h3>
+    <span>${eventDate} - ${eventLocation}</span>`
+  emailDiv.innerHTML =
+    `<label for="email-input">Email Address</label>
+    <input id="email-input" type="text" placeholder=${userEmail} name="emailInput" value=${userEmail}>`
+  phoneDiv.innerHTML =
+    `<label for="phone-input">Phone Number</label>
+    <input id="phone-input" type="text" name="phoneInput">`
+
+  orderinfoDiv.innerHTML = 
+    `<h4>Order Summary</h4>
+    <div id="priceandfees">
+      <div class="orderinfo-row">
+        <span>Price</span>
+        <span>$${ticketPrice.toFixed(2)} x ${ticketQty}</span>
+      </div>
+      <div class="orderinfo-row">
+        <span>Fees</span>
+        <span>$0.00 x ${ticketQty}</span>
+      </div>
+    </div>
+    <div class="orderinfo-row">
+      <span>Total</span>
+      <span>$${postTaxTotal.toFixed(2)}</span>
+    </div>`
+    eventinfoDiv.innerHTML =
+      `<h4>${eventName}</h4>
+      ${eventDate}
+      <br>
+      ${eventLocation}`
+    
+    
+    
+
 }
 
 fetchOrder(orderId)
+
+let contactHeader = document.getElementById('contact-info-header')
+let paymentHeader = document.getElementById('payment-method-header')
+let contactHeaderWidth = contactHeader.clientWidth
+paymentHeader.style.width = contactHeaderWidth
+
 
 var card = elements.create('card')
 card.mount('#card-element')

@@ -1,8 +1,77 @@
-#payment-form {
+#main-container {
+    display: flex;
+}
+
+#left-container {
+    display: flex;
+    flex-direction: column;
+    width: 75%;
+}
+
+#event-container {
+    border-bottom: 1px solid grey;
+}
+
+.billing-row {
+    display: flex;
+}
+
+.billing-column-header h4 {
+    margin-top: 0;
+    margin-bottom: 4vh;
+}
+
+.billing-column-details {
+    width: 100%;
+}
+
+#contact-info-details {
+    display: flex;
+}
+
+.contact-container {
+    display: flex;
+    flex-direction: column;
+}
+
+#card-element {
     max-width: 400px;
     padding: 13px;
     border-width: 1.5px;
     border-style: solid;
     border-radius: 5px;
     border-color: black;
+}
+
+#right-container {
+    display: flex;
+    flex-direction: column;
+    width: 25%;
+}
+
+.orderinfo-row {
+    display: flex;
+    justify-content: space-between;
+}
+
+#priceandfees {
+    border-bottom: 1px solid grey;
+}
+
+@media only screen and (max-width: 580px) {
+    #left-container {
+        width: 100%;
+    }
+    #right-container {
+        width: 100%;
+    }
+    #event-info {
+        display: none;
+    }
+    #main-container {
+        flex-direction: column;
+    }
+    .billing-row {
+        flex-direction: column;
+    }
 }
