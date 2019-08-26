@@ -7,15 +7,16 @@ html
         .top-banner
             include includes/venueshead.pug
         .bottom-container
-            each val in event
-                .search-result-div
-                    .date-div
-                        p.date #{val.date}
-                    .event.info-div
-                        h3 #{val.eventname}
-                        p #{val.venue}
-                        p #{val.info}
-                    a(href=`/concert-tickets/eventinfo/${val.eventid}`): .info-btn Get more info
+            if event
+                each val in event
+                    .search-result-div
+                        .date-div
+                            p.date #{val.date}
+                            p.time #{val.time}
+                        .event-info-div
+                            h3 #{val.eventname}
+                            p #{val.venue}
+                        .info-btn: a(href=`/concert-tickets/eventinfo/${val.eventid}`) More info
             
     include includes/footer           
             
