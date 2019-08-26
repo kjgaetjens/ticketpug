@@ -81,8 +81,8 @@ a{
 }
 
 .userDisplayInfo {
-    margin-left: 5%;
     color: rgb(82, 79, 79);
+    margin-bottom: 10%;
 }
 
 .ticketHistory {
@@ -135,6 +135,11 @@ a{
     color: rgb(82, 79, 79);
     margin-top: 10vh;
     font-size: 1.8em;
+}
+
+.ticketHistory h3 {
+    text-align: center;
+    margin-bottom: 10vh;
 }
 
 .displayTickets {
@@ -192,6 +197,23 @@ a{
 .info-btn:hover{
     background-color: #4880d0;
 }
+
+footer ul {
+    list-style-type: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+}
+
+footer li {
+    padding-right: 4%;
+}
+
+
+
+
+
 
 
 /**RESPONSIVE BELOW**/
@@ -271,6 +293,11 @@ a{
         margin-left: 10%;
         color: white;
         font-size: 1.5em;
+    }
+
+    footer ul {
+        flex-direction: column;
+
     }
 }
 
