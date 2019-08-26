@@ -1,11 +1,10 @@
 html
-    head
-        meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    include includes/head
         link(rel='stylesheet', href='/css/events.css', type='text/css')
         link(rel='stylesheet', href='/css/confirmation.css', type='text/css')
     body
         include includes/navigation
-
+        include includes/login
         .confirmation-container
             .banner
             .order-summary
@@ -41,5 +40,4 @@ html
                         |$#{confirmation.post_tax_total.toFixed(2)}
 
         include includes/footer
-        
-        //- http://localhost:3000/concert-tickets/61/confirmation
+    
