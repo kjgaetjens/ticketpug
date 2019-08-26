@@ -49,7 +49,7 @@ router.get('/eventinfo/:eventid', (req,res)=>{
         .then(response=>{
             
             const price=(min, max)=>{
-                return Math.random() * (max-min) + min
+                return Math.round(((Math.random() * (max-min) + min)*100)/100)
             }
             let eventinfo = response.data
             let randomPrices = []
@@ -154,17 +154,29 @@ router.get('/eventinfo/:eventid/checkout/:price/:quantity/:orderId/billing', asy
 
 router.get('/eventinfo/:eventid/checkout/:price/:quantity/:orderId/billing/getorder', async (req,res)=>{
     let orderId = req.params.orderId
+    let username = req.session.username
+    let ticketQuantity = req.params.quantity
     let orderObj = await models.Order.findOne({
         where: {
             id: orderId
-        }
+        },
+        include:[
+            {model: models.Ticket,
+            as: 'Ticket'}
+        ]
     })
-    //add code here to send the additional information that i want to display on the credit card page
+
     let checkoutObj = {
-        ticket_qty: orderObj.dataValues.quantity_total,
+        username: username,
+        ticket_price: orderObj.Ticket[0].pre_tax,
+        ticket_qty: ticketQuantity,
         pre_tax_total: orderObj.dataValues.pre_tax_total,
         post_tax_total: orderObj.dataValues.post_tax_total,
-        tax: orderObj.dataValues.post_tax_total - orderObj.dataValues.pre_tax_total
+        tax: orderObj.dataValues.post_tax_total - orderObj.dataValues.pre_tax_total,
+        seat_group: orderObj.Ticket[0].seat_group,
+        event_name: orderObj.Ticket[0].event_name,
+        event_date: orderObj.Ticket[0].event_date,
+        event_location: orderObj.Ticket[0].venue_name,
     }
     res.json(checkoutObj)
 })
@@ -173,8 +185,8 @@ router.post('/eventinfo/:eventid/checkout/:price/:quantity/:orderId/billing', as
     let userId = req.session.userid
     let orderId = req.params.orderId
     //make sure I can actually pull these
-    let orderEmail = req.body.orderEmail
-    let orderPhone = req.body.orderPhone
+    let orderEmail = req.body.emailInput
+    let orderPhone = req.body.phoneInput
 
     let orderObj = await models.Order.findOne({
         where: {
