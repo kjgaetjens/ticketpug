@@ -1,7 +1,7 @@
 doctype html
 html
-
     include includes/head
+        link(rel='stylesheet', href='/css/style.css', type='text/css')
     body
         div.topDash
             block topMenu
@@ -16,17 +16,17 @@ html
                             span(id="login") Log in
                             a(href="#") Sign up
 
-            block topContent
-                .top-banner
+        block topContent
+            .top-banner
 
-            block bottomContent
-                .bottom-container
+        block bottomContent
+            .bottom-container
 
 
-    footer
-        ul
-            li: a(href="/about") About Us
-            li: a(href="/contact") Contact Us
-            li: a(href="/sitemap") Sitemap
-            li: a(href="https://github.com/kjgaetjens/tickets") Github
-        script(src="js/modal.js")
+footer
+    ul
+        li: a(href="/about") About Us
+        li: a(href="/contact") Contact Us
+        li: a(href="/sitemap") Sitemap
+        li: a(href="https://github.com/kjgaetjens/tickets") Github
+script(src="js/modal.js")
