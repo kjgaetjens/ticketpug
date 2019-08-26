@@ -78,11 +78,6 @@ async function fetchOrder(orderId) {
 
 fetchOrder(orderId)
 
-let contactHeader = document.getElementById('contact-info-header')
-let paymentHeader = document.getElementById('payment-method-header')
-let contactHeaderWidth = contactHeader.clientWidth
-paymentHeader.style.width = contactHeaderWidth
-
 
 var card = elements.create('card')
 card.mount('#card-element')

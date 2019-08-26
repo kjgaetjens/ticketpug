@@ -68,3 +68,9 @@
 .close:hover{
     cursor:pointer;
 }
+.login-container>span{
+    text-align:center;
+}
+
+
+/**footer**/

@@ -35,7 +35,9 @@ router.get('/', (req, res)=>{
     
 })
     
-    
+router.get('/register', (req,res)=>{
+    res.render("registration")
+})
 
 router.post('/register', async (req,res)=>{
     let username = req.body.username

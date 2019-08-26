@@ -3,18 +3,22 @@ html
     include includes/head
         link(rel='stylesheet', href='/css/style.css', type='text/css')
     body
-        div.topDash
+        div(class="topDash" id="backgroundContainer")
             block topMenu
                     ul.topMenu
-                        a(href="#") Music
-                        a(href="#") Venue
-                        a(href="#") Link
-                        a(href="#") Search
+                        .menu-options
+                            a(href="#") Music 
+                            a(href="#") Venue 
+                            a(href="#") Link 
+                            a(href="#") Search 
                         if user != null
-                            a(href="/logout") Log out
+                            .login-div
+                                a(href="/logout") Log out 
+                                a(href="account") #{user}
                         else
-                            span(id="login") Log in
-                            a(href="#") Sign up
+                            .login-div
+                                span(id="login") Log in 
+                                a(href="register") Sign up 
 
         block topContent
             .top-banner

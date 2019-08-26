@@ -12,6 +12,7 @@ ul{
     padding:20px; 
     background-color:white;
 }
+
 #menu-nav{
     display:flex; 
 }
@@ -24,9 +25,9 @@ a{
 }
 
 .topDash {
-    background: url('concert.jpeg');
+    background: linear-gradient(45deg, #1cb5e075 0%, #00085145 100%),linear-gradient(23deg, #2e3ca069 20%, #032a6196 7%), linear-gradient(215deg, #1a6c8482 20%, #0008518a 5%),linear-gradient(303deg, #119fc7a6 20%, #0008518a 5%), url(concert.jpeg);
     background-size: 100%;
-    height: 45vh;
+    height: 100vh;
     background-position: center;
     color: white;
 }
@@ -34,9 +35,11 @@ a{
 .topMenu {
     font-size: 20px;
     align-content: center;
+    display: flex;
+    justify-content:space-between;
 }
-.topMenu>a{
-    padding-left: 10vw;
+.topMenu a{
+   margin-right: 10px;
 }
 .topMenu a:link {
     color: white;
@@ -44,9 +47,9 @@ a{
 .topMenu a:visited {
     color: white;
 }
-.topMenu a:hover {
+/* .topMenu a:hover {
     color: red;
-}
+} */
 
 .topTitle {
     text-align: center;
@@ -55,6 +58,27 @@ a{
 .topSearch {
     margin: 0 auto;
     width: 183px;
+}
+input{
+    outline: none;
+    padding: 10px;
+    border-radius: 10px;
+    border: 1px solid black;
+}
+
+button{
+    background-color: #000851;
+    color: white;
+    padding: 10px 30px;
+    border-radius: 15px;
+    margin-top: 10px;
+    margin-bottom: 30px;
+    border: none;
+}
+
+.topSearch > form{
+    display: flex;
+    flex-direction:column;
 }
 
 /******LOGIN MODAL****/
@@ -107,4 +131,10 @@ a{
     overflow: auto;
     background-color: rgb(0,0,0);
     background-color: rgba(0, 0, 0, 0.7);
+}
+.login-container >h2{
+    margin:0;
+}
+.login-container{
+    color:black;
 }
