@@ -11,14 +11,6 @@ html
                     h2 #{event._embedded.venues[0].name}
                     h3 #{event.dates.start.localDate}
                 img(src=`${event.images[0].url}`)
-            .search-div
-                form(method="GET" action="/search")
-                    input(
-                        type='text'
-                        name='eventSearch'
-                        placeholder='New search...'
-                    )
-                    button submit
         .bottom-container
             .event-container
                 .tickets-container
@@ -53,4 +45,3 @@ html
     include includes/footer  
 
 script(src="/js/event.js")
-script(src="/js/modal.js")
