@@ -1,10 +1,10 @@
 html
-    head
+    include includes/head
         link(rel='stylesheet', href='/css/events.css', type='text/css')
         link(rel='stylesheet', href='/css/confirmation.css', type='text/css')
     body
         include includes/navigation
-
+        include includes/login
         .confirmation-container
             .banner
             .order-summary
@@ -15,31 +15,29 @@ html
                 h3 #{confirmation.event_name}
                 if confirmation.event_name != confirmation.artist_name
                     h4 Artist: #{confirmation.artist_name}
-                h4 Location: #{confirmation.venue_name}
-                h4 Date: #{(confirmation.event_date)}
+                |#{confirmation.event_date} - #{confirmation.venue_name}
 
             .order-details
-                .order-column
+                div(class="order-column" id="item-column")
                     .header
                         h4 Item
                     .details
-                        h4 #{confirmation.event_name} Ticket
-                .order-column
+                        |#{confirmation.event_name} Ticket
+                div(class="order-column")
                     .header
                         h4 Price
                     .details
-                        h4 $#{confirmation.ticket_price}
-                .order-column
+                        |$#{confirmation.ticket_price.toFixed(2)} x #{confirmation.ticket_qty}
+                div(class="order-column" id="fees-column")
                     .header
-                        h4 Quantity
+                        h4 Fees
                     .details
-                        h4 #{confirmation.ticket_qty}
-                .order-column
+                        |$0.00 x #{confirmation.ticket_qty}
+                div(class="order-column")
                     .header
                         h4 Total Price
                     .details
-                        h4 $#{confirmation.post_tax_total}
+                        |$#{confirmation.post_tax_total.toFixed(2)}
 
         include includes/footer
-        
-        //- http://localhost:3000/concert-tickets/61/confirmation
+    
