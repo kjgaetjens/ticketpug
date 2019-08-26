@@ -1,5 +1,5 @@
 html
-    head
+    include includes/head 
         link(rel='stylesheet', href='/css/events.css', type='text/css')
     body
         include includes/navigation
@@ -11,24 +11,29 @@ html
                     h2 #{event._embedded.venues[0].name}
                     h3 #{event.dates.start.localDate}
                 img(src=`${event.images[0].url}`)
-            .search-div
-                form(method="GET" action="/search")
-                    input(
-                        type='text'
-                        name='eventSearch'
-                        placeholder='New search...'
-                    )
-                    button submit
         .bottom-container
             .event-container
                 .tickets-container
                     each price in prices
                         .ticket-price
                             .price $#{price.toFixed(2)}
-                            .quantity-div Qty: 
+                            
                             form(method="POST" action=`${event.id}/checkout/${price}`)
-                                input(type='text' placeholder='2' name='ticketQuantity')
+                                .quantity-div 
+                                span Qty:
+                                select(name='ticketQuantity')
+                                    option(value="1") 1
+                                    option(value="2") 2
+                                    option(value="3") 3
+                                    option(value="4") 4
+                                    option(value="5") 5
+                                    option(value="6") 6
+                                    option(value="7") 7
+                                    option(value="8") 8
+                                    option(value="9") 9
+                                    option(value="10") 10
                                 button Checkout
+                
                 #zoomin +
                 #zoomout -
                 .seatmap-container
@@ -40,4 +45,3 @@ html
     include includes/footer  
 
 script(src="/js/event.js")
-script(src="/js/modal.js")

@@ -1,27 +1,82 @@
 <html>
     <head>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel='stylesheet' href='/css/events.css' type='text/css'>
         <link rel='stylesheet' href='/css/billing.css' type='text/css'>
     </head>
     <body>
-        <div id="order-info">
+      <div class="nav">
+          <div id="menu-nav">
+              <span><a href="/">Home</a></span>
+              <span><a href="#">Music</a></span>
+              <span><a href="#">Venue</a></span>
+              <span><a href="#">Link</a></span>
+              <span><a href="#">Search</a></span>
+            </div>
+            <div id="login-nav">
+              <span><a href="/logout">Log out</a></span>
+            </div>
+      </div>
+      <div id="main-container">
+        <div id="left-container">
+          <div id="event-container">
+
+          </div>
+          <div id="billing-container">
+            <form action="./billing" method="POST" id="payment-form">
+              <div class="billing-row">
+                <div id="contact-info-header" class="billing-column-header">
+                  <h4>Contact Information</h4>
+                </div>
+                <div id="contact-info-details" class="billing-column-details">
+                  <div id="email" class="contact-container">
+                    
+                  </div>
+                  <div id="phone" class="contact-container">
+
+                  </div>
+                </div>
+              </div>
+              <div class="billing-row">
+                <div id="payment-method-header" class="billing-column-header">
+                  <h4>Payment Method</h4>
+                </div>
+                <div id="billing-payment-details" class="billing-column-details">
+                    <div class="form-row">
+                      <label for="card-element">
+                        Credit or debit card
+                      </label>
+                      <div id="card-element">
+                        <!-- A Stripe Element will be inserted here. -->
+                      </div>
+                  
+                      <!-- Used to display Element errors. -->
+                      <div id="card-errors" role="alert"></div>
+                    </div>
+                    <button>Submit Payment</button>
+                </div>
+              </div>
+            </form>
+          </div>
 
         </div>
-        <form action="./billing" method="POST" id="payment-form">
-            <div class="form-row">
-              <label for="card-element">
-                Credit or debit card
-              </label>
-              <div id="card-element">
-                <!-- A Stripe Element will be inserted here. -->
-              </div>
-          
-              <!-- Used to display Element errors. -->
-              <div id="card-errors" role="alert"></div>
+        <div id="right-container">
+            <div id="order-info">
+
             </div>
-          
-            <button>Submit Payment</button>
-          </form>
+            <div id="event-info">
+
+            </div>
+        </div>
+      </div>
+      <footer>
+        <ul>
+          <li><a href="/about">About Us</a></li>
+          <li><a href="/contact">Contact Us</a></li>
+          <li><a href="/sitemap">Sitemap</a></li>
+          <li><a href="https://github.com/kjgaetjens/tickets">Github</a></li>
+        </ul>
+      </footer>
 
         <script src="https://js.stripe.com/v3/"></script>
         <script src="/public/client.js"></script>
