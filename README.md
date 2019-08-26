@@ -35,6 +35,9 @@ TicketPug can be accessed at the following url:
 Authors
 ______
 
-
+* [Elizabeth Vasquez](https://github.com/elizabethsv)
+* [Kelly Benson](https://github.com/kelz877)
+* [Kelsey Gaetjens](https://github.com/kjgaetjens/)
+* [Phillip Kennedy](https://github.com/PhilKennedy86)
 
 
