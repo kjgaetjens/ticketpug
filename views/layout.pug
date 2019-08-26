@@ -6,15 +6,19 @@ html
         div.topDash
             block topMenu
                     ul.topMenu
-                        a(href="#") Music
-                        a(href="#") Venue
-                        a(href="#") Link
-                        a(href="#") Search
+                        .menu-options
+                            a(href="#") Music 
+                            a(href="#") Venue 
+                            a(href="#") Link 
+                            a(href="#") Search 
                         if user != null
-                            a(href="/logout") Log out
+                            .login-div
+                                a(href="/logout") Log out 
+                                a(href="account") #{user}
                         else
-                            span(id="login") Log in
-                            a(href="#") Sign up
+                            .login-div
+                                span(id="login") Log in 
+                                a(href="#") Sign up 
 
         block topContent
             .top-banner

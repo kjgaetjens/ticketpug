@@ -28,9 +28,12 @@ html
                         .event-info-div
                             h3 #{val.name}
                             a(href=`/venues/${val._embedded.venues[0].id}/details`) #{val._embedded.venues[0].name}
-                            span #{val.info}
+                            if val.info
+                                //- .info-div: i(class="fas fa-caret-down")
+                                span(class="info") #{val.info}
                         .info-btn: a(href=`../concert-tickets/eventinfo/${val.id}`) More info
             else
                 h2= message
-    include includes/footer           
+    include includes/footer
+    script(src="/js/infodiv.js")           
             

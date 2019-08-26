@@ -8,6 +8,7 @@
         #login-nav 
             if username != null
                 span: a(href="/logout") Log out
+                span: a(href="account") #{username}
             else
                 span(id='login') Log in 
                 span: a(href="#") Sign up 
