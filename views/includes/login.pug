@@ -3,10 +3,10 @@
         .close &#10005;
         .login-container
             h2 Login
-                form(method="POST" action="/login")
-                    input(type="text" name="username" placeholder="username")
-                    input(type="password" name="password" placeholder="password")
-                    button submit
-                    span= message
+            form(method="POST" action="/login")
+                input(type="text" name="username" placeholder="username")
+                input(type="password" name="password" placeholder="password")
+                button submit
+                span.message= message
             span Don't have an account? Sign up 
                 a(href="register") here

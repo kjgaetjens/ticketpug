@@ -4,9 +4,7 @@
     margin: 10% auto;
     padding: 20px;
     border: 1px solid #888;
-    border-radius: 10px;
     width: 40%;
-    height: 50vh;
 }
 .login-container{
     display:flex;
@@ -30,17 +28,14 @@
 .login-container form input{
     margin: 5%;
     padding: 10px;
-    border-radius: 10px;
     border: 1px solid #777;
     width: 80%;
+    color:black;
 }
 .modal button{
     background-color: #000851;
     color: white;
     padding: 10px 30px;
-    border-radius: 15px;
-    margin-top: 10px;
-    margin-bottom: 30px;
     border: none;
 }
 #login:hover{
@@ -65,6 +60,7 @@
     font-size:20px;
     font-weight: bold;
 }
+
 .close:hover{
     cursor:pointer;
 }
@@ -73,4 +69,7 @@
 }
 
 
-/**footer**/
+
+.login-container span{
+    color:#888;
+}
