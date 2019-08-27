@@ -2,10 +2,11 @@ doctype html
 html
     include includes/head
         link(rel='stylesheet', href='/css/style.css', type='text/css')
+        link(rel='stylesheet', href='/css/login.css', type='text/css')
     body
         div(class="topDash" id="backgroundContainer")
             block topMenu
-                    ul.topMenu
+                    .topMenu
                         .menu-options
                             a(href="#") Music 
                             a(href="#") Venue 
@@ -18,7 +19,6 @@ html
                         else
                             .login-div
                                 span(id="login") Log in 
-                                a(href="register") Sign up 
 
         block topContent
             .top-banner

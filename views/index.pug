@@ -4,8 +4,7 @@ append topMenu
     include includes/login
     #index-search-container
         div.topTitle      
-            h1 Welcome to Ticket Sales
-            
+            h1 Welcome to Ticket Sales   
         //-SEARCH 
         div.topSearch    
             form(method="GET" action="/search")
@@ -14,24 +13,7 @@ append topMenu
                     name='eventSearch'
                     placeholder='Search'
                 )
-                button submit
+                button: i(class="fas fa-search")
 
     script(src="/js/index.js")
 
-//-     //- Registration and login will be put into modals
-//-     h2 Registration
-//-     form(method="POST" action="/register")
-//-         input(type="text" name="username" placeholder="username")
-//-         input(type="password" name="password" placeholder="password")
-//-         button submit
-//-         span= message
-
-//- h2 Login
-//-     form(method="POST" action="/login")
-//-         input(type="text" name="username" placeholder="username")
-//-         input(type="password" name="password" placeholder="password")
-//-         button submit
-//-         span= message
-    
-
-//- append bottomContent

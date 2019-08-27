@@ -25,10 +25,6 @@ a{
     text-decoration:none;
     color:white;
 }
-.nav a:hover{
-    color:#1cb5e0;
-    font-weight: 800;
-}
 
 /***TOP SIDE OF PAGE***/
 .top-banner{
@@ -85,6 +81,9 @@ a{
     justify-content: center;
     text-align: center;
 }
+
+
+/**SEARCH BAR**/
 .search-div{
     width: 40%;
     margin-top: 5%;
@@ -112,6 +111,9 @@ a{
     padding: 10px;
     background: #081f63;
     border:none;
+    color:white;
+}
+::placeholder{
     color:white;
 }
 
@@ -190,16 +192,19 @@ a{
     margin: 0;
 }
 
+/****TICKETS/SEATMAP INFO****/
 .event-container{
     display:flex;
     height: 80%;
     height: 500px;
+    
 }
 .tickets-container{
     display:flex;
     flex-direction: column;
     overflow: scroll;
     width: 50%;
+    background-color:white;
 }
 .tickets-container::-webkit-scrollbar{
     background-color:white;
@@ -228,13 +233,14 @@ select{
 }
 
 .seatmap-container{
-    overflow: scroll;
     display: flex;
     flex-direction:column;
     padding:10px;
 }
 #img{
     transform: scale(0.5);
+    position: relative;
+    z-index: -1;
 }
 
 #zoomin, #zoomout {
@@ -245,6 +251,13 @@ select{
 
 #zoomin:hover, #zoomout:hover {
     cursor: pointer;
+}
+
+.ticket-price form button{
+        background-color: #0d3e7c; /*change this later*/
+        color: white;
+        border: none;
+        box-shadow: 0px 4px 7px 0px #0000006b;
 }
 
 .fa-caret-down{
@@ -273,10 +286,6 @@ footer{
 select{
     border:none;
 }
-/* 
-width: 96%;
-box-shadow: 15px 17px;
-margin: 10px auto; */
 
 
 /****venues****/
@@ -293,3 +302,59 @@ margin: 10px auto; */
 .event-name-venue li a{
     color: coral;
 }
+
+
+/****MOBILE****/
+@media (min-width: 320px) and (max-width: 480px) {
+  
+    #event-header{
+        flex-direction:column;
+    }
+    #event-header img{
+        display:none;
+    }
+    .zoom{
+        display:none;
+    }
+    .event-container{
+        flex-direction:column-reverse;
+    }
+
+    .tickets-container{
+        width:100%;
+    }
+    .seatmap-container{
+        align-items:center;
+
+    }
+    .nav{
+        display:none;
+    }
+    .event-info-nav{
+        padding:0;
+        flex-direction:column;
+        
+    }
+    #img{
+        max-width:350px;
+    }
+    .event-info-nav{
+        align-items:center;
+    }
+    .nav-div{
+        display:none;
+    }
+    
+    
+  }
+
+
+  @media  (max-width: 1280px) {
+  
+    .seatmap-container{
+        overflow: scroll;
+    }
+    
+   
+    
+  }
