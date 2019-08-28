@@ -2,20 +2,28 @@ html
     include includes/head
         link(rel='stylesheet', href='/css/events.css', type='text/css')
     body
-        include includes/navigation
         include includes/login
         .top-banner
-            include includes/venueshead.pug
+            include includes/navigation
+            #event-header
+                .event-name-venue
+                    h1 #{venue.name}
+                    h2 #{venue.address.line1}
+                    h2 #{venue.city.name}, #{venue.state.stateCode}
+        .event-info-nav
+            .nav-div: a(href=`details`) details
+            .nav-div: a(href="events") events
         .bottom-container
+            p Upcoming Events (#{event.length})
             if event
                 each val in event
                     .search-result-div
                         .date-div
-                            p.date #{val.date}
-                            p.time #{val.time}
+                            p.date #{val.dates.start.localDate}
+                            p.time #{val.dates.start.localTime}
                         .event-info-div
-                            h3 #{val.eventname}
-                            p #{val.venue}
+                            h3 #{val.name}
+                            p #{val._embedded.venues[0].name}
                         .info-btn: a(href=`/concert-tickets/eventinfo/${val.eventid}`) More info
             
     include includes/footer           

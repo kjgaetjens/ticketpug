@@ -1,8 +1,8 @@
 if venue
-    ul
-        li: a(href=`events`) Events 
-        span | 
-        li: a(href=`details`) Details
+    .event-info-nav
+        .nav-div: a(href=`/concert-tickets/eventinfo/${event.id}`) tickets 
+        .nav-div: a(href="#") artist info 
+        .nav-div: a(href=`/venues/${event._embedded.venues[0].id}/details`) venue info
 if event
     ul
         li: a(href=`events`) Events 

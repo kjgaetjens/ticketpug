@@ -13,7 +13,7 @@ html
                     h3 #{event.dates.start.localDate}
                 img(src=`${event.images[0].url}`)
         .event-info-nav
-            .nav-div: a(href=`concert-tickets/eventinfo/${event.id}`) tickets 
+            .nav-div: a(href=`/concert-tickets/eventinfo/${event.id}`) tickets 
             .nav-div: a(href="#") artist info 
             .nav-div: a(href=`/venues/${event._embedded.venues[0].id}/details`) venue info 
         .bottom-container-event
