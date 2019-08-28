@@ -1,8 +1,16 @@
 const express = require('express')
 const router = express.Router()
 const axios = require('axios')
+const apikey = '7elxdku9GGG5k8j0Xm8KWdANDgecHMV0'
 
-
+router.get('/', (req,res)=>{
+    axios.get(`https://app.ticketmaster.com/discovery/v2/venues?apikey=${apikey}&locale=*&countryCode=US`)
+    .then(response=>{
+        let venues = response.data._embedded.venues
+        console.log(venues)
+        res.render('venueindex', {venues:venues})
+    })
+})
 
 router.get('/:venueid/details', (req, res)=>{
     let venueId = req.params.venueid
@@ -23,8 +31,9 @@ router.get('/:venueid/events', (req,res)=>{
             let eventInfo = response.data._embedded.events
             let venue = eventInfo[0]._embedded.venues[0]
             console.log(venue)
+            console.log(eventInfo)
             res.render("venueevents", {event: eventInfo, venue: venue})
-            }).catch(e=>console.log(e))
+            }).catch(e=>res.render('venueevents'))
         })
 module.exports = router
 
