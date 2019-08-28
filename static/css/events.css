@@ -48,10 +48,14 @@ a{
     align-items: center;
 }
 .top-banner > h1, .event-name-venue > h1 {
-    color:white;
+    color: white;
+    font-size: 2.5em;
+    margin-bottom: 0;
 }
 .top-banner > h2, .event-name-venue > h2 {
-    color:coral;
+    color: #FF8A65;
+    font-family: arial;
+    font-size: 1.2em;
 }
 #event-header img{
     border-radius:10px;
@@ -125,6 +129,10 @@ a{
     flex-direction: column;
     margin:2% auto;
     width:80%;
+}
+.bottom-container > p{
+    text-align:center;
+    font-weight: bold;
 }
 .bottom-container-event{
     display:flex;
@@ -349,7 +357,7 @@ select{
   }
 
 
-  @media  (max-width: 1280px) {
+  @media  (min-width: 480px) and (max-width: 1280px) {
   
     .seatmap-container{
         overflow: scroll;
