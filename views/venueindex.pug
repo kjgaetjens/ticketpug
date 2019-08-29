@@ -1,0 +1,23 @@
+html
+    include includes/head
+        link(rel='stylesheet', href='/css/events.css', type='text/css')
+    body
+        include includes/login
+        .top-banner
+            include includes/navigation
+            #event-header
+                .event-name-venue
+                    h1 Venues
+        //-add search box
+        //-paginate            
+        .bottom-container
+            for venue in venues
+                .search-result-div
+                    .venue-div
+                        h3 #{venue.name}
+                    .venue-div
+                        p #{venue.city.name}, #{venue.state.stateCode}
+                    .info-btn: a(href=`/venues/${venue.id}/details`) More Info
+                    
+    include includes/footer           
+            

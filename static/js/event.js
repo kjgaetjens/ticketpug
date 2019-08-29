@@ -4,6 +4,7 @@ let img = document.getElementById("img")
 let num = 0.5
 
 
+
     zoomIn.addEventListener("click", ()=>{
         if (num < 3){
           num+= 0.30
@@ -17,3 +18,4 @@ let num = 0.5
       }
        img.setAttribute('style', `transform: scale(${num})`)
     })
+

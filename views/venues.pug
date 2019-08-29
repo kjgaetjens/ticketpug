@@ -2,10 +2,19 @@ html
     include includes/head 
         link(rel='stylesheet', href='/css/events.css', type='text/css')
     body
-        include includes/navigation
         include includes/login
         .top-banner
-            include includes/venueshead
+            include includes/navigation
+            #event-header
+                .event-name-venue
+                    h1 #{venue.name}
+                    h2 #{venue.address.line1}
+                    h2 #{venue.city.name}, #{venue.state.stateCode}
+        .event-info-nav
+            .back back
+            .nav-div: a(href="details") details 
+            .nav-div: a(href="events") events
+
             
         .bottom-container
             .info-container
@@ -30,5 +39,5 @@ html
             
     include includes/footer  
 
-script(src="/js/event.js")
+
 script(src="/js/modal.js")

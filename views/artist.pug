@@ -1,0 +1,38 @@
+html
+    include includes/head 
+        link(rel='stylesheet', href='/css/events.css', type='text/css')
+    body
+        include includes/login
+        .top-banner
+            include includes/navigation
+            #event-header
+                .event-name-venue
+                    h1 #{artist[0].name}
+                    .social-media
+                        p: a(href=`${artist[0]._embedded.attractions[0].externalLinks.twitter[0].url}`): i(class="fab fa-twitter-square")  
+                        p: a(href=`${artist[0]._embedded.attractions[0].externalLinks.facebook[0].url}`): i(class="fab fa-facebook-square")
+                    p #{artist[0]._embedded.attractions[0].classifications[0].genre.name}
+                img(src=`${artist[0]._embedded.attractions[0].images[1].url}`)
+        .event-info-nav
+            .back back
+
+            
+        .bottom-container
+            p Upcoming Events(#{artist[0]._embedded.attractions[0].upcomingEvents.ticketmaster})
+            .info-container
+                each val in artist
+                    .search-result-div
+                        .date-div
+                            p.date #{val.dates.start.localDate}
+                            p.time #{val.dates.start.localTime}
+                        .event-info-div
+                            h3 #{val.name}
+                            p #{val._embedded.venues[0].name}
+                        .info-btn: a(href=`/concert-tickets/eventinfo/${val.id}`) More info
+                
+                
+            
+    include includes/footer  
+
+
+script(src="/js/modal.js")
