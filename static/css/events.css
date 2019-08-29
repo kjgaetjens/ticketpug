@@ -121,7 +121,9 @@ a{
     color:white;
 }
 
-
+.social-media{
+    display: flex;
+}
 
 /***BOTTOM***/
 .bottom-container{
@@ -149,6 +151,7 @@ a{
     border-radius: 10px;
     padding: 2%;
     width: 80%;
+    text-align:center;
 }
 .search-result-div:hover{
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.34);
@@ -310,7 +313,19 @@ select{
 .event-name-venue li a{
     color: coral;
 }
+.back{
+    cursor: pointer;
+}
+.back:hover{
+    color:#999;
+}
 
+.venue-div{
+    width:25%;
+}
+.venue-div > h3 p{
+        text-align:center;
+}
 
 /****MOBILE****/
 @media (min-width: 320px) and (max-width: 480px) {

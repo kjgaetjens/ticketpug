@@ -7,15 +7,18 @@ html
             include includes/navigation
             #event-header
                 .event-name-venue
-                    h1 #{venue.name}
-                    h2 #{venue.address.line1}
-                    h2 #{venue.city.name}, #{venue.state.stateCode}
+                    if venue
+                        h1 #{venue.name}
+                        h2 #{venue.address.line1}
+                        h2 #{venue.city.name}, #{venue.state.stateCode}
         .event-info-nav
+            .back back
             .nav-div: a(href=`details`) details
             .nav-div: a(href="events") events
         .bottom-container
-            p Upcoming Events (#{event.length})
             if event
+                p Upcoming Events (#{event.length})
+            
                 each val in event
                     .search-result-div
                         .date-div
@@ -24,7 +27,9 @@ html
                         .event-info-div
                             h3 #{val.name}
                             p #{val._embedded.venues[0].name}
-                        .info-btn: a(href=`/concert-tickets/eventinfo/${val.eventid}`) More info
+                        .info-btn: a(href=`/concert-tickets/eventinfo/${val.id}`) More info
+            else
+                p No upcoming events.
             
     include includes/footer           
             

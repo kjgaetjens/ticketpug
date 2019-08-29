@@ -1,7 +1,7 @@
 let loginModal = document.getElementsByClassName('modal')[0]
 let loginBtn = document.getElementById('login')
 let closeBtn = document.getElementsByClassName("close")[0];
-
+let backBtn = document.getElementsByClassName('back')[0]
 loginBtn.addEventListener('click', ()=>{
     loginModal.style.display = "block"
 })
@@ -22,3 +22,8 @@ window.onclick = function(event){
 login.addEventListener('click', ()=>{
     loginModal.style.display = "block";
 })
+
+backBtn.addEventListener('click', ()=>{
+    console.log("clicked")
+    window.history.back()
+ })

@@ -11,8 +11,9 @@ html
                     h2 #{venue.address.line1}
                     h2 #{venue.city.name}, #{venue.state.stateCode}
         .event-info-nav
-            .nav-div: a(href="details") Details 
-            .nav-div: a(href="events") Events
+            .back back
+            .nav-div: a(href="details") details 
+            .nav-div: a(href="events") events
 
             
         .bottom-container
@@ -38,5 +39,5 @@ html
             
     include includes/footer  
 
-script(src="/js/event.js")
+
 script(src="/js/modal.js")
