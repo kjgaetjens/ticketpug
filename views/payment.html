@@ -5,21 +5,25 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel='stylesheet' href='/css/events.css' type='text/css'>
         <link rel='stylesheet' href='/css/billing.css' type='text/css'>
+        <link rel='stylesheet', href='/css/login.css', type='text/css'>
         <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
     </head>
     <body>
-      <div class="nav">
-          <div id="menu-nav">
-              <span><a href="/">Home</a></span>
-              <span><a href="#">Music</a></span>
-              <span><a href="#">Venue</a></span>
-              <span><a href="#">Link</a></span>
-              <span><a href="#">Search</a></span>
-            </div>
-            <div id="login-nav">
-              <span><a href="/logout">Log out</a></span>
-            </div>
-      </div>
+      <div class="force-down">
+      <div class="top-banner">
+        <div class="nav">
+            <div id="menu-nav">
+                <span><a href="/">Home</a></span>
+                <span><a href="#">Music</a></span>
+                <span><a href="/venues">Venue</a></span>
+                <span><a href="#">Link</a></span>
+                <span><a href="#">Search</a></span>
+              </div>
+              <div id="login-nav">
+                <span><a href="/logout">Log out</a></span>
+              </div>
+        </div>
+      </div>  
       <div id="main-container">
         <div id="left-container">
           <div id="event-container">
@@ -78,16 +82,18 @@
             </div>
         </div>
       </div>
+      </div>
       <footer>
         <ul>
           <li><a href="/about">About Us</a></li>
           <li><a href="/contact">Contact Us</a></li>
           <li><a href="/sitemap">Sitemap</a></li>
-          <li><a href="https://github.com/kjgaetjens/tickets">Github</a></li>
+          <li><a href="https://github.com/kjgaetjens/ticketpug">Github</a></li>
         </ul>
       </footer>
 
         <script src="https://js.stripe.com/v3/"></script>
+        <script src="https://kit.fontawesome.com/73f53cadb8.js"></script>
         <script src="/public/client.js"></script>
         <script src="/js/modal.js"></script>
 

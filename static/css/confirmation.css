@@ -1,6 +1,12 @@
+.top-banner {
+    height: 60px;
+    padding: 0;
+}
 .confirmation-container {
+    height: 100vh;
     margin-left: 10%;
     margin-right: 10%;
+    margin-top: 6vh;
 }
 
 .confirmation-container .order-summary, .event-details, .order-details{

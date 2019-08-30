@@ -1,7 +1,16 @@
+.force-down {
+    height: 100vh;
+}
+.top-banner {
+    height: 60px;
+    padding: 0;
+}
+
 #main-container {
     display: flex;
     margin-left: 10%;
     margin-right: 10%;
+    margin-top: 6vh;
 }
 
 #left-container {
