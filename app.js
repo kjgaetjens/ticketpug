@@ -8,7 +8,7 @@ global.models = require('./models')
 const app = express()
 const path = require('path')
 const axios = require('axios')
-//const PORT = process.env.PORT || 3000
+const PORT = process.env.PORT || 8080
 const session = require('express-session')
 global.uuidv1 = require('uuid/v1')
 const authenticate = require('./utils/authenticate.js')
@@ -80,6 +80,6 @@ axios.get('https://app.ticketmaster.com/discovery/v2/events.json?classificationN
     })
 
 
-app.listen(3000, ()=>{
+app.listen(PORT, ()=>{
     console.log('running')
 })
