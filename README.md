@@ -1,44 +1,39 @@
-# TicketPug - A Ticket Sales Web Application
+# TicketPug
 
-Introduction
+Brief
 ------
 
-TicketPug is a web application that allows a user to purchase concert tickets from the venue hosting the event. The aim of the project was to create a way to cut down on the amount of fees commonly associated with ticekt purchases. By allowing the user to buy directly from the ticket stash alloted to venues, users can bypass some of the costlier ticket sellers.
-Users are able to search through the Ticketmaster API and explore events based on relevant search terms (including: artist, venue and location). Users are able to search without creating an account but if a user would like to favorite an event or make a purchase, an account will need to be created. 
-The authenticated area of the site can be accessed with the below log in information: 
+TicketPug is a proof-of-concept e-commerce site that allows users to purchase concert tickets directly from the venue hosting the event.
 
-username: johndoe
-password: password
+The aim of the project was to create a way to cut down on the amount of fees commonly associated with ticket purchases. By allowing the user to buy directly from the ticket stash allotted to venues, users can bypass some of the costlier ticket sellers. Users are able to search through the Ticketmaster API and explore events based on relevant search terms (including: artist, venue and location). Users are able to search without creating an account but if a user would like to favorite an event or make a purchase, an account will need to be created.
+
+View Demo:
+[![Watch the video](readmeImages/ticketpugvimeo.jpg)](https://vimeo.com/357991226)
 
 
 Technologies 
 ------ 
 
+TicketPug's core functionality is driven by a PostgreSQL database and querying and manipulation of the database with Sequelize ORM. Bcrypt was utilized for encryption of user data and Stripe was utilized for payment processing.
+
 * HTML
 * CSS
-* Javascript
-* Sequelize
+* Pug
+* [Ticketmaster API](https://developer.ticketmaster.com/products-and-docs/apis/discovery-api/v2/)
 * Node.js
-  * Express
-  * Express-Session
-  * bcrypt
-  * Stripe 
-  * Pug template engine
-  * Axios
+* Express.js
+* PostgreSql
+* Sequelize
+* bcrypt
+* Stripe
 
 
-Launch
+Team
 ------
 
-TicketPug can be accessed at the following url:
-
-
-Authors
-------
-
+* [Kelsey Gaetjens](https://github.com/kjgaetjens/)
 * [Elizabeth Vasquez](https://github.com/elizabethsv)
 * [Kelly Benson](https://github.com/kelz877)
-* [Kelsey Gaetjens](https://github.com/kjgaetjens/)
 * [Phillip Kennedy](https://github.com/PhilKennedy86)
 
 
